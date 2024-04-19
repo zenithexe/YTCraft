@@ -1,0 +1,4 @@
+name: YTCraft
+version: '${project.version}'
+main: mod.zenith.ytcraft.YTCraft
+api-version: '1.20'
