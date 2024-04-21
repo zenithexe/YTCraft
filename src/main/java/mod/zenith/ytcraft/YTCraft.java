@@ -9,9 +9,10 @@ public final class YTCraft extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        
         getLogger().info("YTCraft has been enabled.");
         saveDefaultConfig();
+        
         Configuration.configure(this);
 
         Bukkit.getScheduler().runTaskTimer(this,this::run, 20L,20L*10);
@@ -19,12 +20,13 @@ public final class YTCraft extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        
+        getLogger().info("YTCraft has been enabled.");
     }
 
     
 
     public void run(){
-        YoutubeAPI.call();
+        YoutubeAPI.getChats();
     }
 }
