@@ -1,0 +1,1162 @@
+{
+    "kind": "youtube#liveChatMessageListResponse",
+    "etag": "eTxj9yEV1Z7y58tgkQB793yddQU",
+    "pollingIntervalMillis": 3038,
+    "pageInfo": {
+      "totalResults": 73,
+      "resultsPerPage": 71
+    },
+    "nextPageToken": "GNb2lLvJzIUDIPCx-8HJzIUD",
+    "items": [
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "Fh0sjVO3ZK8gWJYCxiNE2bRPdiA",
+        "id": "LCC.EhwKGkNQRHltcFRDeklVREZZX0N3Z1Fkd0g0S2xR",
+        "snippet": {
+          "type": "superChatEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCPGxKRAwRXYjWSeKxoyI6iA",
+          "publishedAt": "2024-04-18T19:40:44.016477+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "₹2,000.00 from Joy Dutta: \"Hello Amruta… just wanted to say you have been doing an amazing job with the streams. The dedication and energy is out of the world. I was not there end to end in the streams , but following up closely. Really good to see you slaying it with full swag.😎\"",
+          "superChatDetails": {
+            "amountMicros": "2000000000",
+            "currency": "INR",
+            "amountDisplayString": "₹2,000.00",
+            "userComment": "Hello Amruta… just wanted to say you have been doing an amazing job with the streams. The dedication and energy is out of the world. I was not there end to end in the streams , but following up closely. Really good to see you slaying it with full swag.😎",
+            "tier": 7
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "kscs4S6usVRiJ6L6TfJLcM-G3dc",
+        "id": "LCC.EhwKGkNPUE9uT2ZIeklVREZWb19yUVlkQV9RQ2J3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:05:08.343979+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "No ,,, Guki no",
+          "textMessageDetails": {
+            "messageText": "No ,,, Guki no"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "6qBEPwmdNiYw5cFA9RLgEjXm2S8",
+        "id": "LCC.EhwKGkNJX05sT2pIeklVREZUUER3Z1FkUnZnS2x3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQiNn2MPRsf0uOKjnlo1FYA",
+          "publishedAt": "2024-04-18T20:05:10.310056+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "anush noob",
+          "textMessageDetails": {
+            "messageText": "anush noob"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "dH1eFZ4c02yq4Ahj0M2om-MUXWI",
+        "id": "LCC.EhwKGkNKWHFodV9IeklVREZUckN3Z1FkVWtNSHZR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQiNn2MPRsf0uOKjnlo1FYA",
+          "publishedAt": "2024-04-18T20:05:24.765171+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Ankush bot",
+          "textMessageDetails": {
+            "messageText": "Ankush bot"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "CJ9F_S6SXlBBNvWDJdnfNTLNAYU",
+        "id": "LCC.EhwKGkNMbUktZkhIeklVREZUclB3Z1FkMmkwRkJn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCDmjADp-33WTlPng6-HyImQ",
+          "publishedAt": "2024-04-18T20:05:30.830409+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "I'm really rooting for pragnandha tho",
+          "textMessageDetails": {
+            "messageText": "I'm really rooting for pragnandha tho"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "EgzFLDZ1aK6HPvpK33S9QI9HIns",
+        "id": "LCC.EhwKGkNJWEV2dlhIeklVREZkX0x3Z1FkVFJNTmRB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQsiOtgWI20edDezA6OIqLg",
+          "publishedAt": "2024-04-18T20:05:38.260112+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "crossing 110 is really hard?...i iust wanna get 1500 in 2 weeks",
+          "textMessageDetails": {
+            "messageText": "crossing 110 is really hard?...i iust wanna get 1500 in 2 weeks"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "0AG-ixQFMBXPsYWl6KIAC6rNlOw",
+        "id": "LCC.EhwKGkNMU0VpdnJIeklVREZUUER3Z1FkUnZnS2x3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC4husg2JmvwxFen0-_cfFaQ",
+          "publishedAt": "2024-04-18T20:05:47.888861+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Guki blunder the world champions dream of nepo",
+          "textMessageDetails": {
+            "messageText": "Guki blunder the world champions dream of nepo"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "uSTxCZAUi_g1szy2lVg1S7w1gzk",
+        "id": "LCC.EhwKGkNPYlJ5ZjdIeklVREZSckl3Z1FkTW04R3pn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCKLaaZycv43yOyz_XRN1M0A",
+          "publishedAt": "2024-04-18T20:05:57.315771+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "ankush bhag yaha se",
+          "textMessageDetails": {
+            "messageText": "ankush bhag yaha se"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "ntTniwUA5CxnboOQThdo82vkVjc",
+        "id": "LCC.EhwKGkNMSHBqSUhJeklVREZUZkN3Z1FkTng4Tk9n",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:06:02.610066+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "I want Gukesh to be champion and women section Tan Zhongyi",
+          "textMessageDetails": {
+            "messageText": "I want Gukesh to be champion and women section Tan Zhongyi"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "TDYKzIvQ-AluXfuMFvYrbg9Tf4g",
+        "id": "LCC.EhwKGkNQLXYxSUhJeklVREZjVXMxZ0FkeVE0Qi13",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCMR2rXOgNuEdC5IbMHGcE2Q",
+          "publishedAt": "2024-04-18T20:06:03.78864+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Guys please do not make unnecessary comments and spam this chat. We are big hearted Indian fans and already it was painful for us last night",
+          "textMessageDetails": {
+            "messageText": "Guys please do not make unnecessary comments and spam this chat. We are big hearted Indian fans and already it was painful for us last night"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "59IEo5-C6TU-04T4_w7_LjVw_tk",
+        "id": "LCC.EhwKGkNOYWxtNGpJeklVREZWckR3Z1FkdFRJSEVR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQsiOtgWI20edDezA6OIqLg",
+          "publishedAt": "2024-04-18T20:06:17.52789+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "ankush blunder",
+          "textMessageDetails": {
+            "messageText": "ankush blunder"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "TWW-noDAJjtIVfkty-DeEOfh_2Q",
+        "id": "LCC.EhwKGkNJSEYySTNJeklVREZXNG4xZ0FkNGU4TGxB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCZfFEmmo6Wsg1aXAQNt7EUg",
+          "publishedAt": "2024-04-18T20:06:29.021049+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "boards not working",
+          "textMessageDetails": {
+            "messageText": "boards not working"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "_SJ1FjVAau9tCA_Y2Gp7DGJu3Z8",
+        "id": "LCC.EhwKGkNNekZ3WTdJeklVREZSWEV3Z1FkSGZRS2F3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCzaJ2DDzzFXTgNrtv8WYL3w",
+          "publishedAt": "2024-04-18T20:06:30.734658+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "thank you Ramesh sir for the amazing teaching",
+          "textMessageDetails": {
+            "messageText": "thank you Ramesh sir for the amazing teaching"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "iCaFhQ6nTRdIHYM_YOHzA2E8Zd0",
+        "id": "LCC.EhwKGkNNU096WV9JeklVREZmckV3Z1FkbW9ZSzln",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UChMuFzH_pU1zxRheI6EQjHA",
+          "publishedAt": "2024-04-18T20:06:33.027031+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "I was at 1100 for months but when I finally got to 1200 it was smooth after that",
+          "textMessageDetails": {
+            "messageText": "I was at 1100 for months but when I finally got to 1200 it was smooth after that"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "jQNi1R_hO49t-OhM9QSr0XpO4iE",
+        "id": "LCC.EhwKGkNNbVR1WmZJeklVREZRX0h3Z1FkRE5zR2tB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCNYJKjtbSShZm8BciHsxk5Q",
+          "publishedAt": "2024-04-18T20:06:49.47495+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "anyone up for a match send me your username",
+          "textMessageDetails": {
+            "messageText": "anyone up for a match send me your username"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "JIfiSWwNdEZknPYE4WHJCRDz0LM",
+        "id": "LCC.EhwKGkNNNkYwSmZJeklVREZmckV3Z1FkbW9ZSzln",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCqsL3FkEbmYGo8CEkdsP77w",
+          "publishedAt": "2024-04-18T20:06:49.847363+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "boards not updating",
+          "textMessageDetails": {
+            "messageText": "boards not updating"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "K93XaZknMFBu2nCkAIifsBIwEDc",
+        "id": "LCC.EhwKGkNOek05SmpJeklVREZWVFF3Z1FkdkNjSXV3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC09np7hKXJY1ICPsd5JuKeA",
+          "publishedAt": "2024-04-18T20:06:52.545363+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "has guki ever blundered in this tournament except the alireza match",
+          "textMessageDetails": {
+            "messageText": "has guki ever blundered in this tournament except the alireza match"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "aVcfvOOhaP55jgtKmeil47m6SgA",
+        "id": "LCC.EhwKGkNNLVBzNTdJeklVREZkQV9yUVlkNi1FQVd3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCt9O1T8LCADqQoYZtMH87kg",
+          "publishedAt": "2024-04-18T20:07:04.056185+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "sir please tell me one thing at yesterday stream someone said now prag have to win 3 back to back matches..... please explain",
+          "textMessageDetails": {
+            "messageText": "sir please tell me one thing at yesterday stream someone said now prag have to win 3 back to back matches..... please explain"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "KM5khkgIyT_LLv_LUmigVB_rAWY",
+        "id": "LCC.EhwKGkNPNnFqNV9JeklVREZiVEV3Z1FkcXV3T3p3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC7JqPFkHuz7IXEJtf_SzaOg",
+          "publishedAt": "2024-04-18T20:07:05.566287+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Is sagar not here?",
+          "textMessageDetails": {
+            "messageText": "Is sagar not here?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "QVi_Wscc4jbOCfUhE05wcwQpnIM",
+        "id": "LCC.EhwKGkNOYUttNkhJeklVREZSejNsQWtkN240TWpR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC9n4XD_cNbjUoftw--T5Oeg",
+          "publishedAt": "2024-04-18T20:07:09.951232+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Boards are not updating",
+          "textMessageDetails": {
+            "messageText": "Boards are not updating"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "-EbhpVlHTlsGq_sZ1BmIJ8Qmp1o",
+        "id": "LCC.EhwKGkNOSzRtYWZJeklVREZhREN3Z1FkcEF3TnBR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCSXv3JISlKJJ_TUd9wDVS7Q",
+          "publishedAt": "2024-04-18T20:07:22.509922+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "no",
+          "textMessageDetails": {
+            "messageText": "no"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "uWj4T1mW4ScbjJ27BaiAeghcr2g",
+        "id": "LCC.EhwKGkNPZTQwS2ZJeklVREZWckR3Z1FkdFRJSEVR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC_MuIcx1r5Wa1ZhPVsL1F1w",
+          "publishedAt": "2024-04-18T20:07:23.409972+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "b5",
+          "textMessageDetails": {
+            "messageText": "b5"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "oTgfCQOG5wHtNvUwZ_80facBJSA",
+        "id": "LCC.EhwKGkNKYWQtNm5JeklVREZkX0x3Z1FkVFJNTmRB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwDu0oTLSZhcQmIbzjJ7Ocg",
+          "publishedAt": "2024-04-18T20:07:28.307525+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "bhaii chill kro",
+          "textMessageDetails": {
+            "messageText": "bhaii chill kro"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "LNJ6jwqxuff6wWAaDXPixcAvJP0",
+        "id": "LCC.EhwKGkNNdXFyNnJJeklVREZSX0F3Z1FkTzhZQ1d3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCmfSC84TFbWwBlPbtl1w4EQ",
+          "publishedAt": "2024-04-18T20:07:29.159476+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "hi guys",
+          "textMessageDetails": {
+            "messageText": "hi guys"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "sgWGqhtnEeHwkjIA4mwH_Xxe9-A",
+        "id": "LCC.EhwKGkNKdTFzYV9JeklVREZlTEx3Z1FkLU1rQk5B",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCZcUIJcGVe2R_Ku298d68IA",
+          "publishedAt": "2024-04-18T20:07:39.681336+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "abasov winning tonight ngl",
+          "textMessageDetails": {
+            "messageText": "abasov winning tonight ngl"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "UOX5Iv0tCkJoywWRp2Eeot7GQ7Q",
+        "id": "LCC.EhwKGkNKbWE5S19JeklVREZXSV9yUVlkd0dVRGt3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwDu0oTLSZhcQmIbzjJ7Ocg",
+          "publishedAt": "2024-04-18T20:07:40.775147+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "maine bhi calculate ni kr paya 🙂",
+          "textMessageDetails": {
+            "messageText": "maine bhi calculate ni kr paya 🙂"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "Tl-iQicmSXQxVl2jnppYzTnvuZA",
+        "id": "LCC.EhwKGkNKdk02N0xJeklVREZWb19yUVlkQV9RQ2J3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCO-XGn0R5gBVrcf8FgfPP2w",
+          "publishedAt": "2024-04-18T20:07:46.924823+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "guki has to win this otherwise nepo wins candidates",
+          "textMessageDetails": {
+            "messageText": "guki has to win this otherwise nepo wins candidates"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "HuaPSnSMAhv8wxT8f5LuMSTS-Zs",
+        "id": "LCC.EhwKGkNLM3c4Ym5JeklVREZWVFF3Z1FkdkNjSXV3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCNYJKjtbSShZm8BciHsxk5Q",
+          "publishedAt": "2024-04-18T20:08:01.707597+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "are koi game khelega",
+          "textMessageDetails": {
+            "messageText": "are koi game khelega"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "6xWPhXPfGbY-wWm4uVracPoqzmE",
+        "id": "LCC.EhwKGkNLU0p2THpJeklVREZiVEV3Z1FkcXV3T3p3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:08:07.116668+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Gukesh + Tan",
+          "textMessageDetails": {
+            "messageText": "Gukesh + Tan"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "-emHVzxDo0AsyUVjceZ8ywKcfMQ",
+        "id": "LCC.EhwKGkNJRHU2YnpJeklVREZRX0h3Z1FkRE5zR2tB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwDu0oTLSZhcQmIbzjJ7Ocg",
+          "publishedAt": "2024-04-18T20:08:07.865185+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "guki will win",
+          "textMessageDetails": {
+            "messageText": "guki will win"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "rZkfbEPMgfeOz2Y2Ve1JOFLa-cc",
+        "id": "LCC.EhwKGkNJUHMxTDNJeklVREZkQV9yUVlkNi1FQVd3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCHQKNT6b-HLVaF8YYSllX1w",
+          "publishedAt": "2024-04-18T20:08:09.619716+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "nc5?",
+          "textMessageDetails": {
+            "messageText": "nc5?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "MfRTXnEEIKUl1XAa3WljjbEDdeY",
+        "id": "LCC.EhwKGkNQQ3AzOEhJeklVREZlYkx3Z1FkNDlFR1Zn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UChMuFzH_pU1zxRheI6EQjHA",
+          "publishedAt": "2024-04-18T20:08:18.181042+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "abasov should not be underestimated",
+          "textMessageDetails": {
+            "messageText": "abasov should not be underestimated"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "j6B_uACmtBbXAFtPvMk1s0u3pcw",
+        "id": "LCC.EhwKGkNLSzVuY1RJeklVREZlYkx3Z1FkNDlFR1Zn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCSS-qED-7sfmeQxn5Wt4PjA",
+          "publishedAt": "2024-04-18T20:08:23.393949+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "rd7 directly",
+          "textMessageDetails": {
+            "messageText": "rd7 directly"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "Bqkt325gyn6BDFJJmW7l0nRv4x0",
+        "id": "LCC.EhwKGkNPek51TWJJeklVREZYTVAxZ0FkQUxZREZR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCMR2rXOgNuEdC5IbMHGcE2Q",
+          "publishedAt": "2024-04-18T20:08:28.033693+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "@Alokk Tiwary : To be sure that one wins this tournament the ideal score is 8.5. Pragg is on 5.5 with 3 games to go. That's why.",
+          "textMessageDetails": {
+            "messageText": "@Alokk Tiwary : To be sure that one wins this tournament the ideal score is 8.5. Pragg is on 5.5 with 3 games to go. That's why."
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "JsX_3QGYu9Y3ysdb33KHNnkxNJU",
+        "id": "LCC.EhwKGkNONjJ4OGpJeklVREZlYkx3Z1FkNDlFR1Zn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:08:32.467824+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Guki And Tan",
+          "textMessageDetails": {
+            "messageText": "Guki And Tan"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "vDI4w8IEQj-7gYJ9dvjz7oTM6pg",
+        "id": "LCC.EhwKGkNLS245c3ZJeklVREZWckR3Z1FkdFRJSEVR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQsiOtgWI20edDezA6OIqLg",
+          "publishedAt": "2024-04-18T20:08:39.530468+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "@he who transcends reality -: i still don't know my level of chess...my chess has improved...just wanna get at my peak level rating",
+          "textMessageDetails": {
+            "messageText": "@he who transcends reality -: i still don't know my level of chess...my chess has improved...just wanna get at my peak level rating"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "JpmeLHel6aYTVnLDGCS1owfIO_Y",
+        "id": "LCC.EhwKGkNNcWUzTUxJeklVREZiVEV3Z1FkcXV3T3p3",
+        "snippet": {
+          "type": "superChatEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCs5VpqoTDYTJi3faul6sGxg",
+          "publishedAt": "2024-04-18T20:08:58.5818+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "₹40.00 from Akshay Natu: \"kal raat ka dard abhi tak nahi gaya hai doston\"",
+          "superChatDetails": {
+            "amountMicros": "40000000",
+            "currency": "INR",
+            "amountDisplayString": "₹40.00",
+            "userComment": "kal raat ka dard abhi tak nahi gaya hai doston",
+            "tier": 2
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "RdZNXC-u6AAoZ_NAsX-FtA9IAG4",
+        "id": "LCC.EhwKGkNMRHZ3OWZJeklVREZSakR3Z1FkM1RzRS1R",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC9xT22WaYlX3wSL-uzME80Q",
+          "publishedAt": "2024-04-18T20:09:03.865666+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Mods, block Purv Rana",
+          "textMessageDetails": {
+            "messageText": "Mods, block Purv Rana"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "IYRU669rdllCNyVaOLAJwEj5lXI",
+        "id": "LCC.EhwKGkNMeV93TjdJeklVREZUckN3Z1FkVWtNSHZR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCOe-yBAFrUKTA0CZT6wZ61g",
+          "publishedAt": "2024-04-18T20:09:18.494088+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "us akshay bhai",
+          "textMessageDetails": {
+            "messageText": "us akshay bhai"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "789EZcpxrtLhKF0kchCPMeJuYLI",
+        "id": "LCC.EhwKGkNOVGgwTjdJeklVREZRX0h3Z1FkRE5zR2tB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCJEyyndFniZod9QBa7-rwAA",
+          "publishedAt": "2024-04-18T20:09:18.75643+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "yeh jitega wo jitega, stop that, listen to what GM is saying",
+          "textMessageDetails": {
+            "messageText": "yeh jitega wo jitega, stop that, listen to what GM is saying"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "aUc8K7Kuz5dt9a11T-v0_vnDgbY",
+        "id": "LCC.EhwKGkNPVFktTjdJeklVREZWckR3Z1FkdFRJSEVR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UChMuFzH_pU1zxRheI6EQjHA",
+          "publishedAt": "2024-04-18T20:09:19.412899+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "are you playing tournaments @DEMONKING ?",
+          "textMessageDetails": {
+            "messageText": "are you playing tournaments @DEMONKING ?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "JE34BtW8c4_YIl2Q_QJ66vD5scU",
+        "id": "LCC.EhwKGkNQcVAtZURJeklVREZXSV9yUVlkd0dVRGt3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:09:23.624023+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Pruv ...loll",
+          "textMessageDetails": {
+            "messageText": "Pruv ...loll"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "Gvd9cPunzMv6Wu5yJDdoABEZ-7E",
+        "id": "LCC.EhwKGkNJR1JwT1BJeklVREZiVEV3Z1FkcXV3T3p3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCa8qEdN1GLxjWDHERL68znQ",
+          "publishedAt": "2024-04-18T20:09:28.512579+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "some dishoom ahhh",
+          "textMessageDetails": {
+            "messageText": "some dishoom ahhh"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "8AnmLZR6S7-je8-GKqYQT8lqQxU",
+        "id": "LCC.EhwKGkNJU2UzZWZJeklVREZSWEV3Z1FkSGZRS2F3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCgXO445VdTZZlcB4Eb8b9IQ",
+          "publishedAt": "2024-04-18T20:09:37.837538+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "guki and pragg are still in race hopiing for best",
+          "textMessageDetails": {
+            "messageText": "guki and pragg are still in race hopiing for best"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "DxrcGhzP17x_KiXBmYw0pidXNnQ",
+        "id": "LCC.EhwKGkNJdWRuLXZJeklVREZWb19yUVlkQV9RQ2J3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCD55PCrewvhVmJiq4ZyjjWA",
+          "publishedAt": "2024-04-18T20:09:45.209093+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "purv ko block?",
+          "textMessageDetails": {
+            "messageText": "purv ko block?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "raQCffdbgpSBDtRIHKY6QnLlbz4",
+        "id": "LCC.EhwKGkNNV1kwdTNJeklVREZlYkx3Z1FkNDlFR1Zn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UClZDeO-VMu-Uqh_1N_0cF7g",
+          "publishedAt": "2024-04-18T20:09:50.236894+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "@Akshay Natu hilake soja bhai",
+          "textMessageDetails": {
+            "messageText": "@Akshay Natu hilake soja bhai"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "OBAs4RwaJNf9oSgIvawKpYDWXgI",
+        "id": "LCC.EhwKGkNNMkQ4LV9JeklVREZSakR3Z1FkM1RzRS1R",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC-pXdd6PKhkpuqIX3Xt3Wow",
+          "publishedAt": "2024-04-18T20:09:54.971443+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Pragg is not in the race",
+          "textMessageDetails": {
+            "messageText": "Pragg is not in the race"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "VveEJrW-f_6U4LpA0YxCp6QNsUk",
+        "id": "LCC.EhwKGkNMYkVtUEhJeklVREZmMG4xZ0FkdHo4Sjl3",
+        "snippet": {
+          "type": "userBannedEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC173sat47uZn4LVkTre2pQg",
+          "publishedAt": "2024-04-18T20:09:57.668464+00:00",
+          "userBannedDetails": {
+            "bannedUserDetails": {
+              "channelId": "UClZDeO-VMu-Uqh_1N_0cF7g",
+              "channelUrl": "http://www.youtube.com/channel/UClZDeO-VMu-Uqh_1N_0cF7g",
+              "displayName": "Aditya",
+              "profileImageUrl": "https://yt3.ggpht.com/M-ipioKezlmNZMMLMZ-PnE2cgmdhBQgcZTzcJoH3geGtZxDZtmssHoP4JN-Sk_mHRjqcJktZSek=s88-c-k-c0x00ffffff-no-rj"
+            },
+            "banType": "temporary",
+            "banDurationSeconds": "300"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "9-5ti0R99tBK6XDrSUFwnQz1zqA",
+        "id": "LCC.EhwKGkNMdkczZlRJeklVREZXSV9yUVlkd0dVRGt3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQsiOtgWI20edDezA6OIqLg",
+          "publishedAt": "2024-04-18T20:10:05.107943+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "not playing tournaments talking about online chess rating",
+          "textMessageDetails": {
+            "messageText": "not playing tournaments talking about online chess rating"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "ywybvqmdZbIEVIij9FlelWRwt6I",
+        "id": "LCC.EhwKGkNLcVVpX1hJeklVREZYWVRyUVlkeWk4SWNB",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwPQeZGXDVXqRxJ0_cSVRzQ",
+          "publishedAt": "2024-04-18T20:10:05.850386+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "nepo to defeat ding finally",
+          "textMessageDetails": {
+            "messageText": "nepo to defeat ding finally"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "GODRBjfzr4N97mZKpO0ubx_IOtY",
+        "id": "LCC.EhwKGkNMR2VnX2JJeklVREZZX0N3Z1Fkd0g0S2xR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCD55PCrewvhVmJiq4ZyjjWA",
+          "publishedAt": "2024-04-18T20:10:07.820833+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "who is the ados?",
+          "textMessageDetails": {
+            "messageText": "who is the ados?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "0rdMCBuj5UY3ZBTMmGoWtkwrP50",
+        "id": "LCC.EhwKGkNKV2c3X2pJeklVREZXSV9yUVlkd0dVRGt3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwDu0oTLSZhcQmIbzjJ7Ocg",
+          "publishedAt": "2024-04-18T20:10:13.781131+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "pragg can't win from here",
+          "textMessageDetails": {
+            "messageText": "pragg can't win from here"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "rGswe0w0IScDTbYTwdTPNhPWi9g",
+        "id": "LCC.EhwKGkNNQ3BoX25JeklVREZUUER3Z1FkUnZnS2x3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC9GxM6h_SjOb2CqvSAayBaw",
+          "publishedAt": "2024-04-18T20:10:14.177624+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "what purv says?",
+          "textMessageDetails": {
+            "messageText": "what purv says?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "t3OnYXiiZfkfV_3ndYOq4aiWXas",
+        "id": "LCC.EhwKGkNONlZ1dl9JeklVREZWb19yUVlkQV9RQ2J3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCs5VpqoTDYTJi3faul6sGxg",
+          "publishedAt": "2024-04-18T20:10:27.595259+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "amruta superchat nhi padh rahi kya aaj?",
+          "textMessageDetails": {
+            "messageText": "amruta superchat nhi padh rahi kya aaj?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "knlg4D133w5sT1HWvKCoztjv-2I",
+        "id": "LCC.EhwKGkNMYU1rSWpKeklVREZRdkV3Z1FkN28wRXpn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwDu0oTLSZhcQmIbzjJ7Ocg",
+          "publishedAt": "2024-04-18T20:10:45.788787+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "let's root for guki",
+          "textMessageDetails": {
+            "messageText": "let's root for guki"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "SOC42_98-_YxY0IDp4L6gs8emyo",
+        "id": "LCC.EhwKGkNLbVMzSW5KeklVREZSWEV3Z1FkSGZRS2F3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCQsiOtgWI20edDezA6OIqLg",
+          "publishedAt": "2024-04-18T20:10:49.131364+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "bigger question is who is purv😂",
+          "textMessageDetails": {
+            "messageText": "bigger question is who is purv😂"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "mQUzD62LNIdlR_7xF0AbmPUZQWQ",
+        "id": "LCC.EhwKGkNPSzZvNHJKeklVREZSUV9yUVlkUldJRF9n",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC3yd4XxzIMZli-aJskhXPFQ",
+          "publishedAt": "2024-04-18T20:10:50.293412+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "prag is in the race but he needs a perfect score moving forward",
+          "textMessageDetails": {
+            "messageText": "prag is in the race but he needs a perfect score moving forward"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "NryqmczxFU_YwLQCYSVrPMI8fDU",
+        "id": "LCC.EhwKGkNKelA4NHZKeklVREZZX0N3Z1Fkd0g0S2xR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCPGxKRAwRXYjWSeKxoyI6iA",
+          "publishedAt": "2024-04-18T20:10:53.697462+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Nai",
+          "textMessageDetails": {
+            "messageText": "Nai"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "3IhYOKWG2ofV4lMP9B_hMs5mjos",
+        "id": "LCC.EhwKGkNLMjQ3SlRKeklVREZlYkx3Z1FkNDlFR1Zn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCmhobNFSyzqKeBVh9ZOz4Yw",
+          "publishedAt": "2024-04-18T20:11:12.459266+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "samay?????????????",
+          "textMessageDetails": {
+            "messageText": "samay?????????????"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "H6nKdaDI901oqvtq6nhl-nIhMTY",
+        "id": "LCC.EhwKGkNKYlcxcHpKeklVREZhREN3Z1FkcEF3TnBR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC9xT22WaYlX3wSL-uzME80Q",
+          "publishedAt": "2024-04-18T20:11:28.88339+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Samay is 1:41 AM :P",
+          "textMessageDetails": {
+            "messageText": "Samay is 1:41 AM :P"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "YfB5-tNxMWIW4Chc7aV7d-Qz91E",
+        "id": "LCC.EhwKGkNPdnV6NkxKeklVREZUUER3Z1FkUnZnS2x3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UChMuFzH_pU1zxRheI6EQjHA",
+          "publishedAt": "2024-04-18T20:11:41.349231+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "online chess should be easier maybe you can reach 1500 in a month",
+          "textMessageDetails": {
+            "messageText": "online chess should be easier maybe you can reach 1500 in a month"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "UvIer_iTs2EEXFWcftv-UBXC5lU",
+        "id": "LCC.EhwKGkNMaU44NkxKeklVREZSUV9yUVlkUldJRF9n",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCmhobNFSyzqKeBVh9ZOz4Yw",
+          "publishedAt": "2024-04-18T20:11:41.926034+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "lol",
+          "textMessageDetails": {
+            "messageText": "lol"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "t0yuDzxAT1sxQs1wE_9EfWqcKLs",
+        "id": "LCC.EhwKGkNKX1lzS1hKeklVREZhREN3Z1FkcEF3TnBR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:11:47.131963+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Pragg please stop Nepo",
+          "textMessageDetails": {
+            "messageText": "Pragg please stop Nepo"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "DYxRWeai_mP503Ofk4mnbChIxHM",
+        "id": "LCC.EhwKGkNPclpvcWJKeklVREZWckR3Z1FkdFRJSEVR",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC7JqPFkHuz7IXEJtf_SzaOg",
+          "publishedAt": "2024-04-18T20:11:48.996534+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Nice explanation by ramesh sir",
+          "textMessageDetails": {
+            "messageText": "Nice explanation by ramesh sir"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "ylDL_tHHE52iF94h44vZPzdh2dQ",
+        "id": "LCC.EhwKGkNNZlB4S2pKeklVREZha00xZ0FkS3JFS3pn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCMR2rXOgNuEdC5IbMHGcE2Q",
+          "publishedAt": "2024-04-18T20:11:53.754163+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Nijat is in a must lose situation to help Guki today. Please Nijat!",
+          "textMessageDetails": {
+            "messageText": "Nijat is in a must lose situation to help Guki today. Please Nijat!"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "DTACyhjVvHauAOyDeRVI7XfSADs",
+        "id": "LCC.EhwKGkNQMk9vYXJKeklVREZUclB3Z1FkMmkwRkJn",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCwDu0oTLSZhcQmIbzjJ7Ocg",
+          "publishedAt": "2024-04-18T20:11:57.367448+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "lol",
+          "textMessageDetails": {
+            "messageText": "lol"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "ZmA3SxNmXDyxEEzgpP2Hl6OXhVw",
+        "id": "LCC.EhwKGkNKWFVwYTdKeklVREZWVFF3Z1FkdkNjSXV3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCB_E3gOCLSCvOEPOCBI7ZzQ",
+          "publishedAt": "2024-04-18T20:12:05.821886+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "@ChessBase India - If neither normal nor abnormal moves work, then make paranormal moves 😉 😉",
+          "textMessageDetails": {
+            "messageText": "@ChessBase India - If neither normal nor abnormal moves work, then make paranormal moves 😉 😉"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "cQehBw9Z6isPlN4gAiW09fuRF7s",
+        "id": "LCC.EhwKGkNLemk5S19KeklVREZkQV9yUVlkNi1FQVd3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCBq-oBTrUOGprcruFW9VwDg",
+          "publishedAt": "2024-04-18T20:12:09.218867+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "I want Gukesh to be champion",
+          "textMessageDetails": {
+            "messageText": "I want Gukesh to be champion"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "staSl04ySh2LJNDZ_yWpmxum8rQ",
+        "id": "LCC.EhwKGkNJbk5sTFBKeklVREZWb19yUVlkQV9RQ2J3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCc11BrmhXkBWJSJKiYg_45w",
+          "publishedAt": "2024-04-18T20:12:16.031856+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "hello dosto",
+          "textMessageDetails": {
+            "messageText": "hello dosto"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "7ls7Lv5MOv1ld6aCtRPLEP42hjU",
+        "id": "LCC.EhwKGkNOZTVtN1RKeklVREZUZkN3Z1FkTng4Tk9n",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UC4UnHSCMjeSrW_5XwfTNzUA",
+          "publishedAt": "2024-04-18T20:12:18.239298+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "Is Samay busy somewhere else today ?",
+          "textMessageDetails": {
+            "messageText": "Is Samay busy somewhere else today ?"
+          }
+        }
+      },
+      {
+        "kind": "youtube#liveChatMessage",
+        "etag": "zoZpJlBVnf2S_wbCt90yVDScKKo",
+        "id": "LCC.EhwKGkNNNkZsTHZKeklVREZXSV9yUVlkd0dVRGt3",
+        "snippet": {
+          "type": "textMessageEvent",
+          "liveChatId": "Cg0KC2lZelpGZXJudmgwKicKGFVDSXNFaHdCTVBrUkhzRWdxWUFQUUhzQRILaVl6WkZlcm52aDA",
+          "authorChannelId": "UCmhobNFSyzqKeBVh9ZOz4Yw",
+          "publishedAt": "2024-04-18T20:12:32.79855+00:00",
+          "hasDisplayContent": true,
+          "displayMessage": "welcome welcome welcome dostooo",
+          "textMessageDetails": {
+            "messageText": "welcome welcome welcome dostooo"
+          }
+        }
+      }
+    ]
+  }
+  

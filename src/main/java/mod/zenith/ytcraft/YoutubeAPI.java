@@ -8,95 +8,89 @@ import com.google.api.services.youtube.model.LiveChatMessage;
 import com.google.api.services.youtube.model.LiveChatMessageListResponse;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
+import com.google.api.services.youtube.model.VideoLiveStreamingDetails;
+
 import java.util.List;
 
 import org.bukkit.Bukkit;
 
 public class YoutubeAPI {
-    private static final String APPLICATION_NAME = "YTCraft-MinecraftPlugin";
-    private static String API_KEY = "";
-    private static String VIDEO_ID = "";
-    private static String LIVE_CHAT_ID = ""; 
+    private static final String APP_NAME = "YTCraft-MinecraftPlugin";
+    private static String API_KEY;
+    private static String VIDEO_ID;
+    private static String LIVE_CHAT_ID;
 
-    public static  void setAPI(String apiKey, String videoId){
-        API_KEY=apiKey;
-        VIDEO_ID=videoId;
+    public static void setAPI(String apiKey, String videoId) {
+        API_KEY = apiKey;
+        VIDEO_ID = videoId;
         setLiveChatId();
+
     }
 
-    private static YouTube getYoutube(){
-        try{
+    public static void updateVideoId(String videoId) {
+        setAPI(API_KEY, videoId);
+    }
+
+    private static YouTube getYoutube() {
+        try {
             final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-            
-            return new YouTube(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null);
-        }
-        catch(Exception e){
+
+            return new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null)
+                    .setApplicationName(APP_NAME).build();
+
+        } catch (Exception e) {
+
             System.out.println(e);
             return null;
         }
-        
+
     }
 
-    private static Video getVideo(String parts){
-        try{
+    private static Video getVideo(String parts) {
+        try {
             YouTube.Videos.List req = getYoutube().videos().list(parts);
             req.setKey(API_KEY);
             req.setId(VIDEO_ID);
 
             VideoListResponse res = req.execute();
-
+            Bukkit.getLogger().info(":::: GET-Video Youtube API called ::::");
             return res.getItems().get(0);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }
     }
 
     private static void setLiveChatId(){
+        VideoLiveStreamingDetails stream = getVideo("liveStreamingDetails").getLiveStreamingDetails();
 
-        LIVE_CHAT_ID = getVideo("liveStreamingDetails").getLiveStreamingDetails().getActiveLiveChatId();
-    
+        if(stream!=null){
+            LIVE_CHAT_ID = stream.getActiveLiveChatId();
+            Bukkit.getLogger().info(":::: Live-Chat ID is Set ::::");
+        }
+        else{
+            Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
+        }
     }
 
-    public static void call(){
-    
+    public static List<LiveChatMessage> getChats() {
         try {
-
-            
-            
-
-
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public static void getChats(){
-        try{
-            YouTube.LiveChatMessages.List req = getYoutube().liveChatMessages().list(LIVE_CHAT_ID,"snippet,authorDetails");
+            if(LIVE_CHAT_ID==null){
+                Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
+                return null;
+            }
+            YouTube.LiveChatMessages.List req = getYoutube().liveChatMessages().list(LIVE_CHAT_ID,
+                    "snippet,authorDetails");
             req.setKey(API_KEY);
 
-            LiveChatMessageListResponse res =  req.execute();
-            
+            LiveChatMessageListResponse res = req.execute();
+            Bukkit.getLogger().info(":::: GET-LiveChat YouTube API called ::::");
 
-            List<LiveChatMessage> messages = res.getItems();
-            
+            return res.getItems();
 
-            if (messages != null){
-                for(int i=0;i<messages.size();i++){
-                    LiveChatMessage msg = messages.get(i);
-                    Bukkit.getLogger().info("----------------");
-                    Bukkit.getLogger().info(msg.getAuthorDetails().getDisplayName()+">>"+msg.getSnippet().getDisplayMessage());
-                }
-            } else{
-                System.out.println("No messages found.");
-            }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
-        
     }
 }

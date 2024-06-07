@@ -1,32 +1,43 @@
 package mod.zenith.ytcraft;
 
-import mod.zenith.ytcraft.YoutubeAPI;
+import mod.zenith.ytcraft.Commands.VideoIdCommand;
+import mod.zenith.ytcraft.Commands.YoutubeCommand;
+import mod.zenith.ytcraft.EventListeners.EntityDeathListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public final class YTCraft extends JavaPlugin {
 
+    private static YTCraft plugin;
     @Override
     public void onEnable() {
         
         getLogger().info("YTCraft has been enabled.");
+        plugin=this;
         saveDefaultConfig();
-        
         Configuration.configure(this);
 
-        Bukkit.getScheduler().runTaskTimer(this,this::run, 20L,20L*10);
+        getServer().getPluginManager().registerEvents(new EntityDeathListener(),this);
+        getCommand("VideoId").setExecutor(new VideoIdCommand());
+        getCommand("Youtube").setExecutor(new YoutubeCommand());
     }
 
     @Override
     public void onDisable() {
-        
-        getLogger().info("YTCraft has been enabled.");
+
+        getConfig().set("GLOBAL_CHAT_TIMESTAMP",ChatSpawn.getTimeStamp());
+        saveConfig();
+
+        getLogger().info("YTCraft has been disabled.");
     }
 
-    
 
-    public void run(){
-        YoutubeAPI.getChats();
+    public static YTCraft getPlugin(){
+        return plugin;
     }
+
 }

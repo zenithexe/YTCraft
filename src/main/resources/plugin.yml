@@ -2,3 +2,13 @@ name: YTCraft
 version: '${project.version}'
 main: mod.zenith.ytcraft.YTCraft
 api-version: '1.20'
+commands:
+  VideoId:
+    description: "Updates the Video Id"
+    usage: "/videoid set <video_id>"
+    alias: ["vid"]
+
+  Youtube:
+    description: "Starts or Ends Youtube Session"
+    usage: "/youtube [start,end]"
+    alias:  ["yt"]

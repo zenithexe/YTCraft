@@ -1,0 +1,57 @@
+{
+  "kind": "youtube#liveChatMessageListResponse",
+  "etag": "E9jzZqEf-0iY-gLXAdwFcA2ZvSo",
+  "pollingIntervalMillis": 2097,
+  "pageInfo": { "totalResults": 74, "resultsPerPage": 2 },
+  "nextPageToken": "GMv32qSW0oUDIOG9tvyW0oUD",
+  "items": [
+    {
+      "kind": "youtube#liveChatMessage",
+      "etag": "9tuPDLdd3pIQik9Ir3W1Sk4CSPc",
+      "id": "LCC.EhwKGkNQT1dyS1NXMG9VREZXM2NsQWtka1dzRi13",
+      "snippet": {
+        "type": "textMessageEvent",
+        "liveChatId": "Cg0KC0FzNTRuZV95aXhBKicKGFVDUFlaLVI1TFFHTWVVN1Fpa2d4bUg4URILQXM1NG5lX3lpeEE",
+        "authorChannelId": "UCWQbC_Aii0HZEHOyEY4i3Rw",
+        "publishedAt": "2024-04-21T01:39:33.187679+00:00",
+        "hasDisplayContent": "True",
+        "displayMessage": "hi",
+        "textMessageDetails": { "messageText": "hi" }
+      },
+      "authorDetails": {
+        "channelId": "UCWQbC_Aii0HZEHOyEY4i3Rw",
+        "channelUrl": "http://www.youtube.com/channel/UCWQbC_Aii0HZEHOyEY4i3Rw",
+        "displayName": "potatoe_kid",
+        "profileImageUrl": "https://yt3.ggpht.com/2xI3jS_ngss3F3LxD3QhR3UgEfiBpV_l-eLES4j0btzqcCL42QV3Ad7p6QfXDRT6S4GEfksv=s88-c-k-c0x00ffffff-no-rj",
+        "isVerified": "False",
+        "isChatOwner": "False",
+        "isChatSponsor": "False",
+        "isChatModerator": "False"
+      }
+    },
+    {
+      "kind": "youtube#liveChatMessage",
+      "etag": "uI1rhGpx97yZL3npexn3HwMsV3k",
+      "id": "LCC.EhwKGkNMV2QycVNXMG9VREZkMkM1UWNkT3AwTDhB",
+      "snippet": {
+        "type": "textMessageEvent",
+        "liveChatId": "Cg0KC0FzNTRuZV95aXhBKicKGFVDUFlaLVI1TFFHTWVVN1Fpa2d4bUg4URILQXM1NG5lX3lpeEE",
+        "authorChannelId": "UCbwq4LBYPKM7PQRAjI9SgkQ",
+        "publishedAt": "2024-04-21T01:39:33.933003+00:00",
+        "hasDisplayContent": "True",
+        "displayMessage": "considering its not leggings",
+        "textMessageDetails": { "messageText": "considering its not leggings" }
+      },
+      "authorDetails": {
+        "channelId": "UCbwq4LBYPKM7PQRAjI9SgkQ",
+        "channelUrl": "http://www.youtube.com/channel/UCbwq4LBYPKM7PQRAjI9SgkQ",
+        "displayName": "Everything Brothers",
+        "profileImageUrl": "https://yt3.ggpht.com/ytc/AIdro_koB-L5Hj4CsOyU7ssfcDzVMqvJyc9FtES9kQ50QIxpCA=s88-c-k-c0x00ffffff-no-rj",
+        "isVerified": "False",
+        "isChatOwner": "False",
+        "isChatSponsor": "False",
+        "isChatModerator": "False"
+      }
+    }
+  ]
+}
