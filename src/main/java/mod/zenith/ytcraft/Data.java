@@ -12,6 +12,5 @@ import org.bukkit.entity.Entity;
 
 public class Data {
     public static Set<String> isUserMobAlive = new HashSet<>();
-    
     public static Map<Entity,String> entityByUser = new LinkedHashMap<>();
 }

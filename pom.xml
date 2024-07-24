@@ -85,6 +85,6 @@
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-youtube</artifactId>
             <version>v3-rev222-1.25.0</version>
-        </dependency>        
+        </dependency>
     </dependencies>
 </project>

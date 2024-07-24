@@ -1,27 +1,27 @@
 package mod.zenith.ytcraft.Commands;
 
-import mod.zenith.ytcraft.YTCraft;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-
+import mod.zenith.ytcraft.Board.Board;
 import mod.zenith.ytcraft.ChatSpawn;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import mod.zenith.ytcraft.YTCraft;
 
 public class YoutubeCommand implements CommandExecutor, TabExecutor {
 
     private static BukkitTask YoutubeTask;
+    private static BukkitTask BoardTask;
     private static boolean isYoutubeTaskActive=false;
 
     @SuppressWarnings("deprecation")
@@ -32,6 +32,7 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
             if (args.length==1 && args[0].equalsIgnoreCase("start")){
                 if(!isYoutubeTaskActive){
                     YoutubeTask =  Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(),new ChatSpawn(), 20L,20L*10);
+                    BoardTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), Board.getInstance(), 0, 20);
                     ChatSpawn.streamer = (Player) commandSender;
                     Bukkit.broadcastMessage("Session Successfully Started.");
                     Bukkit.broadcastMessage(commandSender.getName()+" has been set as Streamer.");
@@ -46,7 +47,9 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
             else if(args.length==1 && args[0].equals("end")){
                 if(isYoutubeTaskActive){
                     YoutubeTask.cancel();
+                    ChatSpawn.setTimeStamp(null);
                     Bukkit.broadcastMessage("Session Successfully Ended.");
+                    isYoutubeTaskActive = false;
                 }
                 else{
                     Bukkit.broadcastMessage("No Running session.");

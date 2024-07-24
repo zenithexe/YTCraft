@@ -3,12 +3,8 @@ package mod.zenith.ytcraft;
 import mod.zenith.ytcraft.Commands.VideoIdCommand;
 import mod.zenith.ytcraft.Commands.YoutubeCommand;
 import mod.zenith.ytcraft.EventListeners.EntityDeathListener;
-
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashSet;
-import java.util.Set;
 
 public final class YTCraft extends JavaPlugin {
 

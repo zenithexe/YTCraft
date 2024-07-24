@@ -1,5 +1,9 @@
 package mod.zenith.ytcraft;
 
+import java.util.List;
+
+import org.bukkit.Bukkit;
+
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -9,10 +13,6 @@ import com.google.api.services.youtube.model.LiveChatMessageListResponse;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoLiveStreamingDetails;
-
-import java.util.List;
-
-import org.bukkit.Bukkit;
 
 public class YoutubeAPI {
     private static final String APP_NAME = "YTCraft-MinecraftPlugin";
@@ -55,6 +55,7 @@ public class YoutubeAPI {
             VideoListResponse res = req.execute();
             Bukkit.getLogger().info(":::: GET-Video Youtube API called ::::");
             return res.getItems().get(0);
+            
         } catch (Exception e) {
             System.out.println(e);
             return null;
