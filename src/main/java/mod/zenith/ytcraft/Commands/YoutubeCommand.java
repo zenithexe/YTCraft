@@ -32,7 +32,7 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
             if (args.length==1 && args[0].equalsIgnoreCase("start")){
                 if(!isYoutubeTaskActive){
                     YoutubeTask =  Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(),new ChatSpawn(), 20L,20L*10);
-                    BoardTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), Board.getInstance(), 0, 20);
+                    BoardTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new Board((Player)commandSender), 0, 20);
                     ChatSpawn.streamer = (Player) commandSender;
                     Bukkit.broadcastMessage("Session Successfully Started.");
                     Bukkit.broadcastMessage(commandSender.getName()+" has been set as Streamer.");
@@ -47,7 +47,9 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
             else if(args.length==1 && args[0].equals("end")){
                 if(isYoutubeTaskActive){
                     YoutubeTask.cancel();
+                    BoardTask.cancel();
                     ChatSpawn.setTimeStamp(null);
+                    ((Player) commandSender).setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
                     Bukkit.broadcastMessage("Session Successfully Ended.");
                     isYoutubeTaskActive = false;
                 }
