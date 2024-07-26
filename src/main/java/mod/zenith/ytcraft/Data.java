@@ -7,10 +7,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 
 
 public class Data {
+
+    public static Player streamer;
+
     public static Set<String> isUserMobAlive = new HashSet<>();
     public static Map<Entity,String> entityByUser = new LinkedHashMap<>();
 

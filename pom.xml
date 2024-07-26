@@ -80,6 +80,16 @@
             <artifactId>google-api-client</artifactId>
             <version>1.31.1</version>
         </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>4.3.3</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.apis</groupId>

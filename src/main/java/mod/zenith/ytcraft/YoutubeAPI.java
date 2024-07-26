@@ -24,7 +24,17 @@ public class YoutubeAPI {
         API_KEY = apiKey;
         VIDEO_ID = videoId;
         setLiveChatId();
+    }
 
+    private static void setLiveChatId(){
+        VideoLiveStreamingDetails stream = getVideo("liveStreamingDetails").getLiveStreamingDetails();
+        if(stream!=null){
+            LIVE_CHAT_ID = stream.getActiveLiveChatId();
+            Bukkit.getLogger().info(":::: Live-Chat ID is Set ::::");
+        }
+        else{
+            Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
+        }
     }
 
     public static void updateVideoId(String videoId) {
@@ -62,17 +72,7 @@ public class YoutubeAPI {
         }
     }
 
-    private static void setLiveChatId(){
-        VideoLiveStreamingDetails stream = getVideo("liveStreamingDetails").getLiveStreamingDetails();
-
-        if(stream!=null){
-            LIVE_CHAT_ID = stream.getActiveLiveChatId();
-            Bukkit.getLogger().info(":::: Live-Chat ID is Set ::::");
-        }
-        else{
-            Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
-        }
-    }
+ 
 
     public static List<LiveChatMessage> getChats() {
         try {

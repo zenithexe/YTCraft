@@ -14,29 +14,38 @@ import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import mod.zenith.ytcraft.Board.BlankBoard;
 import mod.zenith.ytcraft.Board.Board;
-import mod.zenith.ytcraft.ChatSpawn;
+import mod.zenith.ytcraft.ChatControl;
+import mod.zenith.ytcraft.Data;
+import mod.zenith.ytcraft.Timer.PluginTimer;
 import mod.zenith.ytcraft.YTCraft;
 
 public class YoutubeCommand implements CommandExecutor, TabExecutor {
 
     private static BukkitTask YoutubeTask;
-    private static BukkitTask BoardTask;
+    private static BukkitTask TimerTask;
     private static boolean isYoutubeTaskActive=false;
 
     @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        
+        Player p = (Player) commandSender;
+
         if (commandSender instanceof Player){
             if (args.length==1 && args[0].equalsIgnoreCase("start")){
-                if(!isYoutubeTaskActive){
-                    YoutubeTask =  Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(),new ChatSpawn(), 20L,20L*10);
-                    BoardTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new Board((Player)commandSender), 0, 20);
-                    ChatSpawn.streamer = (Player) commandSender;
+                if(!isYoutubeTaskActive) {
+                    Data.streamer = (Player) commandSender;
+
+                    YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 20L, 20L * 10);
+                    TimerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
+
+
                     Bukkit.broadcastMessage("Session Successfully Started.");
-                    Bukkit.broadcastMessage(commandSender.getName()+" has been set as Streamer.");
+                    Bukkit.broadcastMessage(commandSender.getName() + " has been set as Streamer.");
                     isYoutubeTaskActive = true;
+                    Board.createNewScoreBoard(Data.streamer);
+                
                 }
                 else{
                     Bukkit.broadcastMessage("Already Running.");
@@ -46,10 +55,12 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
             }
             else if(args.length==1 && args[0].equals("end")){
                 if(isYoutubeTaskActive){
+
                     YoutubeTask.cancel();
-                    BoardTask.cancel();
-                    ChatSpawn.setTimeStamp(null);
-                    ((Player) commandSender).setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                    TimerTask.cancel();
+                    ChatControl.setTimeStamp(null);
+
+                    BlankBoard.createBlankBoard();
                     Bukkit.broadcastMessage("Session Successfully Ended.");
                     isYoutubeTaskActive = false;
                 }
@@ -75,4 +86,7 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
 
         return new ArrayList<>();
     }
+
+
+
 }

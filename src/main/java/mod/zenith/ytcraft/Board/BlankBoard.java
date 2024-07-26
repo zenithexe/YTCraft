@@ -1,23 +1,16 @@
 package mod.zenith.ytcraft.Board;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
-public class BlankBoard implements Runnable {
+import mod.zenith.ytcraft.Data;
 
-    private final Player player;
+public class BlankBoard {
 
-    public BlankBoard(Player player) {
-        this.player = player;
-    }
-
-    @Override
-    public void run() {
-        if (player != null) {
-            Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-            player.setScoreboard(scoreboard);
-        }
+    public static void createBlankBoard() {
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Data.streamer.setScoreboard(scoreboard);
     }
 
 }
+
