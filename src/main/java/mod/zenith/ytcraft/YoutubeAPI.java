@@ -1,5 +1,6 @@
 package mod.zenith.ytcraft;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -94,4 +95,13 @@ public class YoutubeAPI {
             return null;
         }
     }
+
+
+    public static BigInteger getConcurrentViewers(){
+        BigInteger concurrentViewers =  getVideo("liveStreamingDetails").getLiveStreamingDetails().getConcurrentViewers();
+        Bukkit.getLogger().info(":::: GET-Viewers === "+concurrentViewers+"  ::::");
+        return concurrentViewers;
+    }
+
+
 }

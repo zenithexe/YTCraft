@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import mod.zenith.ytcraft.YoutubeAPI;
+import org.bukkit.configuration.ConfigurationSection;
 
 public class Configuration {
 
@@ -28,6 +29,28 @@ public class Configuration {
         Bukkit.getLogger().info(configKey.toString());
         YoutubeAPI.setAPI(API_KEY,VIDEO_ID);
         Bukkit.getLogger().info("Keys Configuration is done.");
+
+
+        ConfigurationSection mobs = plugin.getConfig().getConfigurationSection("MOBS");
+        Set<String> viewLevels = mobs.getKeys(false);
+        Bukkit.getLogger().info("ViewLevels ::"+viewLevels.toString());
+
+        for(String viewLevel: viewLevels){
+            Bukkit.getLogger().info("View-Level ::"+viewLevel);
+
+            List<String> values = mobs.getStringList(viewLevel);
+            Bukkit.getLogger().info("Valuess ::: "+values.toString());
+
+            for(String value: values){
+
+                Bukkit.getLogger().info("Value :>>>"+value);
+
+                Data.EntityTypeToViewersList.put(value, Integer.parseInt(viewLevel));
+            }
+        }
+
+        Bukkit.getLogger().info("Dataaa :: " + Data.EntityTypeToViewersList.toString());
+
 
         if(activeTime.get(0)!=null && activeTime.get(1)!=null){
             Data.setActiveTime(activeTime.get(0),activeTime.get(1));

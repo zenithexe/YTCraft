@@ -113,6 +113,8 @@ public class PluginTimer implements Runnable {
             Board.updateScoreboard(Data.streamer, displayMin, displaySec, displayTimerMode);
         }
 
+
+
         toggleTimer();
     }
 }

@@ -1,12 +1,10 @@
 package mod.zenith.ytcraft;
 
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 
@@ -43,6 +41,8 @@ public class Data {
     public static int[] getResTime(){
         return new int[]{restTimeMin,restTimeSec};
     }
+    
+    public static Map<String,Integer> EntityTypeToViewersList = new HashMap<>();
 
 
 }
