@@ -3,8 +3,6 @@ package mod.zenith.ytcraft;
 
 import java.util.*;
 
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 
@@ -12,9 +10,6 @@ import org.bukkit.entity.Player;
 public class Data {
 
     public static Player streamer;
-
-    public static Set<String> isUserMobAlive = new HashSet<>();
-    public static Map<Entity,String> entityByUser = new LinkedHashMap<>();
 
     private static int activeTimeMin = 5;
     private static int activeTimeSec = 0;
@@ -42,7 +37,9 @@ public class Data {
         return new int[]{restTimeMin,restTimeSec};
     }
     
-    public static Map<String,Integer> EntityTypeToViewersList = new HashMap<>();
-
+    public static Map<String,Integer> Config_EntityType_To_NViewers_List = new HashMap<>();
+    public static Set<String> Alive_AuthorMobs = new HashSet<>();
+    public static Map<String,String> Author_To_Mob_Duo = new HashMap<>();
+    public static Map<String, Map<String,String>> ChannelId_To_AuthorMob_List = new HashMap<>();
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import mod.zenith.ytcraft.AdventureLib.TabList;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,6 +21,7 @@ import mod.zenith.ytcraft.ChatControl;
 import mod.zenith.ytcraft.Data;
 import mod.zenith.ytcraft.Timer.PluginTimer;
 import mod.zenith.ytcraft.YTCraft;
+import sun.tools.jconsole.Tab;
 
 public class YoutubeCommand implements CommandExecutor, TabExecutor {
 
@@ -44,8 +46,9 @@ public class YoutubeCommand implements CommandExecutor, TabExecutor {
                     Bukkit.broadcastMessage("Session Successfully Started.");
                     Bukkit.broadcastMessage(commandSender.getName() + " has been set as Streamer.");
                     isYoutubeTaskActive = true;
+
                     Board.createNewScoreBoard(Data.streamer);
-                
+
                 }
                 else{
                     Bukkit.broadcastMessage("Already Running.");

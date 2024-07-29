@@ -3,7 +3,6 @@ package mod.zenith.ytcraft;
 import java.util.List;
 import java.util.Set;
 import org.bukkit.Bukkit;
-import mod.zenith.ytcraft.YoutubeAPI;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class Configuration {
@@ -45,11 +44,11 @@ public class Configuration {
 
                 Bukkit.getLogger().info("Value :>>>"+value);
 
-                Data.EntityTypeToViewersList.put(value, Integer.parseInt(viewLevel));
+                Data.Config_EntityType_To_NViewers_List.put(value, Integer.parseInt(viewLevel));
             }
         }
 
-        Bukkit.getLogger().info("Dataaa :: " + Data.EntityTypeToViewersList.toString());
+        Bukkit.getLogger().info("Dataaa :: " + Data.Config_EntityType_To_NViewers_List.toString());
 
 
         if(activeTime.get(0)!=null && activeTime.get(1)!=null){
