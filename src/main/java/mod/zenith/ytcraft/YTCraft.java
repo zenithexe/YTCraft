@@ -5,8 +5,8 @@ package mod.zenith.ytcraft;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import mod.zenith.ytcraft.Commands.VideoIdCommand;
-import mod.zenith.ytcraft.Commands.YoutubeCommand;
+import mod.zenith.ytcraft.Commands.YTConfigCommand;
+import mod.zenith.ytcraft.Commands.YTCraftCommand;
 import mod.zenith.ytcraft.EventListeners.EntityDeathListener;
 import mod.zenith.ytcraft.EventListeners.EntityExplodeListener;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -42,13 +42,12 @@ public final class YTCraft extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
 
         //Commands
-        getCommand("VideoId").setExecutor(new VideoIdCommand());
-        getCommand("Youtube").setExecutor(new YoutubeCommand());
+        getCommand("YTConfig").setExecutor(new YTConfigCommand());
+        getCommand("YTCraft").setExecutor(new YTCraftCommand());
     }
 
     @Override
     public void onDisable() {
-
 
         saveConfig();
 

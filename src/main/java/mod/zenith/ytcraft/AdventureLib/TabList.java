@@ -35,8 +35,6 @@ public class TabList {
             int length = dataString.length();
             dataString = dataString.substring(1,length-1);
 
-
-
             int i = 0;
             String AuthorMobs[] = dataString.split(",");
             Bukkit.getLogger().info(Arrays.toString(AuthorMobs));
@@ -57,17 +55,10 @@ public class TabList {
                 if(i==AuthorMobs.length-1){
                     continue;
                 }
-
-                footer=footer.append(Component.text(" || "));
-
-//              footer=footer.append(Component.text(authorMob).color(colors.get(i%colors.size())));
+                footer=footer.append(Component.text(" || ").color(NamedTextColor.RED));
                 i++;
             }
-
-
-//            footer = Component.text(Data.ChannelId_To_AuthorMob_List.values().toString()).color(NamedTextColor.GREEN);
         }
-
         YTCraft.getPlugin().adventure().player(Data.streamer).sendPlayerListFooter(footer);
     }
 }

@@ -4,12 +4,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import mod.zenith.ytcraft.App.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import mod.zenith.ytcraft.AdventureLib.Titles;
 import mod.zenith.ytcraft.Board.Board;
-import mod.zenith.ytcraft.ChatControl;
+import mod.zenith.ytcraft.App.ChatControl;
 import mod.zenith.ytcraft.Data;
 import mod.zenith.ytcraft.YTCraft;
 import net.md_5.bungee.api.ChatColor;
@@ -86,6 +87,7 @@ public class PluginTimer implements Runnable {
             restSec = resTime[1];
 
             Data.isActiveTimerMode = false;
+            Utils.killAllAuthorMobs();
 
             //Showing Rest Title
             Titles.showTimerRestTitle(YTCraft.getPlugin().adventure().player(player));
@@ -112,7 +114,6 @@ public class PluginTimer implements Runnable {
         if(Data.streamer.getScoreboard().getObjective("YTCraftBoard") != null) {
             Board.updateScoreboard(Data.streamer, displayMin, displaySec, displayTimerMode);
         }
-
 
 
         toggleTimer();

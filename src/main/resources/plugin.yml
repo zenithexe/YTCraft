@@ -3,12 +3,12 @@ version: '${project.version}'
 main: mod.zenith.ytcraft.YTCraft
 api-version: '1.20'
 commands:
-  VideoId:
-    description: "Updates the Video Id"
-    usage: "/videoid set <video_id>"
-    alias: ["vid"]
+  YTConfig:
+    description: "Configure the YTCraft Plugin."
+    usage: "/ytconfig"
+    alias: ["ytcon"]
 
-  Youtube:
-    description: "Starts or Ends Youtube Session"
-    usage: "/youtube [start,end]"
+  YTCraft:
+    description: "Starts or Ends YTCraft Session."
+    usage: "/ytcraft [start,end]"
     alias:  ["yt"]

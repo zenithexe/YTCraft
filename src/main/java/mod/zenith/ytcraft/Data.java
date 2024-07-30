@@ -3,6 +3,8 @@ package mod.zenith.ytcraft;
 
 import java.util.*;
 
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 
@@ -38,8 +40,8 @@ public class Data {
     }
     
     public static Map<String,Integer> Config_EntityType_To_NViewers_List = new HashMap<>();
-    public static Set<String> Alive_AuthorMobs = new HashSet<>();
-    public static Map<String,String> Author_To_Mob_Duo = new HashMap<>();
+    public static Set<String> ChannelId_Of_Alive_AuthorMobs = new HashSet<>();
+    public static List<Creature> CreatureList_Of_Alive_AuthorMobs = new LinkedList<>();
     public static Map<String, Map<String,String>> ChannelId_To_AuthorMob_List = new HashMap<>();
 
 }
