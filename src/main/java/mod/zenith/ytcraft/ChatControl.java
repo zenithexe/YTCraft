@@ -60,9 +60,7 @@ public class ChatControl implements Runnable {
                     String text = message.getSnippet().getDisplayMessage();
                     String channelId = message.getAuthorDetails().getChannelId();
                     
-                // if(author.equalsIgnoreCase("Zenith GG")){
-                // Bukkit.getLogger().info(msgLocalTime.toString()+" >>> "+ReadTimeStamp.toString()+" || "+msgLocalTime.compareTo(ReadTimeStamp)+" :: "+text);
-                // }
+
                      Bukkit.getLogger().info(author + ">>" + text);
                       ReadTimeStamp = msgLocalTime;
 

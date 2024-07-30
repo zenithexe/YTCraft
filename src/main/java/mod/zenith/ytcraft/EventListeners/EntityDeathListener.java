@@ -15,17 +15,6 @@ public class EntityDeathListener implements Listener {
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e){
         Entity entity = e.getEntity();
-        if(entity.getPersistentDataContainer().has(new NamespacedKey(YTCraft.getPlugin(),"IsChatSpawned"), PersistentDataType.BOOLEAN))
-        {
-            String spawnedAuthor = entity.getPersistentDataContainer().get(new NamespacedKey(YTCraft.getPlugin(), "SpawnedAuthor"), PersistentDataType.STRING);
-            String spawnedChannelId = entity.getPersistentDataContainer().get(new NamespacedKey(YTCraft.getPlugin(), "SpawnedChannelId"), PersistentDataType.STRING);
-
-            Data.Alive_AuthorMobs.remove(spawnedChannelId);
-
-            Data.ChannelId_To_AuthorMob_List.remove(spawnedChannelId);
-
-            TabList.updateFooterTabList();
-            TabList.updateHeaderTabList();
-        }
+        AuthorMobDeathHandler.removeAuthorMob(entity);
     }
 }

@@ -5,14 +5,23 @@ import mod.zenith.ytcraft.YTCraft;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TabList {
 
+    private static List<NamedTextColor> colors = new ArrayList<NamedTextColor>(){{
+       add(NamedTextColor.YELLOW);
+       add(NamedTextColor.RED);
+       add(NamedTextColor.GREEN);
+    }};
+
     public static void updateHeaderTabList(){
-        Component header = Component.text("").color(NamedTextColor.GREEN);
+        Component header = Component.text("Spawned Mobs :: 0").color(NamedTextColor.GREEN);
         if(!Data.ChannelId_To_AuthorMob_List.isEmpty()){
             header = Component.text("Spawned Mobs :: "+Data.ChannelId_To_AuthorMob_List.values().toArray().length).color(NamedTextColor.GREEN);
         }
@@ -32,13 +41,26 @@ public class TabList {
             String AuthorMobs[] = dataString.split(",");
             Bukkit.getLogger().info(Arrays.toString(AuthorMobs));
 
-            for(String am: AuthorMobs){
-                if(i%2==0){
-                    footer=footer.append(Component.text(am).color(NamedTextColor.RED));
+            for(String authorMob: AuthorMobs){
+                String displayString= authorMob.trim();
+                Bukkit.getLogger().info("DisplayString >>>>>>>>>>>>>>>>> :: "+ displayString);
+
+                displayString = displayString.substring(1,displayString.length()-1);
+                Bukkit.getLogger().info("DisplayString After Sub >>>>>>>>>>>>>>>>> :: "+ displayString);
+
+                String[] elements = displayString.split("=");
+
+                footer=footer.append(Component.text(elements[0].trim()).color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD));
+                footer=footer.append(Component.text(" : "));
+                footer=footer.append(Component.text(elements[1].trim()).color(NamedTextColor.WHITE));
+
+                if(i==AuthorMobs.length-1){
+                    continue;
                 }
-                else{
-                    footer=footer.append(Component.text(am).color(NamedTextColor.BLUE));
-                }
+
+                footer=footer.append(Component.text(" || "));
+
+//              footer=footer.append(Component.text(authorMob).color(colors.get(i%colors.size())));
                 i++;
             }
 

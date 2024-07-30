@@ -1,11 +1,14 @@
 package mod.zenith.ytcraft;
 
+
+
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import mod.zenith.ytcraft.Commands.VideoIdCommand;
 import mod.zenith.ytcraft.Commands.YoutubeCommand;
 import mod.zenith.ytcraft.EventListeners.EntityDeathListener;
+import mod.zenith.ytcraft.EventListeners.EntityExplodeListener;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 
@@ -36,6 +39,7 @@ public final class YTCraft extends JavaPlugin {
 
         //Event
         getServer().getPluginManager().registerEvents(new EntityDeathListener(),this);
+        getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
 
         //Commands
         getCommand("VideoId").setExecutor(new VideoIdCommand());
