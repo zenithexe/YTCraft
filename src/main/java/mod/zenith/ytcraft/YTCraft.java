@@ -2,6 +2,8 @@ package mod.zenith.ytcraft;
 
 
 
+import mod.zenith.ytcraft.Configuration.Configuration;
+import mod.zenith.ytcraft.Configuration.SaveConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +34,7 @@ public final class YTCraft extends JavaPlugin {
 
         //Config
         saveDefaultConfig();
-        Configuration.configure(this);
+        Configuration.setupConfiguration();
 
         //AdventureLib
         this.adventure = BukkitAudiences.create(this);
@@ -49,7 +51,7 @@ public final class YTCraft extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        saveConfig();
+        SaveConfiguration.saveYTCraftConfig();
 
         if(this.adventure != null) {
             this.adventure.close();

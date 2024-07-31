@@ -17,18 +17,30 @@ import net.md_5.bungee.api.ChatColor;
 
 public class PluginTimer implements Runnable {
 
+    public static boolean isForceToggle = false;
+
     private static Player player;
 
-    public static int activeMin;
-    public static int activeSec;
+    private static int activeMin;
+    private static int activeSec;
 
-    public static int restMin;
-    public static int restSec;
+    private static int restMin;
+    private static int restSec;
 
     private static String displayTimerMode;
 
     private static String displayMin;
     private static String displaySec;
+
+    public static void setActiveTimer(int aMin, int aSec){
+        activeMin=aMin;
+        activeSec=aSec;
+    }
+
+    public static void setRestTimer(int rMin, int rSec){
+        restMin=rMin;
+        restSec=rSec;
+    }
 
     public PluginTimer() {
 
@@ -106,15 +118,32 @@ public class PluginTimer implements Runnable {
         }
     }
 
+    private static void forceToggleTimer(){
+        if(Data.isActiveTimerMode){
+            activeMin=0;
+            activeSec=0;
+        }
+        else {
+            restMin=0;
+            restSec=0;
+        }
+    }
+
     @Override
     public void run() {
-        updateTimer();
+
+        if(isForceToggle){
+            forceToggleTimer();
+        }else{
+            updateTimer();
+        }
+        isForceToggle=false;
+
         updateTimerMode();
 
         if(Data.streamer.getScoreboard().getObjective("YTCraftBoard") != null) {
             Board.updateScoreboard(Data.streamer, displayMin, displaySec, displayTimerMode);
         }
-
 
         toggleTimer();
     }

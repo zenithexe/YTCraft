@@ -1,7 +1,11 @@
 package mod.zenith.ytcraft.Commands;
 
+import mod.zenith.ytcraft.Data;
+import mod.zenith.ytcraft.Timer.PluginTimer;
 import mod.zenith.ytcraft.YTCraft;
 import mod.zenith.ytcraft.YoutubeAPI;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,9 +13,11 @@ import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Timer;
 
 
 public class YTConfigCommand implements CommandExecutor, TabExecutor {
@@ -27,34 +33,49 @@ public class YTConfigCommand implements CommandExecutor, TabExecutor {
 
             YoutubeAPI.updateVideoId(args[1]);
 
-            sender.sendMessage("Video Id set to "+args[1]);
+            sender.sendMessage(Component.text("Video Id set to "+args[1]).color(NamedTextColor.AQUA));
             return true;
         }
 
         if(args[0].equalsIgnoreCase("timer") && args.length>=2){
-            if(args[1].equalsIgnoreCase("enable")){
-                sender.sendMessage("Timer-Enaled");
-                return true;
+
+            if(args[1].equalsIgnoreCase("setRestTime") && args.length == 4 ) {
+                try{
+                    Data.setRestTime(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                    sender.sendMessage(Component.text("Rest-Time set to ").color(NamedTextColor.AQUA)
+                            .append(Component.text(args[2] + ":" + args[3]).color(NamedTextColor.GREEN)));
+                    return true;
+                } catch (Exception e){
+                    sender.sendMessage(Component.text("Error : Wrong Command Arguments !!").color(NamedTextColor.RED));
+                    return false;
+                }
             }
 
-            if(args[1].equalsIgnoreCase("disable")){
-                sender.sendMessage("Timer-Disabled");
-                return true;
-            }
-
-            if(args[1].equalsIgnoreCase("setRestTime") && args.length==4){
-                sender.sendMessage("setRestTimer "+args[2]+args[3]);
-                return true;
-            }
-
-            if(args[1].equalsIgnoreCase("setActiveTime") && args.length==4){
-                sender.sendMessage("setActiveTimer "+args[2]+args[3]);
-                return true;
+            if(args[1].equalsIgnoreCase("setActiveTime") && args.length==4) {
+                try {
+                    Data.setActiveTime(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                    sender.sendMessage(Component.text("Active-Time set to ")
+                            .color(NamedTextColor.AQUA)
+                            .append(Component.text(args[2] + ":" + args[3]).color(NamedTextColor.GREEN)));
+                    return true;
+                }
+                catch (Exception e){
+                    sender.sendMessage(Component.text("Error : Wrong Command Arguments !!").color(NamedTextColor.RED));
+                    return false;
+                }
             }
 
             if(args[1].equalsIgnoreCase("skip")){
-                sender.sendMessage("Skip this!");
+                PluginTimer.isForceToggle = true;
+
+                sender.sendMessage(Component.text("Current Timer skipped!").color(NamedTextColor.GREEN));
+
                 return true;
+            }
+
+            if(args.length<4){
+                sender.sendMessage(Component.text("Error : Wrong Command Arguments !!").color(NamedTextColor.RED));
+                return false;
             }
         }
 
@@ -70,7 +91,19 @@ public class YTConfigCommand implements CommandExecutor, TabExecutor {
 
         if(args.length==2){
             if(args[0].equals("timer")){
-                return Arrays.asList("enable","disable","setRestTime","setActiveTime","skip");
+                return Arrays.asList("setRestTime","setActiveTime","skip");
+            }
+        }
+
+        if(args.length==3){
+            if(args[1].equals("setRestTime") || args[1].equals("setActiveTime")) {
+                return Arrays.asList("{Minute_Value}");
+            }
+        }
+
+        if(args.length==4){
+            if(args[1].equals("setRestTime") || args[1].equals("setActiveTime")) {
+                return Arrays.asList("{Second_Value}");
             }
         }
 

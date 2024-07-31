@@ -5,8 +5,7 @@ api-version: '1.20'
 commands:
   YTConfig:
     description: "Configure the YTCraft Plugin."
-    usage: "/ytconfig"
-    alias: ["ytcon"]
+
 
   YTCraft:
     description: "Starts or Ends YTCraft Session."

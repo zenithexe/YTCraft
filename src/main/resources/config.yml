@@ -2,8 +2,9 @@ API_KEY: ''
 
 VIDEO_ID: ''
 
-ACTIVE_TIME: [1,0]
-REST_TIME: [1,30]
+
+ACTIVE_TIME: [5,0]
+REST_TIME: [3,0]
 
 MOBS:
   0: ['WOLF','CREEPER']

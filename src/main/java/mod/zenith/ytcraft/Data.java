@@ -19,8 +19,8 @@ public class Data {
     private static int restTimeMin = 5;
     private static int restTimeSec = 0;
 
-    public static boolean isActiveTimerMode = false;
 
+    public static boolean isActiveTimerMode = false;
     public static void setActiveTime(int min, int sec){
         activeTimeMin=min;
         activeTimeSec=sec;
