@@ -24,10 +24,10 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
    /* Paste the Video-Id of the Livestream */
    
    ACTIVE_TIME:
-   /* The Chat-Control Active Time as an Array. Example : [5,30] - for 5min 30sec */
+   /* The Chat-Control Active Time as an Array. Eg: [5,30] for 5min 30sec */
    
    REST_TIME:
-   /* The Rest-Time. During this, the Chat Control will be disabled. Example: [3,0] - for 3min 0sec */
+   /* The Rest-Time. During this, the Chat Control will be disabled. Eg: [3,0] for 3min 0sec */
 
   
    MOBS:
