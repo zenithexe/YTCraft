@@ -12,7 +12,9 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
 
 
 1. Download the Plugin `.jar` file and place it inside the `\plugins` folder of the minecraft server file structure.
+   
 2. Inside the `/plugins` folder. Create a `YTCraft` folder and create a `YTCraft\config.yml` file.
+
 3. Inside the `config.yml` file, setup the configurations of your plugin.
    ```javascript
    API_KEY:
@@ -39,15 +41,17 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
       and If Watching > 1000 they can also spawn RAVAGER.
    */
    ```
-  5. Once you have configure the `config.yml`. You are done and can now start the Minecraft Server.
-  6. To start the Plugin use the command `/ytcraft start` in in-game chat.
+  4. Once you have configure the `config.yml`. You are done and can now start the Minecraft Server.
+  
+  5. To start the Plugin use the command `/ytcraft start` in in-game chat.
 ---
 **Note :**
-   - You can setup the `API_KEY` and `Video_ID` later through command.
+   - You can setup the `API_KEY` and `Video_ID` later through command. Check out [Plugin Commands](/markdowns/PluginCommands.md)
+     
    - The `Video_ID` can be grabbed from the Youtube URL. `https://www.youtube.com/watch?v={VIDEO_ID}`
-   - Configuring the `MOBS` List, you have to follow Standard Minecraft Entity-Type Naming.\
-     Example, for Zombiefied Piglin use `ZOMBIEFIED_PIGLIN`
    
+   - Configuring the `MOBS` List, you have to follow Standard Minecraft Entity-Type Naming.\
+     Example, for Zombiefied Piglin use `ZOMBIEFIED_PIGLIN`. Check out the [Entity Naming Guide](/markdowns/EntityNaming.md)   
 ---
-Also, Check out the [Entity Naming Guide](/markdowns/EntityNaming.md) and [Plugin Commands](/markdowns/PluginCommands.md) 
+
     
