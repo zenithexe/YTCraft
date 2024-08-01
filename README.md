@@ -16,25 +16,28 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
 3. Inside the `config.yml` file, setup the configurations of your plugin.
    ```
    API_KEY:
-   >> Paste your Google-API-Key
+   /* Paste your Google-API-Key */
 
    VIDEO_ID:
-   >> Paste the Video-Id of the Livestream
+   /* Paste the Video-Id of the Livestream */
    
    ACTIVE_TIME:
-   >> The Chat-Control Active Time as an Array. Example : [5,30] - for 5min 30sec
+   /* The Chat-Control Active Time as an Array. Example : [5,30] - for 5min 30sec */
    
    REST_TIME:
-   >> The Rest-Time. During this, the Chat Control will be disabled. Example: [3,0] - for 3min 0sec
+   /* The Rest-Time. During this, the Chat Control will be disabled. Example: [3,0] - for 3min 0sec */
 
-   >> Configure the Specific Minecraft-Mobs for Each no. of viewers. Like this, 
+  
    MOBS:
      0: ['WOLF','ZOMBIE']
      1000: ['RAVAGER']
 
-   Above Example :
-   If Live Watching > 0 then chat can spawn WOLF and ZOMBIE mobs
-   and If Watching > 1000 they can also spawn RAVAGER.
+   /*
+      Configure the Specific Minecraft-Mobs for Each no. of viewers. Like this, 
+      Above Example :
+      If Live Watching > 0 then chat can spawn WOLF and ZOMBIE mobs
+      and If Watching > 1000 they can also spawn RAVAGER.
+   */
    ```
   5. Once you have configure the `config.yml`. You are done and can now start the Minecraft Server.
   6. To start the Plugin use the command `/ytcraft start` in in-game chat.
