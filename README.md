@@ -14,7 +14,7 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
 1. Download the Plugin `.jar` file and place it inside the `\plugins` folder of the minecraft server file structure.
 2. Inside the `/plugins` folder. Create a `YTCraft` folder and create a `YTCraft\config.yml` file.
 3. Inside the `config.yml` file, setup the configurations of your plugin.
-   ```
+   ```javascript
    API_KEY:
    /* Paste your Google-API-Key */
 
@@ -48,4 +48,6 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
    - Configuring the `MOBS` List, you have to follow Standard Minecraft Entity-Type Naming.\
      Example, for Zombiefied Piglin use `ZOMBIEFIED_PIGLIN`
    
+---
+Also, Check out the [Entity Naming Guide](/markdowns/EntityNaming.md) and [Plugin Commands](/markdowns/PluginCommands.md) 
     
