@@ -20,10 +20,12 @@ public class YoutubeAPI {
     private static String API_KEY;
     private static String VIDEO_ID;
     private static String LIVE_CHAT_ID;
+    private static String CHANNEL_ID;
 
     public static void setAPI(String apiKey, String videoId) {
         API_KEY = apiKey;
         VIDEO_ID = videoId;
+//        setChannelId();
         setLiveChatId();
     }
 
@@ -37,6 +39,10 @@ public class YoutubeAPI {
             Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
         }
     }
+
+//    private static void setChannelId(){
+//        CHANNEL_ID = getVideo("snippet").getSnippet().getChannelId();
+//    }
 
     public static void updateVideoId(String videoId) {
         setAPI(API_KEY, videoId);
@@ -72,6 +78,19 @@ public class YoutubeAPI {
             return null;
         }
     }
+
+    private static void getSubscriberCount() {
+        try{
+
+            YouTube.Channels.List req = getYoutube().channels().list("statistics");
+
+
+        } catch(Exception e){
+
+        }
+    }
+
+
 
  
 

@@ -33,10 +33,12 @@ The API-KEY is required for the plugin to interact with the Youtube Server.
      1000: ['RAVAGER']
 
    /*
+   
       Configure the Specific Minecraft-Mobs for Each no. of viewers. Like this, 
       Above Example :
       If Live Watching > 0 then chat can spawn WOLF and ZOMBIE mobs
       and If Watching > 1000 they can also spawn RAVAGER.
+
    */
    ```
   5. Once you have configure the `config.yml`. You are done and can now start the Minecraft Server.

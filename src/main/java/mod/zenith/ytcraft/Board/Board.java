@@ -18,13 +18,13 @@ public class Board {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
         //Objective is the topic of scoreboard = Title
-        Objective objective = scoreboard.registerNewObjective("YTCraftBoard", "dummy", ChatColor.RED + "YoutubeSpawn");
+        Objective objective = scoreboard.registerNewObjective("YTCraftBoard", "dummy", ChatColor.RED + "YTCraft");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
         //One score obj is one line in scoreboard
-        objective.getScore("").setScore(4);
-        objective.getScore(ChatColor.WHITE + "This is Zen").setScore(4);
-        objective.getScore("").setScore(3);
+        objective.getScore(" ").setScore(4);
+        objective.getScore(ChatColor.WHITE + "Made by ZenithGG").setScore(4);
+        objective.getScore(" ").setScore(3);
 
         Team timerMode = scoreboard.registerNewTeam("TimerMode");
         String timerModeKey = ChatColor.AQUA.toString();
