@@ -7,7 +7,7 @@ import mod.zenith.ytcraft.Configuration.SaveConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import mod.zenith.ytcraft.Commands.YTConfigCommand;
+import mod.zenith.ytcraft.Commands.YTSettingsCommand;
 import mod.zenith.ytcraft.Commands.YTCraftCommand;
 import mod.zenith.ytcraft.EventListeners.EntityDeathListener;
 import mod.zenith.ytcraft.EventListeners.EntityExplodeListener;
@@ -44,7 +44,7 @@ public final class YTCraft extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
 
         //Commands
-        getCommand("YTConfig").setExecutor(new YTConfigCommand());
+        getCommand("YTSettings").setExecutor(new YTSettingsCommand());
         getCommand("YTCraft").setExecutor(new YTCraftCommand());
     }
 

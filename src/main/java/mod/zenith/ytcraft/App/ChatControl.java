@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import mod.zenith.ytcraft.Data;
+import mod.zenith.ytcraft.YTCraft;
 import mod.zenith.ytcraft.YoutubeAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -18,11 +20,15 @@ import com.google.api.services.youtube.model.LiveChatMessage;
 
 import mod.zenith.ytcraft.AdventureLib.TabList;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 @SuppressWarnings("deprecation")
 public class ChatControl implements Runnable {
 
-    public static int viewers;
+    private static int viewers;
+    private static int currentSubscriberCount;
     public static LocalDateTime ReadTimeStamp;
     
     public static void setTimeStamp(LocalDateTime TS) {
@@ -38,6 +44,10 @@ public class ChatControl implements Runnable {
             }
             
             viewers = YoutubeAPI.getConcurrentViewers().intValue();
+            Data.SubscriberCount = YoutubeAPI.getSubscribers().intValue();
+
+            SubscribeSpawnMechanics.spawnMob(Data.SubscriberCount);
+
             List<LiveChatMessage> Chats = YoutubeAPI.getChats();
 
             if (Chats == null) {
@@ -68,14 +78,12 @@ public class ChatControl implements Runnable {
                         }
 
                         //!Data.ChannelId_Of_Alive_AuthorMobs.contains(channelId)
-                        if (!Data.ChannelId_Of_Alive_AuthorMobs.contains(channelId) || true) {
-
+                        if (!Data.ChannelId_Of_Alive_AuthorMobs.contains(channelId) || viewers<=10) {
                             if(userArgEntityType!=null && Utils.isEntityType_To_NViewers(chatArgs,viewers)){
-
                                 MobQueueSpawning.addMob(userArgEntityType,author,channelId);
-
                             }
                         }
+
                     } else if (text!=null && text.startsWith("give") && Data.Enable_ItemSpawn) {
                         String[] charArgs = text.split(" +");
 
@@ -88,19 +96,25 @@ public class ChatControl implements Runnable {
                             Bukkit.getLogger().info("Material ::"+ material.toString());
                             int count = 1;
                             if(charArgs.length==3){
-                                count = Integer.parseInt(charArgs[2]);
+                                count = Math.min(Integer.parseInt(charArgs[2]),16);
                             }
                             if(material.isItem()) {
                                 Bukkit.getLogger().info("Passed Item Check");
-                                ItemStack item = new ItemStack(material,count);
-                                if (Data.streamer.getInventory().addItem(item).isEmpty()) {
+                                ItemStack itemStack = new ItemStack(material,count);
+
+                                ItemMeta meta = itemStack.getItemMeta();
+                                PersistentDataContainer data = meta.getPersistentDataContainer();
+                                data.set(new NamespacedKey(YTCraft.getPlugin(), "IsChatSpawned"), PersistentDataType.BOOLEAN, true);
+                                itemStack.setItemMeta(meta);
+
+                                if (Data.streamer.getInventory().addItem(itemStack).isEmpty()) {
 
                                 } else {
                                     Location playerLocation = Data.streamer.getLocation();
-                                    Data.streamer.getWorld().dropItemNaturally(playerLocation, item);
+                                    Data.streamer.getWorld().dropItemNaturally(playerLocation, itemStack);
                                 }
 
-                                Utils.sendAuthorItemSpawnMessage(item,author);
+                                Utils.sendAuthorItemSpawnMessage(itemStack,author);
                             }
                         }
                     }

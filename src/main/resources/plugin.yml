@@ -3,8 +3,8 @@ version: '${project.version}'
 main: mod.zenith.ytcraft.YTCraft
 api-version: '1.20'
 commands:
-  YTConfig:
-    description: "Configure the YTCraft Plugin."
+  YTSettings:
+    description: "Settings for YTCraft Plugin."
 
 
   YTCraft:

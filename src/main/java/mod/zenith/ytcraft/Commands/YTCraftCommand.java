@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import mod.zenith.ytcraft.App.MobQueueSpawning;
+import mod.zenith.ytcraft.App.SubscribeSpawnMechanics;
 import mod.zenith.ytcraft.App.Utils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -44,7 +45,7 @@ public class YTCraftCommand implements CommandExecutor, TabExecutor {
                 if(!isYoutubeTaskActive) {
                     Data.streamer = (Player) commandSender;
 
-                    YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 10);
+                    YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 3);
                     TimerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
                     MobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobQueueSpawning(),0,20L);
                     isYoutubeTaskActive = true;
@@ -68,7 +69,8 @@ public class YTCraftCommand implements CommandExecutor, TabExecutor {
                     ChatControl.setTimeStamp(null);
 
                     Utils.killAllAuthorMobs();
-
+                    Utils.clearAllAuthorItems();
+                    SubscribeSpawnMechanics.SubscriberCountLimit=0;
                     BlankBoard.createBlankBoard();
                     Bukkit.broadcast(Component.text("Session Successfully Ended.").color(NamedTextColor.RED));
 

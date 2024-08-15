@@ -3,17 +3,13 @@ package mod.zenith.ytcraft;
 import java.math.BigInteger;
 import java.util.List;
 
+import com.google.api.services.youtube.model.*;
 import org.bukkit.Bukkit;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.LiveChatMessage;
-import com.google.api.services.youtube.model.LiveChatMessageListResponse;
-import com.google.api.services.youtube.model.Video;
-import com.google.api.services.youtube.model.VideoListResponse;
-import com.google.api.services.youtube.model.VideoLiveStreamingDetails;
 
 public class YoutubeAPI {
     private static final String APP_NAME = "YTCraft-MinecraftPlugin";
@@ -25,7 +21,7 @@ public class YoutubeAPI {
     public static void setAPI(String apiKey, String videoId) {
         API_KEY = apiKey;
         VIDEO_ID = videoId;
-//        setChannelId();
+        setChannelId();
         setLiveChatId();
     }
 
@@ -40,9 +36,9 @@ public class YoutubeAPI {
         }
     }
 
-//    private static void setChannelId(){
-//        CHANNEL_ID = getVideo("snippet").getSnippet().getChannelId();
-//    }
+    private static void setChannelId(){
+        CHANNEL_ID = getVideo("snippet").getSnippet().getChannelId();
+    }
 
     public static void updateVideoId(String videoId) {
         setAPI(API_KEY, videoId);
@@ -56,8 +52,7 @@ public class YoutubeAPI {
                     .setApplicationName(APP_NAME).build();
 
         } catch (Exception e) {
-
-            System.out.println(e);
+            Bukkit.getLogger().info(e.getMessage());
             return null;
         }
 
@@ -74,19 +69,27 @@ public class YoutubeAPI {
             return res.getItems().get(0);
             
         } catch (Exception e) {
-            System.out.println(e);
+            Bukkit.getLogger().info(e.getMessage());
             return null;
         }
     }
 
-    private static void getSubscriberCount() {
+    public static BigInteger getSubscribers() {
         try{
 
             YouTube.Channels.List req = getYoutube().channels().list("statistics");
+            req.setKey(API_KEY);
+            req.setId(CHANNEL_ID);
 
+            ChannelListResponse response =  req.execute();
+            Channel channel = response.getItems().get(0);
+            BigInteger subscriberCount = channel.getStatistics().getSubscriberCount();
+            Bukkit.getLogger().info(":::: GET-Subscriber === "+subscriberCount+"  ::::");
+            return subscriberCount;
 
         } catch(Exception e){
-
+            Bukkit.getLogger().info(e.getMessage());
+            return null;
         }
     }
 

@@ -31,32 +31,12 @@ public class MobQueueSpawning implements Runnable {
 
             Player player = Data.streamer;
             Location playerLocation = player.getLocation();
-            Location confirmSpawn = playerLocation;
-
-            Outer:
-            for(int x = Data.Mob_SpawnRadius; x>=-Data.Mob_SpawnRadius; x--){
-                for(int z = Data.Mob_SpawnRadius; z>=-Data.Mob_SpawnRadius; z--){
-
-                    if(x==0 && z==0){
-                        continue;
-                    }
-
-                    Location spawnLocation = playerLocation.clone().add(x,0,z);
-
-                    Block block = spawnLocation.clone().subtract(0,1,0).getBlock();
-
-                    if(block.getType().isSolid() && block.getRelative(0,1,0).getType() == Material.AIR
-                        && block.getRelative(0,2,0).getType() == Material.AIR) {
-
-                        confirmSpawn = spawnLocation;
-                        break Outer;
-                    }
-                }
-            }
+            Location confirmSpawn = Utils.getMobSpawnLocation(player);
 
             LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(confirmSpawn, entityType);
             livingMob.setCustomName(author);
             livingMob.setCustomNameVisible(true);
+            livingMob.setRemoveWhenFarAway(false);
 
             Utils.entityTaming(livingMob,player);
             Utils.setAuthorMobNBT(livingMob,channelId);

@@ -3,6 +3,7 @@ package mod.zenith.ytcraft;
 
 import java.util.*;
 
+import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +20,7 @@ public class Data {
     public static boolean isActiveTimerMode = false;
     public static int Mob_SpawnRadius = 2;
     public static boolean Enable_ItemSpawn = true;
+    public static int SubscriberCount = 0;
     public static void setActiveTime(int min, int sec){
         activeTimeMin=min;
         activeTimeSec=sec;
@@ -45,5 +47,7 @@ public class Data {
     public static Queue<EntityType> Mob_SpawnQueue = new LinkedList<>();
     public static Queue<String> ChannelId_SpawnQueue = new LinkedList<>();
     public static Queue<String> Author_SpawnQueue = new LinkedList<>();
+
+    public static Set<Material> Blacklisted_Materials = new HashSet<>();
 
 }

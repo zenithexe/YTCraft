@@ -13,21 +13,19 @@ import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
 
 
-public class YTConfigCommand implements CommandExecutor, TabExecutor {
+public class YTSettingsCommand implements CommandExecutor, TabExecutor {
 
 
 
     @Override
     public boolean onCommand(CommandSender sender,Command command,String label,String[] args) {
 
-        if(args[0].equalsIgnoreCase("videoid") && args.length==2){
+        if(args[0].equalsIgnoreCase("setVideoId") && args.length==2){
             YTCraft.getPlugin().getConfig().set("VIDEO_ID",args[1]);
             YTCraft.getPlugin().saveConfig();
 
@@ -86,7 +84,13 @@ public class YTConfigCommand implements CommandExecutor, TabExecutor {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length==1){
-            return Arrays.asList("videoId","timer");
+            return Arrays.asList("setVideoId","timer");
+        }
+
+        if(args.length==2){
+            if(args[0].equals("setVideoId")){
+                return Arrays.asList("{video_id}");
+            }
         }
 
         if(args.length==2){

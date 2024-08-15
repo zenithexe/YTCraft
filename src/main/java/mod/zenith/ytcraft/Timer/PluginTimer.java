@@ -100,6 +100,7 @@ public class PluginTimer implements Runnable {
 
             Data.isActiveTimerMode = false;
             Utils.killAllAuthorMobs();
+            Utils.clearAllAuthorItems();
 
             //Showing Rest Title
             Titles.showTimerRestTitle(YTCraft.getPlugin().adventure().player(player));
