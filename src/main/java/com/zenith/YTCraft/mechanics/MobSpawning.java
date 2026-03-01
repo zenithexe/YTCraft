@@ -11,6 +11,8 @@ import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.ui.TabList;
 import com.zenith.YTCraft.util.MobUtils;
 
+import net.kyori.adventure.text.Component;
+
 public class MobSpawning implements Runnable {
 
     public static void addMob(EntityType en, String author, String channelId){
@@ -32,7 +34,7 @@ public class MobSpawning implements Runnable {
             Location confirmSpawn = MobUtils.getMobSpawnLocation(player);
 
             LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(confirmSpawn, entityType);
-            livingMob.setCustomName(author);
+            livingMob.customName(Component.text(author));
             livingMob.setCustomNameVisible(true);
             livingMob.setRemoveWhenFarAway(false);
 

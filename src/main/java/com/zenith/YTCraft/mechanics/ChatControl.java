@@ -21,13 +21,12 @@ import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.MobUtils;
 
-@SuppressWarnings("deprecation")
 public class ChatControl implements Runnable {
 
     private static int viewers;
     private static int currentSubscriberCount;
     public static LocalDateTime ReadTimeStamp;
-    
+
     public static void setTimeStamp(LocalDateTime TS) {
         ReadTimeStamp = TS;
     }
@@ -39,7 +38,7 @@ public class ChatControl implements Runnable {
             if (ReadTimeStamp == null) {
                 ReadTimeStamp = MobUtils.getGMTTimeNow();
             }
-            
+
             viewers = YoutubeAPI.getConcurrentViewers().intValue();
             PluginState.setSubscriberCount(YoutubeAPI.getSubscribers().intValue());
 
@@ -54,8 +53,8 @@ public class ChatControl implements Runnable {
             for (LiveChatMessage message : Chats) {
 
                 LocalDateTime MessageTimeStamp = MobUtils.getMessageTime(message);
-                
-                if (MessageTimeStamp.compareTo(ReadTimeStamp) > 0 ) {
+
+                if (MessageTimeStamp.compareTo(ReadTimeStamp) > 0) {
 
                     String author = message.getAuthorDetails().getDisplayName();
                     String text = message.getSnippet().getDisplayMessage();
@@ -70,34 +69,34 @@ public class ChatControl implements Runnable {
 
                         EntityType userArgEntityType = null;
 
-                        if(chatArgs.length==2){
+                        if (chatArgs.length == 2) {
                             userArgEntityType = EntityType.valueOf(chatArgs[1].toUpperCase());
                         }
 
                         //!MobManager.getAliveAuthorMobChannelIds().contains(channelId)
-                        if (!MobManager.getAliveAuthorMobChannelIds().contains(channelId) || viewers<=10) {
-                            if(userArgEntityType!=null && MobUtils.isEntityType_To_NViewers(chatArgs,viewers)){
-                                MobSpawning.addMob(userArgEntityType,author,channelId);
+                        if (!MobManager.getAliveAuthorMobChannelIds().contains(channelId) || viewers <= 10) {
+                            if (userArgEntityType != null && MobUtils.isEntityType_To_NViewers(chatArgs, viewers)) {
+                                MobSpawning.addMob(userArgEntityType, author, channelId);
                             }
                         }
 
-                    } else if (text!=null && text.startsWith("give") && PluginState.isItemSpawnEnabled()) {
+                    } else if (text != null && text.startsWith("give") && PluginState.isItemSpawnEnabled()) {
                         String[] charArgs = text.split(" +");
 
-                        Bukkit.getLogger().info("Args ::"+Arrays.toString(charArgs));
+                        Bukkit.getLogger().info("Args ::" + Arrays.toString(charArgs));
 
-                        if(charArgs.length<=3 && charArgs.length>1) {
+                        if (charArgs.length <= 3 && charArgs.length > 1) {
 
-                            Material material =  Material.getMaterial(charArgs[1].toUpperCase());
+                            Material material = Material.getMaterial(charArgs[1].toUpperCase());
 
-                            Bukkit.getLogger().info("Material ::"+ material.toString());
+                            Bukkit.getLogger().info("Material ::" + material.toString());
                             int count = 1;
-                            if(charArgs.length==3){
-                                count = Math.min(Integer.parseInt(charArgs[2]),16);
+                            if (charArgs.length == 3) {
+                                count = Math.min(Integer.parseInt(charArgs[2]), 16);
                             }
-                            if(material.isItem()) {
+                            if (material.isItem()) {
                                 Bukkit.getLogger().info("Passed Item Check");
-                                ItemStack itemStack = new ItemStack(material,count);
+                                ItemStack itemStack = new ItemStack(material, count);
 
                                 ItemMeta meta = itemStack.getItemMeta();
                                 PersistentDataContainer data = meta.getPersistentDataContainer();
@@ -111,7 +110,7 @@ public class ChatControl implements Runnable {
                                     PluginState.getStreamer().getWorld().dropItemNaturally(playerLocation, itemStack);
                                 }
 
-                                MobUtils.sendAuthorItemSpawnMessage(itemStack,author);
+                                MobUtils.sendAuthorItemSpawnMessage(itemStack, author);
                             }
                         }
                     }

@@ -51,7 +51,7 @@ public class YTCraftCommand implements CommandExecutor, TabExecutor {
                     isYoutubeTaskActive = true;
 
                     Bukkit.broadcast(Component.text("YTCraft Successfully Started.").color(NamedTextColor.GREEN));
-                    Bukkit.broadcast(Component.text(commandSender.getName().toString()).color(NamedTextColor.YELLOW).append(Component.text(" has been set as Streamer.").color(NamedTextColor.WHITE)));
+                    Bukkit.broadcast(Component.text(commandSender.getName().toString()).color(NamedTextColor.YELLOW).append(Component.text(" has been set as Streamer. ///").color(NamedTextColor.WHITE)));
 
                     Pluginboard.createNewScoreBoard(PluginState.getStreamer());
                 }

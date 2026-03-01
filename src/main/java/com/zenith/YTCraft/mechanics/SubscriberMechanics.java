@@ -9,6 +9,8 @@ import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.MobUtils;
 
+import net.kyori.adventure.text.Component;
+
 public class SubscriberMechanics {
 
     public static int SubscriberCountLimit=0;
@@ -26,7 +28,7 @@ public class SubscriberMechanics {
                 Location confirmSpawn = MobUtils.getMobSpawnLocation(player);
 
                 LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(confirmSpawn, EntityType.WITHER);
-                livingMob.setCustomName("Subscriber");
+                livingMob.customName(Component.text("Subscriber"));
                 livingMob.setCustomNameVisible(true);
                 livingMob.setRemoveWhenFarAway(false);
 
