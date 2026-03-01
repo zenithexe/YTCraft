@@ -1,5 +1,7 @@
 .vscode/
 
+.mc-server
+
 # User-specific stuff
 .idea/
 

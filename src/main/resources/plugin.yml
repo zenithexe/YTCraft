@@ -1,6 +1,6 @@
 name: YTCraft
 version: '${project.version}'
-main: mod.zenith.ytcraft.YTCraft
+main: com.zenith.YTCraft.YTCraft
 api-version: '1.20'
 commands:
   YTSettings:
