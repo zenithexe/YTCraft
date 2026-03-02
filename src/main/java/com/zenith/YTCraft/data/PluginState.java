@@ -11,7 +11,7 @@ public class PluginState {
     private static int restTimeMin = 5;
     private static int restTimeSec = 0;
 
-    private static boolean isActiveMode = false;
+    private static boolean isChatControlEnabled = false;
 
     private static int mobSpawnRadius = 2;
 
@@ -45,12 +45,12 @@ public class PluginState {
         return new int[]{restTimeMin, restTimeSec};
     }
 
-    public static boolean isActiveMode() {
-        return isActiveMode;
+    public static boolean isChatControlEnabled() {
+        return isChatControlEnabled;
     }
 
-    public static void setActiveMode(boolean active) {
-        isActiveMode = active;
+    public static void setChatControl(boolean active) {
+        isChatControlEnabled = active;
     }
 
     public static int getMobSpawnRadius() {

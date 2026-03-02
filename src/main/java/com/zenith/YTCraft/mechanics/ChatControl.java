@@ -34,7 +34,7 @@ public class ChatControl implements Runnable {
     @Override
     public void run() {
 
-        if (PluginState.isActiveMode()) {
+        if (PluginState.isChatControlEnabled()) {
             if (ReadTimeStamp == null) {
                 ReadTimeStamp = MobUtils.getGMTTimeNow();
             }

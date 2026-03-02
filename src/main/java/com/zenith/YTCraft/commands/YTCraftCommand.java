@@ -21,6 +21,7 @@ import com.zenith.YTCraft.mechanics.MobSpawning;
 import com.zenith.YTCraft.mechanics.SubscriberMechanics;
 import com.zenith.YTCraft.timer.PluginTimer;
 import com.zenith.YTCraft.ui.BlankBoard;
+import com.zenith.YTCraft.ui.GameModeBossBar;
 import com.zenith.YTCraft.ui.Pluginboard;
 import com.zenith.YTCraft.util.MobUtils;
 
@@ -32,58 +33,74 @@ public class YTCraftCommand implements CommandExecutor, TabExecutor {
     private static BukkitTask YoutubeTask;
     private static BukkitTask TimerTask;
     private static BukkitTask MobSpawnTask;
-    private static boolean isYoutubeTaskActive = false;
 
-    @SuppressWarnings("deprecation")
+    private static boolean isYTCraftStart = false;
+
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        Player p = (Player) commandSender;
 
-        if (commandSender instanceof Player) {
-            if (args.length == 1 && args[0].equalsIgnoreCase("start")) {
-                if (!isYoutubeTaskActive) {
-                    PluginState.setStreamer((Player) commandSender);
-
-                    YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 3);
-                    TimerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
-                    MobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(), 0, 20L);
-                    isYoutubeTaskActive = true;
-
-                    Bukkit.broadcast(Component.text("YTCraft Successfully Started.").color(NamedTextColor.GREEN));
-                    Bukkit.broadcast(Component.text(commandSender.getName().toString()).color(NamedTextColor.YELLOW).append(Component.text(" has been set as Streamer. ///").color(NamedTextColor.WHITE)));
-
-                    Pluginboard.createNewScoreBoard(PluginState.getStreamer());
-                } else {
-                    Bukkit.broadcast(Component.text("Already Running.").color(NamedTextColor.YELLOW));
-                }
-                return true;
-            } else if (args.length == 1 && args[0].equals("end")) {
-
-                
-                if (isYoutubeTaskActive) {
-
-                    YoutubeTask.cancel();
-                    TimerTask.cancel();
-                    MobSpawnTask.cancel();
-
-                    isYoutubeTaskActive = false;
-                    ChatControl.setTimeStamp(null);
-
-                    MobUtils.killAllAuthorMobs();
-                    MobUtils.clearAllAuthorItems();
-                    SubscriberMechanics.SubscriberCountLimit = 0;
-                    BlankBoard.createBlankBoard();
-                    Bukkit.broadcast(Component.text("Session Successfully Ended.").color(NamedTextColor.RED));
-
-                } else {
-                    Bukkit.broadcast(Component.text("No Running session.").color(NamedTextColor.YELLOW));
-                }
-                return true;
-            }
-        } else {
+        if (!(commandSender instanceof Player)) {
             commandSender.sendMessage("Only a Players can execute this command");
             return true;
         }
+
+        //For - start 
+        if (args.length == 1 && args[0].equalsIgnoreCase("start")) {
+
+            if (isYTCraftStart) {
+                Bukkit.broadcast(Component.text("Already Running.").color(NamedTextColor.YELLOW));
+                return true;
+            }
+
+            PluginState.setStreamer((Player) commandSender);
+
+            YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 3);
+            TimerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
+            MobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(), 0, 20L);
+
+            isYTCraftStart = true;
+
+            Bukkit.broadcast(Component.text("YTCraft Successfully Started.").color(NamedTextColor.GREEN));
+
+            Bukkit.broadcast(Component.text(commandSender.getName().toString()).color(NamedTextColor.YELLOW).append(Component.text(" has been set as Streamer.").color(NamedTextColor.WHITE)));
+
+            Pluginboard.createNewScoreBoard(PluginState.getStreamer());
+            
+            //Create Boss Bar
+            GameModeBossBar.createBossBar(PluginState.getStreamer());
+
+            return true;
+
+        }
+
+        // For - end
+        if (args.length == 1 && args[0].equals("end")) {
+
+            if (!isYTCraftStart) {
+                Bukkit.broadcast(Component.text("No Running session.").color(NamedTextColor.YELLOW));
+                return true;
+            }
+
+            YoutubeTask.cancel();
+            TimerTask.cancel();
+            MobSpawnTask.cancel();
+
+            isYTCraftStart = false;
+            ChatControl.setTimeStamp(null);
+
+            MobUtils.killAllAuthorMobs();
+            MobUtils.clearAllAuthorItems();
+            SubscriberMechanics.SubscriberCountLimit = 0;
+            BlankBoard.createBlankBoard();
+            
+            //Remove Boss Bar
+            GameModeBossBar.removeBossBar();
+            
+            Bukkit.broadcast(Component.text("Session Successfully Ended.").color(NamedTextColor.RED));
+
+            return true;
+        }
+
         return false;
     }
 

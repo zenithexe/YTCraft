@@ -21,6 +21,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 public class YoutubeAPI {
+
     private static final String APP_NAME = "YTCraft-MinecraftPlugin";
     private static String API_KEY;
     private static String VIDEO_ID;
@@ -32,24 +33,24 @@ public class YoutubeAPI {
         VIDEO_ID = videoId;
         setChannelId();
         setLiveChatId();
-        if(LIVE_CHAT_ID==null){
+
+        if (LIVE_CHAT_ID == null) {
             Bukkit.broadcast(Component.text("Error :: Can't Set ChatID.").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is of a Livestream.").color(NamedTextColor.YELLOW));
         }
     }
 
-    private static void setLiveChatId(){
+    private static void setLiveChatId() {
         VideoLiveStreamingDetails stream = getVideo("liveStreamingDetails").getLiveStreamingDetails();
-        if(stream!=null){
+        if (stream != null) {
             LIVE_CHAT_ID = stream.getActiveLiveChatId();
             Bukkit.getLogger().info(":::: Live-Chat ID is Set ::::");
-        }
-        else{
+        } else {
             Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
         }
     }
 
-    private static void setChannelId(){
+    private static void setChannelId() {
         CHANNEL_ID = getVideo("snippet").getSnippet().getChannelId();
     }
 
@@ -80,7 +81,7 @@ public class YoutubeAPI {
             VideoListResponse res = req.execute();
             Bukkit.getLogger().info(":::: GET-Video Youtube API called ::::");
             return res.getItems().get(0);
-            
+
         } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Video").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is correct.").color(NamedTextColor.YELLOW));
@@ -89,32 +90,28 @@ public class YoutubeAPI {
     }
 
     public static BigInteger getSubscribers() {
-        try{
+        try {
 
             YouTube.Channels.List req = getYoutube().channels().list("statistics");
             req.setKey(API_KEY);
             req.setId(CHANNEL_ID);
 
-            ChannelListResponse response =  req.execute();
+            ChannelListResponse response = req.execute();
             Channel channel = response.getItems().get(0);
             BigInteger subscriberCount = channel.getStatistics().getSubscriberCount();
-            Bukkit.getLogger().info(":::: GET-Subscriber === "+subscriberCount+"  ::::");
+            Bukkit.getLogger().info(":::: GET-Subscriber === " + subscriberCount + "  ::::");
             return subscriberCount;
 
-        } catch(Exception e){
+        } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Subscriber Count.").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is correct.").color(NamedTextColor.YELLOW));
             return BigInteger.ZERO;
         }
     }
 
-
-
- 
-
     public static List<LiveChatMessage> getChats() {
         try {
-            if(LIVE_CHAT_ID==null){
+            if (LIVE_CHAT_ID == null) {
                 Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
                 return null;
             }
@@ -133,20 +130,17 @@ public class YoutubeAPI {
         }
     }
 
-
-    public static BigInteger getConcurrentViewers(){
-        try{
-            BigInteger concurrentViewers =  getVideo("liveStreamingDetails").getLiveStreamingDetails().getConcurrentViewers();
-            Bukkit.getLogger().info(":::: GET-Viewers === "+concurrentViewers+"  ::::");
+    public static BigInteger getConcurrentViewers() {
+        try {
+            BigInteger concurrentViewers = getVideo("liveStreamingDetails").getLiveStreamingDetails().getConcurrentViewers();
+            Bukkit.getLogger().info(":::: GET-Viewers === " + concurrentViewers + "  ::::");
             return concurrentViewers;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Live-Watching Count.").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is of a Livestream.").color(NamedTextColor.YELLOW));
             return BigInteger.ZERO;
         }
 
     }
-
 
 }

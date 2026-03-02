@@ -12,16 +12,17 @@ import net.kyori.adventure.text.Component;
 
 public class SubscriberMechanics {
 
-    public static int SubscriberCountLimit=0;
-    public static void spawnMob(int currentSubscriberCount){
-        if(SubscriberCountLimit==0){
-            SubscriberCountLimit=currentSubscriberCount;
+    public static int SubscriberCountLimit = 0;
+
+    public static void spawnMob(int currentSubscriberCount) {
+        if (SubscriberCountLimit == 0) {
+            SubscriberCountLimit = currentSubscriberCount;
             return;
         }
 
-        if(currentSubscriberCount>SubscriberCountLimit){
-            int subscriberGained = currentSubscriberCount-SubscriberCountLimit;
-            for(int i=1;i<=subscriberGained;i++){
+        if (currentSubscriberCount > SubscriberCountLimit) {
+            int subscriberGained = currentSubscriberCount - SubscriberCountLimit;
+            for (int i = 1; i <= subscriberGained; i++) {
                 Player player = PluginState.getStreamer();
                 Location playerLocation = player.getLocation();
                 Location confirmSpawn = MobUtils.getMobSpawnLocation(player);
@@ -31,13 +32,13 @@ public class SubscriberMechanics {
                 livingMob.setCustomNameVisible(true);
                 livingMob.setRemoveWhenFarAway(false);
 
-                MobUtils.setAuthorMobNBT(livingMob,"RandomChannelId");
+                MobUtils.setAuthorMobNBT(livingMob, "RandomChannelId");
                 MobUtils.addAuthorMobData(livingMob, "New Subscriber", "RandomChannelId");
 
-                MobUtils.sendAuthorMobSpawnMessage(livingMob,"New Subscriber");
+                MobUtils.sendAuthorMobSpawnMessage(livingMob, "New Subscriber");
 
             }
-            SubscriberCountLimit=currentSubscriberCount;
+            SubscriberCountLimit = currentSubscriberCount;
         }
     }
 
