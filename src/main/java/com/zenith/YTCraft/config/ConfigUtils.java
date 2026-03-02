@@ -45,7 +45,7 @@ public class ConfigUtils {
         for (String viewLevel : viewLevels) {
             List<String> values = mobs.getStringList(viewLevel);
             for (String value : values) {
-                MobManager.getEntityTypeToViewersMap().put(value, Integer.parseInt(viewLevel));
+                MobManager.getEntityTypeToMinViewers().put(value, Integer.parseInt(viewLevel));
             }
         }
         Bukkit.getLogger().info("EntityType to Viewers Mapping Configuration done.");

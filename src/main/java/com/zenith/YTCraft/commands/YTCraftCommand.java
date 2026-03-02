@@ -27,13 +27,12 @@ import com.zenith.YTCraft.util.MobUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-
 public class YTCraftCommand implements CommandExecutor, TabExecutor {
 
     private static BukkitTask YoutubeTask;
     private static BukkitTask TimerTask;
     private static BukkitTask MobSpawnTask;
-    private static boolean isYoutubeTaskActive=false;
+    private static boolean isYoutubeTaskActive = false;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -41,47 +40,47 @@ public class YTCraftCommand implements CommandExecutor, TabExecutor {
         Player p = (Player) commandSender;
 
         if (commandSender instanceof Player) {
-            if (args.length==1 && args[0].equalsIgnoreCase("start")){
-                if(!isYoutubeTaskActive) {
+            if (args.length == 1 && args[0].equalsIgnoreCase("start")) {
+                if (!isYoutubeTaskActive) {
                     PluginState.setStreamer((Player) commandSender);
 
                     YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 3);
                     TimerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
-                    MobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(),0,20L);
+                    MobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(), 0, 20L);
                     isYoutubeTaskActive = true;
 
                     Bukkit.broadcast(Component.text("YTCraft Successfully Started.").color(NamedTextColor.GREEN));
                     Bukkit.broadcast(Component.text(commandSender.getName().toString()).color(NamedTextColor.YELLOW).append(Component.text(" has been set as Streamer. ///").color(NamedTextColor.WHITE)));
 
                     Pluginboard.createNewScoreBoard(PluginState.getStreamer());
-                }
-                else{
+                } else {
                     Bukkit.broadcast(Component.text("Already Running.").color(NamedTextColor.YELLOW));
                 }
                 return true;
-            }
-            else if(args.length==1 && args[0].equals("end")){
-                if(isYoutubeTaskActive){
+            } else if (args.length == 1 && args[0].equals("end")) {
+
+                
+                if (isYoutubeTaskActive) {
 
                     YoutubeTask.cancel();
                     TimerTask.cancel();
+                    MobSpawnTask.cancel();
+
                     isYoutubeTaskActive = false;
                     ChatControl.setTimeStamp(null);
 
                     MobUtils.killAllAuthorMobs();
                     MobUtils.clearAllAuthorItems();
-                    SubscriberMechanics.SubscriberCountLimit=0;
+                    SubscriberMechanics.SubscriberCountLimit = 0;
                     BlankBoard.createBlankBoard();
                     Bukkit.broadcast(Component.text("Session Successfully Ended.").color(NamedTextColor.RED));
 
-                }
-                else{
-                    Bukkit.broadcast(Component.text("No Running session.").color(NamedTextColor.YELLOW)) ;
+                } else {
+                    Bukkit.broadcast(Component.text("No Running session.").color(NamedTextColor.YELLOW));
                 }
                 return true;
             }
-        }
-        else{
+        } else {
             commandSender.sendMessage("Only a Players can execute this command");
             return true;
         }
@@ -89,14 +88,13 @@ public class YTCraftCommand implements CommandExecutor, TabExecutor {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length==1){
-            return Arrays.asList("start","end");
+    public @Nullable
+    List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (args.length == 1) {
+            return Arrays.asList("start", "end");
         }
 
         return new ArrayList<>();
     }
-
-
 
 }

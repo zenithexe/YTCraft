@@ -74,7 +74,7 @@ public class ChatControl implements Runnable {
                         }
 
                         //!MobManager.getAliveAuthorMobChannelIds().contains(channelId)
-                        if (!MobManager.getAliveAuthorMobChannelIds().contains(channelId) || viewers <= 10) {
+                        if (!MobManager.getChannelIdToAuthorMob().containsKey(channelId) || viewers <= 10) {
                             if (userArgEntityType != null && MobUtils.isEntityType_To_NViewers(chatArgs, viewers)) {
                                 MobSpawning.addMob(userArgEntityType, author, channelId);
                             }

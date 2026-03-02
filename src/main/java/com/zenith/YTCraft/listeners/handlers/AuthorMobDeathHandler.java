@@ -15,9 +15,7 @@ public class AuthorMobDeathHandler {
         {
             String spawnedChannelId = entity.getPersistentDataContainer().get(new NamespacedKey(YTCraft.getPlugin(), "SpawnedChannelId"), PersistentDataType.STRING);
 
-            MobManager.getAliveAuthorMobChannelIds().remove(spawnedChannelId);
-
-            MobManager.getChannelIdToAuthorMobMap().remove(spawnedChannelId);
+            MobManager.getChannelIdToAuthorMob().remove(spawnedChannelId);
 
             TabList.updateFooterTabList();
             TabList.updateHeaderTabList();

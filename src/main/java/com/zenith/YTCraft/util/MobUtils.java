@@ -3,8 +3,6 @@ package com.zenith.YTCraft.util;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,10 +21,11 @@ import org.bukkit.persistence.PersistentDataType;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.model.LiveChatMessage;
-import com.zenith.YTCraft.ui.TabList;
 import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.types.AuthorMob;
+import com.zenith.YTCraft.ui.TabList;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -43,8 +42,8 @@ public class MobUtils {
     }
 
     public static boolean isEntityType_To_NViewers(String[] chatArgs, int viewers) {
-        return (MobManager.getEntityTypeToViewersMap().containsKey(chatArgs[1].toUpperCase())
-                && MobManager.getEntityTypeToViewersMap().get(chatArgs[1].toUpperCase()) <= viewers);
+        return (MobManager.getEntityTypeToMinViewers().containsKey(chatArgs[1].toUpperCase())
+                && MobManager.getEntityTypeToMinViewers().get(chatArgs[1].toUpperCase()) <= viewers);
     }
 
     public static void entityTaming(LivingEntity creature, Player p) {
@@ -61,12 +60,8 @@ public class MobUtils {
     }
 
     public static void addAuthorMobData(LivingEntity creature, String author, String channelId) {
-        MobManager.getAliveAuthorMobChannelIds().add(channelId);
-
-        Map<String, String> AuthorMob = new HashMap<String, String>() {{
-            put(author, creature.getType().toString());
-        }};
-        MobManager.getChannelIdToAuthorMobMap().put(channelId, AuthorMob);
+        AuthorMob authorMob = new AuthorMob(channelId, author, creature);
+        MobManager.getChannelIdToAuthorMob().put(channelId, authorMob);
     }
 
     public static void sendAuthorMobSpawnMessage(LivingEntity creature, String author) {
@@ -92,18 +87,12 @@ public class MobUtils {
     }
 
     public static void killAllAuthorMobs() {
-        for (LivingEntity creature : MobManager.getAliveAuthorMobsList()) {
-            String spawnedChannelId = creature.getPersistentDataContainer().get(new NamespacedKey(YTCraft.getPlugin(), "SpawnedChannelId"), PersistentDataType.STRING);
+        for (AuthorMob authorMob : MobManager.getChannelIdToAuthorMob().values()) {
+            LivingEntity creature = authorMob.getMob();
             creature.setHealth(0);
-
-            if (MobManager.getChannelIdToAuthorMobMap().containsKey(spawnedChannelId)) {
-                MobManager.getChannelIdToAuthorMobMap().remove(spawnedChannelId);
-            }
-
-            if (MobManager.getAliveAuthorMobChannelIds().contains(spawnedChannelId)) {
-                MobManager.getAliveAuthorMobChannelIds().remove(spawnedChannelId);
-            }
         }
+        
+        MobManager.getChannelIdToAuthorMob().clear();
 
         TabList.updateFooterTabList();
         TabList.updateHeaderTabList();

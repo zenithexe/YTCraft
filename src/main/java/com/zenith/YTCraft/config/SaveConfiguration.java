@@ -12,6 +12,7 @@ public class SaveConfiguration {
 
         config.set("ACTIVE_TIME", PluginState.getActiveTime());
         config.set("REST_TIME", PluginState.getRestTime());
+
         YTCraft.getPlugin().saveConfig();
     }
 }

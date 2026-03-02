@@ -8,8 +8,6 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.jetbrains.annotations.NotNull;
 
 import com.zenith.YTCraft.data.PluginState;
-import com.zenith.YTCraft.data.MobManager;
-import com.zenith.YTCraft.data.SpawnQueue;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -18,7 +16,7 @@ import net.kyori.adventure.title.Title;
 
 public class Titles {
 
-    private static Player player = PluginState.getStreamer();
+    private static Player streamer = PluginState.getStreamer();
 
     public static void showTimerActiveTitle(final @NonNull Audience target) {
 
@@ -31,11 +29,11 @@ public class Titles {
 
         // Send the title to your audience
         target.showTitle(title);
-        player.playSound(player.getLocation(), Sound.ENTITY_TNT_PRIMED, 1.0f, 1.0f);
+        streamer.playSound(streamer.getLocation(), Sound.ENTITY_TNT_PRIMED, 1.0f, 1.0f);
 
     }
 
-    public static void showTimerRestTitle(final @NotNull Audience target){
+    public static void showTimerRestTitle(final @NotNull Audience target) {
 
         final Component mainTitle = Component.text("Rest Time", NamedTextColor.RED);
         final Component subtitle = Component.text("Viewers actions disabled.", NamedTextColor.WHITE);
@@ -46,7 +44,7 @@ public class Titles {
 
         // Send the title to your audience
         target.showTitle(title);
-        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_CELEBRATE, 1.0f, 1.0f);
+        streamer.playSound(streamer.getLocation(), Sound.ENTITY_VILLAGER_CELEBRATE, 1.0f, 1.0f);
 
     }
 }

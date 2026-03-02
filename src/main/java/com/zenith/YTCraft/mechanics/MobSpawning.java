@@ -5,7 +5,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
-import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.ui.TabList;
@@ -34,6 +33,7 @@ public class MobSpawning implements Runnable {
             Location confirmSpawn = MobUtils.getMobSpawnLocation(player);
 
             LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(confirmSpawn, entityType);
+
             livingMob.customName(Component.text(author));
             livingMob.setCustomNameVisible(true);
             livingMob.setRemoveWhenFarAway(false);
@@ -41,7 +41,6 @@ public class MobSpawning implements Runnable {
             MobUtils.entityTaming(livingMob,player);
             MobUtils.setAuthorMobNBT(livingMob,channelId);
             MobUtils.addAuthorMobData(livingMob,author,channelId);
-            MobManager.getAliveAuthorMobsList().add(livingMob);
 
             TabList.updateHeaderTabList();
             TabList.updateFooterTabList();

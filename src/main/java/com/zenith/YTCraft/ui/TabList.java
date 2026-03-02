@@ -1,14 +1,9 @@
 package com.zenith.YTCraft.ui;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-
 import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.types.AuthorMob;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -16,56 +11,50 @@ import net.kyori.adventure.text.format.TextDecoration;
 
 public class TabList {
 
-    private static List<NamedTextColor> colors = new ArrayList<NamedTextColor>() {
-        {
-            add(NamedTextColor.YELLOW);
-            add(NamedTextColor.RED);
-            add(NamedTextColor.GREEN);
-        }
-    };
-
     public static void updateHeaderTabList() {
         Component header = Component.text("Spawned Mobs :: 0").color(NamedTextColor.GREEN);
-        if (!MobManager.getChannelIdToAuthorMobMap().isEmpty()) {
-            header = Component.text("Spawned Mobs :: " + MobManager.getChannelIdToAuthorMobMap().values().toArray().length)
+
+        if (!MobManager.getChannelIdToAuthorMob().isEmpty()) {
+            header = Component.text("Spawned Mobs :: " + MobManager.getChannelIdToAuthorMob().size())
                     .color(NamedTextColor.GREEN);
         }
+        
         YTCraft.getPlugin().adventure().player(PluginState.getStreamer()).sendPlayerListHeader(header);
     }
 
     public static void updateFooterTabList() {
-        Component footer = Component.text("");
-
-        if (!MobManager.getChannelIdToAuthorMobMap().isEmpty()) {
-            String dataString = MobManager.getChannelIdToAuthorMobMap().values().toString();
-            int length = dataString.length();
-            dataString = dataString.substring(1, length - 1);
-
-            int i = 0;
-            String AuthorMobs[] = dataString.split(",");
-            Bukkit.getLogger().info(Arrays.toString(AuthorMobs));
-
-            for (String authorMob : AuthorMobs) {
-                String displayString = authorMob.trim();
-                Bukkit.getLogger().info("DisplayString >>>>>>>>>>>>>>>>> :: " + displayString);
-
-                displayString = displayString.substring(1, displayString.length() - 1);
-                Bukkit.getLogger().info("DisplayString After Sub >>>>>>>>>>>>>>>>> :: " + displayString);
-
-                String[] elements = displayString.split("=");
-
-                footer = footer.append(
-                        Component.text(elements[0].trim()).color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD));
-                footer = footer.append(Component.text(" : "));
-                footer = footer.append(Component.text(elements[1].trim()).color(NamedTextColor.WHITE));
-
-                if (i == AuthorMobs.length - 1) {
-                    continue;
-                }
-                footer = footer.append(Component.text(" || ").color(NamedTextColor.RED));
-                i++;
-            }
+        if (MobManager.getChannelIdToAuthorMob().isEmpty()) {
+            YTCraft.getPlugin().adventure().player(PluginState.getStreamer()).sendPlayerListFooter(Component.empty());
+            return;
         }
+
+        Component footer = Component.text("\n")
+                .append(Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━").color(NamedTextColor.DARK_GRAY))
+                .append(Component.text("\n"))
+                .append(Component.text("  Active Viewer Mobs").color(NamedTextColor.GOLD).decorate(TextDecoration.BOLD))
+                .append(Component.text("\n"));
+
+        int index = 0;
+        for (AuthorMob authorMob : MobManager.getChannelIdToAuthorMob().values()) {
+            String author = authorMob.getAuthor();
+            String mobType = authorMob.getMob().getType().toString();
+
+            // Alternate colors for better readability
+            NamedTextColor authorColor = (index % 2 == 0) ? NamedTextColor.YELLOW : NamedTextColor.AQUA;
+
+            footer = footer.append(Component.text("\n  ● ").color(NamedTextColor.GREEN))
+                    .append(Component.text(author).color(authorColor).decorate(TextDecoration.BOLD))
+                    .append(Component.text(" → ").color(NamedTextColor.DARK_GRAY))
+                    .append(Component.text(mobType).color(NamedTextColor.WHITE));
+
+            index++;
+        }
+
+        footer = footer.append(Component.text("\n"))
+                .append(Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━").color(NamedTextColor.DARK_GRAY))
+                .append(Component.text("\n"));
+
         YTCraft.getPlugin().adventure().player(PluginState.getStreamer()).sendPlayerListFooter(footer);
     }
+
 }
