@@ -3,11 +3,7 @@ version: '${project.version}'
 main: com.zenith.YTCraft.YTCraft
 api-version: '1.21'
 commands:
-  YTSettings:
-    description: "Settings for YTCraft Plugin."
-
-
   YTCraft:
-    description: "Starts or Ends YTCraft Session."
-    usage: "/ytcraft [start,end]"
-    alias:  ["yt"]
+    description: "YTCraft main command"
+    usage: "/ytcraft [start|end|settings]"
+    aliases: ["yt"]

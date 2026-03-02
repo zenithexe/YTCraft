@@ -1,117 +1,99 @@
 package com.zenith.YTCraft.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.zenith.YTCraft.YTCraft;
-import com.zenith.YTCraft.data.PluginState;
-import com.zenith.YTCraft.mechanics.ChatControl;
-import com.zenith.YTCraft.mechanics.MobSpawning;
-import com.zenith.YTCraft.mechanics.SubscriberMechanics;
-import com.zenith.YTCraft.timer.PluginTimer;
-import com.zenith.YTCraft.ui.BlankBoard;
-import com.zenith.YTCraft.ui.GameModeBossBar;
-import com.zenith.YTCraft.ui.Pluginboard;
-import com.zenith.YTCraft.util.MobUtils;
+import com.zenith.YTCraft.commands.subcommands.EndSubcommand;
+import com.zenith.YTCraft.commands.subcommands.StartSubcommand;
+import com.zenith.YTCraft.commands.subcommands.Subcommand;
+import com.zenith.YTCraft.commands.subcommands.settings.SettingsSubcommand;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-public class YTCraftCommand implements CommandExecutor, TabExecutor {
+public class YTCraftCommand implements TabExecutor {
 
-    private static BukkitTask YoutubeTask;
-    private static BukkitTask TimerTask;
-    private static BukkitTask MobSpawnTask;
+    private final Map<String, Subcommand> subcommands = new HashMap<>();
 
-    private static boolean isYTCraftStart = false;
+    public YTCraftCommand() {
+        registerSubcommand(new StartSubcommand());
+        registerSubcommand(new EndSubcommand());
+        registerSubcommand(new SettingsSubcommand());
+    }
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
-        if (!(commandSender instanceof Player)) {
-            commandSender.sendMessage("Only a Players can execute this command");
-            return true;
-        }
-
-        //For - start 
-        if (args.length == 1 && args[0].equalsIgnoreCase("start")) {
-
-            if (isYTCraftStart) {
-                Bukkit.broadcast(Component.text("Already Running.").color(NamedTextColor.YELLOW));
-                return true;
-            }
-
-            PluginState.setStreamer((Player) commandSender);
-
-            YoutubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 3);
-            TimerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
-            MobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(), 0, 20L);
-
-            isYTCraftStart = true;
-
-            Bukkit.broadcast(Component.text("YTCraft Successfully Started.").color(NamedTextColor.GREEN));
-
-            Bukkit.broadcast(Component.text(commandSender.getName().toString()).color(NamedTextColor.YELLOW).append(Component.text(" has been set as Streamer.").color(NamedTextColor.WHITE)));
-
-            Pluginboard.createNewScoreBoard(PluginState.getStreamer());
-            
-            //Create Boss Bar
-            GameModeBossBar.createBossBar(PluginState.getStreamer());
-
-            return true;
-
-        }
-
-        // For - end
-        if (args.length == 1 && args[0].equals("end")) {
-
-            if (!isYTCraftStart) {
-                Bukkit.broadcast(Component.text("No Running session.").color(NamedTextColor.YELLOW));
-                return true;
-            }
-
-            YoutubeTask.cancel();
-            TimerTask.cancel();
-            MobSpawnTask.cancel();
-
-            isYTCraftStart = false;
-            ChatControl.setTimeStamp(null);
-
-            MobUtils.killAllAuthorMobs();
-            MobUtils.clearAllAuthorItems();
-            SubscriberMechanics.SubscriberCountLimit = 0;
-            BlankBoard.createBlankBoard();
-            
-            //Remove Boss Bar
-            GameModeBossBar.removeBossBar();
-            
-            Bukkit.broadcast(Component.text("Session Successfully Ended.").color(NamedTextColor.RED));
-
-            return true;
-        }
-
-        return false;
+    private void registerSubcommand(Subcommand subcommand) {
+        subcommands.put(subcommand.getName().toLowerCase(), subcommand);
     }
 
     @Override
-    public @Nullable
-    List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        
+        if (args.length == 0) {
+            sendHelp(sender);
+            return true;
+        }
+
+        String subcommandName = args[0].toLowerCase();
+        Subcommand subcommand = subcommands.get(subcommandName);
+
+        if (subcommand == null) {
+            sender.sendMessage(Component.text("Unknown command: " + subcommandName).color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Use /ytcraft for help").color(NamedTextColor.GRAY));
+            return true;
+        }
+
+        // Check permission if required
+        String permission = subcommand.getPermission();
+        if (permission != null && !sender.hasPermission(permission)) {
+            sender.sendMessage(Component.text("You don't have permission to use this command!").color(NamedTextColor.RED));
+            return true;
+        }
+
+        // Pass remaining args to subcommand
+        String[] subArgs = new String[args.length - 1];
+        System.arraycopy(args, 1, subArgs, 0, args.length - 1);
+
+        return subcommand.execute(sender, subArgs);
+    }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        
         if (args.length == 1) {
-            return Arrays.asList("start", "end");
+            List<String> suggestions = new ArrayList<>();
+            for (String name : subcommands.keySet()) {
+                if (name.startsWith(args[0].toLowerCase())) {
+                    suggestions.add(name);
+                }
+            }
+            return suggestions;
+        }
+
+        if (args.length > 1) {
+            Subcommand subcommand = subcommands.get(args[0].toLowerCase());
+            if (subcommand != null) {
+                String[] subArgs = new String[args.length - 1];
+                System.arraycopy(args, 1, subArgs, 0, args.length - 1);
+                return subcommand.tabComplete(sender, subArgs);
+            }
         }
 
         return new ArrayList<>();
     }
 
+    private void sendHelp(CommandSender sender) {
+        sender.sendMessage(Component.text("=== YTCraft Commands ===").color(NamedTextColor.GOLD));
+        for (Subcommand sub : subcommands.values()) {
+            sender.sendMessage(Component.text("  /ytcraft " + sub.getName()).color(NamedTextColor.YELLOW)
+                    .append(Component.text(" - " + sub.getDescription()).color(NamedTextColor.GRAY)));
+        }
+    }
 }

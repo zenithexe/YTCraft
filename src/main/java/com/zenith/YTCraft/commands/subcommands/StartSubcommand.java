@@ -1,0 +1,87 @@
+package com.zenith.YTCraft.commands.subcommands;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
+
+import com.zenith.YTCraft.YTCraft;
+import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.mechanics.ChatControl;
+import com.zenith.YTCraft.mechanics.MobSpawning;
+import com.zenith.YTCraft.timer.PluginTimer;
+import com.zenith.YTCraft.ui.GameModeBossBar;
+import com.zenith.YTCraft.ui.Pluginboard;
+
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+
+public class StartSubcommand implements Subcommand {
+
+    private static BukkitTask youtubeTask;
+    private static BukkitTask timerTask;
+    private static BukkitTask mobSpawnTask;
+    private static boolean isRunning = false;
+
+    @Override
+    public boolean execute(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(Component.text("Only players can execute this command").color(NamedTextColor.RED));
+            return true;
+        }
+
+        if (isRunning) {
+            sender.sendMessage(Component.text("YTCraft is already running!").color(NamedTextColor.YELLOW));
+            return true;
+        }
+
+        Player player = (Player) sender;
+        PluginState.setStreamer(player);
+
+        // Start tasks
+        youtubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 3);
+        timerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
+        mobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(), 0, 20L);
+
+        isRunning = true;
+
+        // Create UI
+        Pluginboard.createNewScoreBoard(player);
+        GameModeBossBar.createBossBar(player);
+
+        Bukkit.broadcast(Component.text("YTCraft Successfully Started!").color(NamedTextColor.GREEN));
+        Bukkit.broadcast(Component.text(player.getName()).color(NamedTextColor.YELLOW)
+                .append(Component.text(" has been set as Streamer.").color(NamedTextColor.WHITE)));
+
+        return true;
+    }
+
+    @Override
+    public List<String> tabComplete(CommandSender sender, String[] args) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getName() {
+        return "start";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Start the YTCraft session";
+    }
+
+    public static boolean isRunning() {
+        return isRunning;
+    }
+
+    public static void stop() {
+        if (youtubeTask != null) youtubeTask.cancel();
+        if (timerTask != null) timerTask.cancel();
+        if (mobSpawnTask != null) mobSpawnTask.cancel();
+        isRunning = false;
+    }
+}

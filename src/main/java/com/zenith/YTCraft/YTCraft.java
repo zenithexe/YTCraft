@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.zenith.YTCraft.commands.YTCraftCommand;
-import com.zenith.YTCraft.commands.YTSettingsCommand;
 import com.zenith.YTCraft.config.Configuration;
 import com.zenith.YTCraft.config.SaveConfiguration;
 import com.zenith.YTCraft.data.MobManager;
@@ -33,7 +32,6 @@ public final class YTCraft extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
 
         //Commands
-        getCommand("YTSettings").setExecutor(new YTSettingsCommand());
         getCommand("YTCraft").setExecutor(new YTCraftCommand());
     }
 
