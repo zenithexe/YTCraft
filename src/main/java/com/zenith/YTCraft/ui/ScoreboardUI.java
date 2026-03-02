@@ -7,6 +7,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
 
 import net.md_5.bungee.api.ChatColor;
@@ -14,64 +15,149 @@ import net.md_5.bungee.api.ChatColor;
 @SuppressWarnings("deprecation")
 public class ScoreboardUI {
 
-    
+    // Team names
+    private static final String TEAM_TIMER_MODE = "TimerMode";
+    private static final String TEAM_TIMER = "Timer";
+    private static final String TEAM_SUBSCRIBER_COUNT = "SubscriberCount";
+    private static final String TEAM_ACTIVE_MOBS = "ActiveMobs";
+    private static final String TEAM_DEATH_COUNT = "DeathCount";
+
+    // Score positions
+    private static final int SCORE_HEADER = 10;
+    private static final int SCORE_SPACER_1 = 9;
+    private static final int SCORE_TIMER_MODE = 8;
+    private static final int SCORE_TIMER = 7;
+    private static final int SCORE_SPACER_2 = 6;
+    private static final int SCORE_SUBSCRIBER_COUNT = 5;
+    private static final int SCORE_SPACER_3 = 4;
+    private static final int SCORE_ACTIVE_MOBS = 3;
+    private static final int SCORE_DEATH_COUNT = 2;
+    private static final int SCORE_SPACER_4 = 1;
+    private static final int SCORE_CREDITS = 0;
+
+    // Default values
+    private static final String DEFAULT_MODE = "Idle";
+    private static final String DEFAULT_TIMER = "00:00";
+    private static final String DEFAULT_SUBS = "0";
+
     public static void createNewScoreBoard(Player player) {
+        if (player == null) return;
 
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-        //Objective is the topic of scoreboard = Title
-        Objective objective = scoreboard.registerNewObjective("YTCraftBoard", "dummy", ChatColor.RED+""+ChatColor.BOLD+"YTCraft");
+        // Create objective with a friendly title
+        Objective objective = scoreboard.registerNewObjective(
+                "YTCraftBoard",
+                "dummy",
+                ChatColor.GOLD + "✦ " + ChatColor.RED + ChatColor.BOLD + "YTCraft" + ChatColor.GOLD + " ✦"
+        );
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        //One score obj is one line in scoreboard
-        objective.getScore(ChatColor.WHITE + "Made by ZenithGG").setScore(5);
-        objective.getScore(ChatColor.WHITE+" ").setScore(4);
+        // Header section
+        objective.getScore(ChatColor.GRAY + "━━━━━━━━━━━━━━━━━━━━━━").setScore(SCORE_HEADER);
+        objective.getScore(ChatColor.WHITE + " ").setScore(SCORE_SPACER_1);
 
-        //TimerMode
-        Team timerMode = scoreboard.registerNewTeam("TimerMode");
-        String timerModeKey = ChatColor.AQUA.toString();
-        timerMode.addEntry(timerModeKey);
-        timerMode.setPrefix("Mode: ");
-        timerMode.setSuffix("None");
+        // // Timer Mode
+        // Team timerMode = scoreboard.registerNewTeam(TEAM_TIMER_MODE);
+        // String timerModeKey = ChatColor.AQUA.toString();
+        // timerMode.addEntry(timerModeKey);
+        // timerMode.setPrefix(ChatColor.AQUA + "⏱ Mode: " + ChatColor.WHITE);
+        // timerMode.setSuffix(DEFAULT_MODE);
+        // objective.getScore(timerModeKey).setScore(SCORE_TIMER_MODE);
 
-        objective.getScore(timerModeKey).setScore(3);
+        // // Timer (uses teams to avoid flicker on updates)
+        // Team timer = scoreboard.registerNewTeam(TEAM_TIMER);
+        // String timerKey = ChatColor.GOLD.toString();
+        // timer.addEntry(timerKey);
+        // timer.setPrefix(ChatColor.GOLD + "⏰ Time: " + ChatColor.WHITE);
+        // timer.setSuffix(DEFAULT_TIMER);
+        // objective.getScore(timerKey).setScore(SCORE_TIMER);
 
-        //Update cause re-render, which may course flicker, that's why we use team
-        Team timer = scoreboard.registerNewTeam("Timer");
-        String timerKey = ChatColor.GOLD.toString();
-        timer.addEntry(timerKey);
-        timer.setPrefix("Timer: ");
-        timer.setSuffix("00:00");
+        // objective.getScore(ChatColor.WHITE + "  ").setScore(SCORE_SPACER_2);
 
-        objective.getScore(timerKey).setScore(2);
-        objective.getScore(ChatColor.WHITE+" ").setScore(1);
+        // Subscriber Count
+        Team subscriberCount = scoreboard.registerNewTeam(TEAM_SUBSCRIBER_COUNT);
+        String subscriberCountKey = ChatColor.RED.toString();
+        subscriberCount.addEntry(subscriberCountKey);
+        subscriberCount.setPrefix(ChatColor.RED + "❤ Subscriber: " + ChatColor.WHITE);
+        subscriberCount.setSuffix(DEFAULT_SUBS);
+        objective.getScore(subscriberCountKey).setScore(SCORE_SUBSCRIBER_COUNT);
 
-        //Subscriber Count
-        Team subscriberCount = scoreboard.registerNewTeam("SubscriberCount");
-        String subcriberCountKey = org.bukkit.ChatColor.RED.toString();
-        subscriberCount.addEntry(subcriberCountKey);
-        subscriberCount.setPrefix("Subs: ");
-        subscriberCount.setSuffix("0");
+        objective.getScore(ChatColor.WHITE + "   ").setScore(SCORE_SPACER_3);
 
-        objective.getScore(subcriberCountKey).setScore(0);
+        // Active Mobs Count
+        Team activeMobs = scoreboard.registerNewTeam(TEAM_ACTIVE_MOBS);
+        String activeMobsKey = ChatColor.GREEN.toString();
+        activeMobs.addEntry(activeMobsKey);
+        activeMobs.setPrefix(ChatColor.GREEN + "⚔ Spawned Mobs: " + ChatColor.WHITE);
+        activeMobs.setSuffix("0");
+        objective.getScore(activeMobsKey).setScore(SCORE_ACTIVE_MOBS);
+
+        // Death Count
+        Team deathCount = scoreboard.registerNewTeam(TEAM_DEATH_COUNT);
+        String deathCountKey = ChatColor.DARK_RED.toString();
+        deathCount.addEntry(deathCountKey);
+        deathCount.setPrefix(ChatColor.DARK_RED + "💀 Death Count: " + ChatColor.WHITE);
+        deathCount.setSuffix("0");
+        objective.getScore(deathCountKey).setScore(SCORE_DEATH_COUNT);
+
+        objective.getScore(ChatColor.WHITE + "    ").setScore(SCORE_SPACER_4);
+
+        // Credits footer
+        objective.getScore(ChatColor.GRAY + "Made by " + ChatColor.GOLD + "ZenithGG").setScore(SCORE_CREDITS);
 
         player.setScoreboard(scoreboard);
     }
 
     public static void updateScoreboard(Player player, String displayMin, String displaySec, String displayTimerMode) {
+        if (player == null) return;
 
-        org.bukkit.scoreboard.Scoreboard scoreboard = player.getScoreboard();
+        Scoreboard scoreboard = player.getScoreboard();
 
-        Team timerMode = scoreboard.getTeam("TimerMode");
-        timerMode.setSuffix(displayTimerMode);
-    
+        // Update timer mode
+        Team timerMode = scoreboard.getTeam(TEAM_TIMER_MODE);
+        if (timerMode != null) {
+            timerMode.setSuffix(displayTimerMode != null ? displayTimerMode : DEFAULT_MODE);
+        }
 
-        Team timer = scoreboard.getTeam("Timer");
-        timer.setSuffix(ChatColor.RED + "" + displayMin + ":" + displaySec );
+        // Update timer with color coding
+        Team timer = scoreboard.getTeam(TEAM_TIMER);
+        if (timer != null) {
+            ChatColor timeColor = getTimerColor(displayTimerMode);
+            String timeDisplay = timeColor + displayMin + ":" + displaySec;
+            timer.setSuffix(timeDisplay);
+        }
 
-        Team subscriberCount = scoreboard.getTeam("SubscriberCount");
-        subscriberCount.setSuffix(""+PluginState.getSubscriberCount());
+        // Update subscriber count
+        Team subscriberCount = scoreboard.getTeam(TEAM_SUBSCRIBER_COUNT);
+        if (subscriberCount != null) {
+            subscriberCount.setSuffix(String.valueOf(PluginState.getSubscriberCount()));
+        }
 
+        // Update active mobs count
+        Team activeMobs = scoreboard.getTeam(TEAM_ACTIVE_MOBS);
+        if (activeMobs != null) {
+            int mobCount = MobManager.getChannelIdToAuthorMob().size();
+            activeMobs.setSuffix(String.valueOf(mobCount));
+        }
+
+        // Update death count
+        Team deathCount = scoreboard.getTeam(TEAM_DEATH_COUNT);
+        if (deathCount != null) {
+            deathCount.setSuffix(String.valueOf(PluginState.getSteamerDeathCount()));
+        }
+    }
+
+    private static ChatColor getTimerColor(String mode) {
+        if (mode == null) return ChatColor.WHITE;
+        switch (mode.toLowerCase()) {
+            case "active":
+                return ChatColor.GREEN;
+            case "rest":
+                return ChatColor.GOLD;
+            default:
+                return ChatColor.WHITE;
+        }
     }
 
 }

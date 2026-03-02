@@ -19,6 +19,8 @@ public class PluginState {
 
     private static int subscriberCount = 0;
 
+    private static int streamerDeathCount = 0;
+
     public static Player getStreamer() {
         return streamer;
     }
@@ -75,5 +77,22 @@ public class PluginState {
 
     public static void setSubscriberCount(int count) {
         subscriberCount = count;
+    }
+
+
+    public static int getSteamerDeathCount() {
+        return streamerDeathCount;
+    }
+
+    public static void setStreamerDeathCount(int count) {
+        streamerDeathCount = count;
+    }
+
+    public static void incrementStreamerDeathCount() {
+        streamerDeathCount++;
+    }
+
+    public static void resetStreamerDeathCount() {
+        streamerDeathCount = 0;
     }
 }

@@ -11,6 +11,7 @@ import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.listeners.EntityDeathListener;
 import com.zenith.YTCraft.listeners.EntityExplodeListener;
+import com.zenith.YTCraft.listeners.PlayerDeathListener;
 import com.zenith.YTCraft.ui.BossBarUI;
 
 public final class YTCraft extends JavaPlugin {
@@ -30,6 +31,7 @@ public final class YTCraft extends JavaPlugin {
         //Event
         getServer().getPluginManager().registerEvents(new EntityDeathListener(), this);
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
 
         //Commands
         getCommand("YTCraft").setExecutor(new YTCraftCommand());
@@ -49,7 +51,8 @@ public final class YTCraft extends JavaPlugin {
         PluginState.setStreamer(null);
         PluginState.setChatControl(false);
         PluginState.setSubscriberCount(0);
-        
+        PluginState.resetStreamerDeathCount();
+
         //Remove Boss Bar
         BossBarUI.removeBossBar();
 
