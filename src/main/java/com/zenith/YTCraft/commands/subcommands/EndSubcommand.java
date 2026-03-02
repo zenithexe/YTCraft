@@ -8,8 +8,8 @@ import org.bukkit.command.CommandSender;
 
 import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.mechanics.SubscriberMechanics;
-import com.zenith.YTCraft.ui.BlankBoard;
-import com.zenith.YTCraft.ui.GameModeBossBar;
+import com.zenith.YTCraft.ui.BlankBoardUI;
+import com.zenith.YTCraft.ui.BossBarUI;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.kyori.adventure.text.Component;
@@ -34,8 +34,8 @@ public class EndSubcommand implements Subcommand {
         SubscriberMechanics.SubscriberCountLimit = 0;
 
         // Remove UI
-        BlankBoard.createBlankBoard();
-        GameModeBossBar.removeBossBar();
+        BlankBoardUI.createBlankBoard();
+        BossBarUI.removeBossBar();
 
         Bukkit.broadcast(Component.text("Session Successfully Ended.").color(NamedTextColor.RED));
 

@@ -11,7 +11,7 @@ import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.listeners.EntityDeathListener;
 import com.zenith.YTCraft.listeners.EntityExplodeListener;
-import com.zenith.YTCraft.ui.GameModeBossBar;
+import com.zenith.YTCraft.ui.BossBarUI;
 
 public final class YTCraft extends JavaPlugin {
 
@@ -51,7 +51,7 @@ public final class YTCraft extends JavaPlugin {
         PluginState.setSubscriberCount(0);
         
         //Remove Boss Bar
-        GameModeBossBar.removeBossBar();
+        BossBarUI.removeBossBar();
 
         //Save Config
         SaveConfiguration.saveYTCraftConfig();

@@ -12,7 +12,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.title.Title;
 
-public class Titles {
+public class TitlesUI {
 
     public static void showTimerActiveTitle() {
         Player streamer = PluginState.getStreamer();

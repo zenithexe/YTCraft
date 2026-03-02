@@ -25,7 +25,7 @@ import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.types.AuthorMob;
-import com.zenith.YTCraft.ui.TabList;
+import com.zenith.YTCraft.ui.TabListUI;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -94,8 +94,8 @@ public class MobUtils {
         
         MobManager.getChannelIdToAuthorMob().clear();
 
-        TabList.updateFooterTabList();
-        TabList.updateHeaderTabList();
+        TabListUI.updateFooterTabList();
+        TabListUI.updateHeaderTabList();
     }
 
     public static void clearAllAuthorItems() {

@@ -6,7 +6,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.data.MobManager;
-import com.zenith.YTCraft.ui.TabList;
+import com.zenith.YTCraft.ui.TabListUI;
 
 public class AuthorMobDeathHandler {
 
@@ -17,8 +17,8 @@ public class AuthorMobDeathHandler {
 
             MobManager.getChannelIdToAuthorMob().remove(spawnedChannelId);
 
-            TabList.updateFooterTabList();
-            TabList.updateHeaderTabList();
+            TabListUI.updateFooterTabList();
+            TabListUI.updateHeaderTabList();
         }
     }
 }

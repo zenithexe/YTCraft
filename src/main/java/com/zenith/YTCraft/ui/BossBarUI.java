@@ -8,7 +8,7 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
-public class GameModeBossBar {
+public class BossBarUI {
 
     private static BossBar bossBar;
 
@@ -33,7 +33,7 @@ public class GameModeBossBar {
         if (bossBar == null) return;
 
         Player streamer = PluginState.getStreamer();
-        
+
         if (streamer == null) return;
 
         boolean isChatMode = PluginState.isChatControlEnabled();

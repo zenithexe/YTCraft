@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.mechanics.ChatControl;
-import com.zenith.YTCraft.ui.GameModeBossBar;
-import com.zenith.YTCraft.ui.Pluginboard;
-import com.zenith.YTCraft.ui.Titles;
+import com.zenith.YTCraft.ui.BossBarUI;
+import com.zenith.YTCraft.ui.ScoreboardUI;
+import com.zenith.YTCraft.ui.TitlesUI;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -118,10 +118,10 @@ public class PluginTimer implements Runnable {
             MobUtils.clearAllAuthorItems();
 
             //Showing Rest Title
-            Titles.showTimerRestTitle();
+            TitlesUI.showTimerRestTitle();
             
             //Update Boss Bar
-            GameModeBossBar.updateBossBar(restMin, restSec, PluginState.getRestTime()[0], PluginState.getRestTime()[1]);
+            BossBarUI.updateBossBar(restMin, restSec, PluginState.getRestTime()[0], PluginState.getRestTime()[1]);
         }
 
         if (restMin == 0 && restSec == 0 && !PluginState.isChatControlEnabled()) {
@@ -134,10 +134,10 @@ public class PluginTimer implements Runnable {
             Bukkit.getLogger().info("API Activated!!! at " + ChatControl.ReadTimeStamp.toString());
             
             //Showing Active Title
-            Titles.showTimerActiveTitle();
+            TitlesUI.showTimerActiveTitle();
             
             //Update Boss Bar
-            GameModeBossBar.updateBossBar(activeMin, activeSec, PluginState.getActiveTime()[0], PluginState.getActiveTime()[1]);
+            BossBarUI.updateBossBar(activeMin, activeSec, PluginState.getActiveTime()[0], PluginState.getActiveTime()[1]);
         }
     }
 
@@ -166,16 +166,16 @@ public class PluginTimer implements Runnable {
         updateTimerMode();
 
         if (player.getScoreboard().getObjective("YTCraftBoard") != null) {
-            Pluginboard.updateScoreboard(player, displayMin, displaySec, displayTimerMode);
+            ScoreboardUI.updateScoreboard(player, displayMin, displaySec, displayTimerMode);
         }
 
         toggleTimer();
         
         //Update Boss Bar every second
         if (PluginState.isChatControlEnabled()) {
-            GameModeBossBar.updateBossBar(activeMin, activeSec, PluginState.getActiveTime()[0], PluginState.getActiveTime()[1]);
+            BossBarUI.updateBossBar(activeMin, activeSec, PluginState.getActiveTime()[0], PluginState.getActiveTime()[1]);
         } else {
-            GameModeBossBar.updateBossBar(restMin, restSec, PluginState.getRestTime()[0], PluginState.getRestTime()[1]);
+            BossBarUI.updateBossBar(restMin, restSec, PluginState.getRestTime()[0], PluginState.getRestTime()[1]);
         }
     }
 }

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
-import com.zenith.YTCraft.ui.TabList;
+import com.zenith.YTCraft.ui.TabListUI;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.kyori.adventure.text.Component;
@@ -42,8 +42,8 @@ public class MobSpawning implements Runnable {
             MobUtils.setAuthorMobNBT(livingMob,channelId);
             MobUtils.addAuthorMobData(livingMob,author,channelId);
 
-            TabList.updateHeaderTabList();
-            TabList.updateFooterTabList();
+            TabListUI.updateHeaderTabList();
+            TabListUI.updateFooterTabList();
 
             MobUtils.sendAuthorMobSpawnMessage(livingMob,author);
 

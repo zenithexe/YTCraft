@@ -12,7 +12,7 @@ import com.zenith.YTCraft.data.PluginState;
 import net.md_5.bungee.api.ChatColor;
 
 @SuppressWarnings("deprecation")
-public class Pluginboard {
+public class ScoreboardUI {
 
     
     public static void createNewScoreBoard(Player player) {

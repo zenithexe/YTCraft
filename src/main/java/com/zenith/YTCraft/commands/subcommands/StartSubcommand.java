@@ -13,8 +13,8 @@ import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.mechanics.MobSpawning;
 import com.zenith.YTCraft.timer.PluginTimer;
-import com.zenith.YTCraft.ui.GameModeBossBar;
-import com.zenith.YTCraft.ui.Pluginboard;
+import com.zenith.YTCraft.ui.BossBarUI;
+import com.zenith.YTCraft.ui.ScoreboardUI;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -49,8 +49,8 @@ public class StartSubcommand implements Subcommand {
         isRunning = true;
 
         // Create UI
-        Pluginboard.createNewScoreBoard(player);
-        GameModeBossBar.createBossBar(player);
+        ScoreboardUI.createNewScoreBoard(player);
+        BossBarUI.createBossBar(player);
 
         Bukkit.broadcast(Component.text("YTCraft Successfully Started!").color(NamedTextColor.GREEN));
         Bukkit.broadcast(Component.text(player.getName()).color(NamedTextColor.YELLOW)
