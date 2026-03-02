@@ -7,7 +7,6 @@ import java.time.ZonedDateTime;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.ui.Pluginboard;
@@ -19,8 +18,6 @@ import net.md_5.bungee.api.ChatColor;
 public class PluginTimer implements Runnable {
 
     public static boolean isForceToggle = false;
-
-    private static Player player;
 
     private static int activeMin;
     private static int activeSec;
@@ -44,9 +41,7 @@ public class PluginTimer implements Runnable {
     }
 
     public PluginTimer() {
-
-        player = PluginState.getStreamer();
-        PluginState.setActiveTimerMode(false);
+        PluginState.setActiveMode(false);
 
         int[] activeTime = PluginState.getActiveTime();
         activeMin = activeTime[0];
@@ -59,7 +54,7 @@ public class PluginTimer implements Runnable {
 
     private static void updateTimer() {
 
-        if (PluginState.isActiveTimerMode()) {
+        if (PluginState.isActiveMode()) {
             if (activeSec == 0) {
                 activeSec = 59;
                 activeMin--;
@@ -84,7 +79,7 @@ public class PluginTimer implements Runnable {
     }
 
     private static void updateTimerMode() {
-        if (PluginState.isActiveTimerMode()) {
+        if (PluginState.isActiveMode()) {
             displayTimerMode = ChatColor.RED + "" + "Spawn";
         } else {
             displayTimerMode = ChatColor.YELLOW + "" + "Rest";
@@ -92,35 +87,39 @@ public class PluginTimer implements Runnable {
     }
 
     private static void toggleTimer() {
+        Player streamer = PluginState.getStreamer();
 
-        if (activeMin == 0 && activeSec == 0 && PluginState.isActiveTimerMode()) {
+        if (streamer == null) return;
+
+        if (activeMin == 0 && activeSec == 0 && PluginState.isActiveMode()) {
             int[] resTime = PluginState.getRestTime();
             restMin = resTime[0];
             restSec = resTime[1];
 
-            PluginState.setActiveTimerMode(false);
+            PluginState.setActiveMode(false);
             MobUtils.killAllAuthorMobs();
             MobUtils.clearAllAuthorItems();
 
             //Showing Rest Title
-            Titles.showTimerRestTitle(YTCraft.getPlugin().adventure().player(player));
+            Titles.showTimerRestTitle();
         }
 
-        if (restMin == 0 && restSec == 0 && !PluginState.isActiveTimerMode()) {
+        if (restMin == 0 && restSec == 0 && !PluginState.isActiveMode()) {
             int[] activeTime = PluginState.getActiveTime();
             activeMin = activeTime[0];
             activeSec = activeTime[1];
 
-            PluginState.setActiveTimerMode(true);
+            PluginState.setActiveMode(true);
             ChatControl.setTimeStamp(LocalDateTime.parse(ZonedDateTime.now(ZoneId.of("GMT")).toString().substring(0, 19)));
             Bukkit.getLogger().info("API Activated!!! at " + ChatControl.ReadTimeStamp.toString());
+            
             //Showing Active Title
-            Titles.showTimerActiveTitle(YTCraft.getPlugin().adventure().player(player));
+            Titles.showTimerActiveTitle();
         }
     }
 
     private static void forceToggleTimer() {
-        if (PluginState.isActiveTimerMode()) {
+        if (PluginState.isActiveMode()) {
             activeMin = 0;
             activeSec = 0;
         } else {
@@ -131,6 +130,8 @@ public class PluginTimer implements Runnable {
 
     @Override
     public void run() {
+        Player player = PluginState.getStreamer();
+        if (player == null) return;
 
         if (isForceToggle) {
             forceToggleTimer();
@@ -141,8 +142,8 @@ public class PluginTimer implements Runnable {
 
         updateTimerMode();
 
-        if (PluginState.getStreamer().getScoreboard().getObjective("YTCraftBoard") != null) {
-            Pluginboard.updateScoreboard(PluginState.getStreamer(), displayMin, displaySec, displayTimerMode);
+        if (player.getScoreboard().getObjective("YTCraftBoard") != null) {
+            Pluginboard.updateScoreboard(player, displayMin, displaySec, displayTimerMode);
         }
 
         toggleTimer();

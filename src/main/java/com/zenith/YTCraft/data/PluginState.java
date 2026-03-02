@@ -3,15 +3,20 @@ package com.zenith.YTCraft.data;
 import org.bukkit.entity.Player;
 
 public class PluginState {
-    
+
     private static Player streamer;
+
     private static int activeTimeMin = 5;
     private static int activeTimeSec = 0;
     private static int restTimeMin = 5;
     private static int restTimeSec = 0;
-    private static boolean isActiveTimerMode = false;
+
+    private static boolean isActiveMode = false;
+
     private static int mobSpawnRadius = 2;
+
     private static boolean enableItemSpawn = true;
+
     private static int subscriberCount = 0;
 
     public static Player getStreamer() {
@@ -40,12 +45,12 @@ public class PluginState {
         return new int[]{restTimeMin, restTimeSec};
     }
 
-    public static boolean isActiveTimerMode() {
-        return isActiveTimerMode;
+    public static boolean isActiveMode() {
+        return isActiveMode;
     }
 
-    public static void setActiveTimerMode(boolean active) {
-        isActiveTimerMode = active;
+    public static void setActiveMode(boolean active) {
+        isActiveMode = active;
     }
 
     public static int getMobSpawnRadius() {

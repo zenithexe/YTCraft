@@ -1,6 +1,7 @@
 package com.zenith.YTCraft.ui;
 
-import com.zenith.YTCraft.YTCraft;
+import org.bukkit.entity.Player;
+
 import com.zenith.YTCraft.data.MobManager;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.types.AuthorMob;
@@ -12,6 +13,9 @@ import net.kyori.adventure.text.format.TextDecoration;
 public class TabList {
 
     public static void updateHeaderTabList() {
+        Player streamer = PluginState.getStreamer();
+        if (streamer == null) return;
+
         Component header = Component.text("Spawned Mobs :: 0").color(NamedTextColor.GREEN);
 
         if (!MobManager.getChannelIdToAuthorMob().isEmpty()) {
@@ -19,12 +23,15 @@ public class TabList {
                     .color(NamedTextColor.GREEN);
         }
         
-        YTCraft.getPlugin().adventure().player(PluginState.getStreamer()).sendPlayerListHeader(header);
+        streamer.sendPlayerListHeader(header);
     }
 
     public static void updateFooterTabList() {
+        Player streamer = PluginState.getStreamer();
+        if (streamer == null) return;
+
         if (MobManager.getChannelIdToAuthorMob().isEmpty()) {
-            YTCraft.getPlugin().adventure().player(PluginState.getStreamer()).sendPlayerListFooter(Component.empty());
+            streamer.sendPlayerListFooter(Component.empty());
             return;
         }
 
@@ -54,7 +61,7 @@ public class TabList {
                 .append(Component.text("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━").color(NamedTextColor.DARK_GRAY))
                 .append(Component.text("\n"));
 
-        YTCraft.getPlugin().adventure().player(PluginState.getStreamer()).sendPlayerListFooter(footer);
+        streamer.sendPlayerListFooter(footer);
     }
 
 }
