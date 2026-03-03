@@ -6,14 +6,15 @@ import java.util.List;
 import org.bukkit.Bukkit;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
+import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.api.YoutubeAPI;
 import com.zenith.YTCraft.chatactions.ChatActionHandler;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.DateTimeUtils;
 
 /**
- * Main chat control loop that fetches YouTube chat messages and processes
- * viewer actions with timestamp filtering
+ * Main chat control loop that fetches YouTube chat messages asynchronously
+ * and processes viewer actions with timestamp filtering
  */
 public class ChatControl implements Runnable {
 
@@ -34,29 +35,44 @@ public class ChatControl implements Runnable {
             ReadTimeStamp = DateTimeUtils.getGMTTimeNow();
         }
 
-        // Fetch current stats
-        int viewers = YoutubeAPI.getConcurrentViewers().intValue();
+        // Run API calls asynchronously to prevent server lag
+        Bukkit.getScheduler().runTaskAsynchronously(YTCraft.getPlugin(), () -> {
+            try {
+                // These run in background thread - doesn't block server
+                int viewers = YoutubeAPI.getConcurrentViewers().intValue();
+                int subscribers = YoutubeAPI.getSubscribers().intValue();
+                List<LiveChatMessage> chats = YoutubeAPI.getChats();
 
-        PluginState.setViewers(viewers);
-        PluginState.setSubscriberCount(YoutubeAPI.getSubscribers().intValue());
+                // Switch back to main thread for Bukkit operations
+                Bukkit.getScheduler().runTask(YTCraft.getPlugin(), () -> {
+                    // Update state on main thread
+                    PluginState.setViewers(viewers);
+                    PluginState.setSubscriberCount(subscribers);
 
-        // Handle subscriber mechanics
-        SubscriberMechanics.spawnMob(PluginState.getSubscriberCount());
+                    // Handle subscriber mechanics
+                    SubscriberMechanics.spawnMob(subscribers);
 
-        // Fetch chat messages
-        List<LiveChatMessage> chats = YoutubeAPI.getChats();
+                    // Process chat messages
+                    if (chats != null && !chats.isEmpty()) {
+                        processMessages(chats);
+                    }
+                });
 
-        if (chats == null || chats.isEmpty()) {
-            return;
-        }
+            } catch (Exception e) {
+                Bukkit.getLogger().warning(String.format("Error in async YouTube API fetch: %s", e.getMessage()));
+            }
+        });
+    }
 
-        // Process each message with timestamp filtering
+    /**
+     * Process all chat messages (runs on main thread)
+     */
+    private void processMessages(List<LiveChatMessage> chats) {
         for (LiveChatMessage message : chats) {
             LocalDateTime messageTimeStamp = DateTimeUtils.getMessageTime(message);
 
             // Only process messages newer than our last read timestamp
             if (messageTimeStamp.compareTo(ReadTimeStamp) > 0) {
-
                 handleMessage(message);
                 ReadTimeStamp = messageTimeStamp;
             }
@@ -64,10 +80,9 @@ public class ChatControl implements Runnable {
     }
 
     /**
-     * Process a single chat message
+     * Process a single chat message (runs on main thread)
      */
     private void handleMessage(LiveChatMessage message) {
-
         String author = message.getAuthorDetails().getDisplayName();
         String text = message.getSnippet().getDisplayMessage();
 
@@ -80,7 +95,5 @@ public class ChatControl implements Runnable {
 
         // Try to process as an action
         ChatActionHandler.handler(message);
-
     }
-
 }
