@@ -1,0 +1,68 @@
+{
+  "timer": {
+    "active": [10, 0],
+    "rest": [20, 0]
+  },
+
+  "mob_spawn": {
+    "enable": true,
+
+    "onlyOnActiveTimer": true,
+
+    "killAllAfterPlayerDeath": true,
+
+    "maxSpawn": 100,
+
+    //
+    "ignoreTier": {
+      "viewers": 10,
+      "except": ["EVOKER"]
+    },
+
+    "spawnType": "tier", // 'all' , 'tier', 'all_with_tier'
+
+    "mob_tiers": [
+      {
+        "min_viewers": 0,
+        "mobs": ["WOLF", "CREEPER", "ZOMBIE", "SKELETON"]
+      },
+      {
+        "min_viewers": 100,
+        "mobs": ["BLAZE", "WITHER_SKELETON", "ENDERMAN"]
+      },
+      {
+        "min_viewers": 500,
+        "mobs": ["RAVAGER", "VINDICATOR"]
+      },
+      {
+        "min_viewers": 1000,
+        "mobs": ["WARDEN", "EVOKER"]
+      }
+    ],
+
+    "blacklistedMob": ["ENDERMAN"]
+  },
+
+  "item_rewards": {
+    "enabled": true,
+
+    "giveType": "tier", // 'all', "tier" , "all_with_tier"
+
+    "item_tiers": [
+      {
+        "min_viewers": 0,
+        "items": [
+          { "item": "DIAMOND", "max": 1 },
+          { "item": "IRON_SWORD", "max": 1 }
+        ]
+      },
+      {
+        "min_viewers": 500,
+        "items": [
+          { "item": "NETHERITE_SWORD", "max": 1 },
+          { "item": "ELYTRA", "max": 1 }
+        ]
+      }
+    ]
+  }
+}
