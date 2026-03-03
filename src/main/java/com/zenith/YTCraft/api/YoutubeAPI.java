@@ -99,7 +99,7 @@ public class YoutubeAPI {
             ChannelListResponse response = req.execute();
             Channel channel = response.getItems().get(0);
             BigInteger subscriberCount = channel.getStatistics().getSubscriberCount();
-            Bukkit.getLogger().info(":::: GET-Subscriber === " + subscriberCount + "  ::::");
+            Bukkit.getLogger().info(String.format(":::: GET-Subscriber === %s  ::::", subscriberCount));
             return subscriberCount;
 
         } catch (Exception e) {
@@ -126,7 +126,7 @@ public class YoutubeAPI {
             return res.getItems();
 
         } catch (Exception e) {
-            Bukkit.getLogger().warning("Error fetching YouTube chat: " + e.getMessage());
+            Bukkit.getLogger().warning(String.format("Error fetching YouTube chat: %s", e.getMessage()));
             return null;
         }
     }
@@ -134,7 +134,7 @@ public class YoutubeAPI {
     public static BigInteger getConcurrentViewers() {
         try {
             BigInteger concurrentViewers = getVideo("liveStreamingDetails").getLiveStreamingDetails().getConcurrentViewers();
-            Bukkit.getLogger().info(":::: GET-Viewers === " + concurrentViewers + "  ::::");
+            Bukkit.getLogger().info(String.format(":::: GET-Viewers === %s  ::::", concurrentViewers));
             return concurrentViewers;
         } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Live-Watching Count.").color(NamedTextColor.RED));

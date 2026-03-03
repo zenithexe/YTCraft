@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.util.MessageUtils;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.kyori.adventure.text.Component;
@@ -35,7 +36,7 @@ public class SubscriberMechanics {
                 MobUtils.setAuthorMobNBT(livingMob, "RandomChannelId");
                 MobUtils.addAuthorMobData(livingMob, "New Subscriber", "RandomChannelId");
 
-                MobUtils.sendAuthorMobSpawnMessage(livingMob, "New Subscriber");
+                MessageUtils.sendAuthorMobSpawnMessage(livingMob, "New Subscriber");
 
             }
             SubscriberCountLimit = currentSubscriberCount;

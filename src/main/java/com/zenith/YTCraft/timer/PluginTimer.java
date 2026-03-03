@@ -8,6 +8,8 @@ import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.ui.BossBarUI;
 import com.zenith.YTCraft.ui.ScoreboardUI;
 import com.zenith.YTCraft.ui.TitlesUI;
+import com.zenith.YTCraft.util.DateTimeUtils;
+import com.zenith.YTCraft.util.ItemUtils;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -111,7 +113,7 @@ public class PluginTimer implements Runnable {
 
             PluginState.setChatControl(false);
             MobUtils.killAllAuthorMobs();
-            MobUtils.clearAllAuthorItems();
+            ItemUtils.clearAllAuthorItems();
 
             //Showing Rest Title
             TitlesUI.showTimerRestTitle();
@@ -126,7 +128,7 @@ public class PluginTimer implements Runnable {
             activeSec = activeTime[1];
 
             PluginState.setChatControl(true);
-            ChatControl.setTimeStamp(MobUtils.getGMTTimeNow());
+            ChatControl.setTimeStamp(DateTimeUtils.getGMTTimeNow());
             Bukkit.getLogger().info("Chat Control Activated!");
             
             //Showing Active Title

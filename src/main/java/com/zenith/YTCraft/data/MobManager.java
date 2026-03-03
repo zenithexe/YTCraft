@@ -18,6 +18,14 @@ public class MobManager {
         return channelIdToAuthorMob;
     }
 
+    public static boolean isMobSpawnable(String entityType) {
+
+        int viewers = PluginState.getViewers();
+
+        return (MobManager.getEntityTypeToMinViewers().containsKey(entityType.toUpperCase())
+                && MobManager.getEntityTypeToMinViewers().get(entityType.toUpperCase()) <= viewers);
+    }
+
     public static void clearAll() {
         entityTypeToMinViewers.clear();
         channelIdToAuthorMob.clear();

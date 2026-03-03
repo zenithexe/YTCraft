@@ -2,7 +2,6 @@ package com.zenith.YTCraft.chatactions;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.bukkit.Bukkit;
 
@@ -15,7 +14,7 @@ import com.zenith.YTCraft.chatactions.actions.SpawnMobAction;
  */
 public class ChatActionHandler {
 
-    private static final Map<String, ChatAction> chatActionsReg = new HashMap<>();
+    private static final Map<String, ChatAction> Chat_Actions_Reg = new HashMap<>();
 
     static {
         // Register all chat actions
@@ -25,32 +24,21 @@ public class ChatActionHandler {
 
     // Register a chat action
     public static void registerChatAction(ChatAction action) {
-        chatActionsReg.put(action.getTrigger().toLowerCase(), action);
 
-        Bukkit.getLogger().info("Registered chat action: " + action.getTrigger());
+        Chat_Actions_Reg.put(action.getKey().toLowerCase(), action);
+        Bukkit.getLogger().info(String.format("Registered Chat Action: %s", action.getKey()));
     }
 
     // Get an action by trigger
-    public static ChatAction getChatAction(String trigger) {
-        return chatActionsReg.get(trigger.toLowerCase());
-    }
-
-    // Check if an action exists
-    public static boolean hasChatAction(String trigger) {
-        return chatActionsReg.containsKey(trigger.toLowerCase());
-    }
-
-    // Get all registered action triggers    
-    public static Set<String> getChatActionTriggers() {
-        return chatActionsReg.keySet();
+    public static ChatAction getChatAction(String key) {
+        return Chat_Actions_Reg.get(key.toLowerCase());
     }
 
     /**
-     * Process a chat message and execute action if found
-     *
-     * @return true if an action was found and executed
+     * ================ Handler =================
      */
-    public static boolean processMessage(LiveChatMessage message, int viewers) {
+    public static boolean handler(LiveChatMessage message) {
+
         String text = message.getSnippet().getDisplayMessage();
 
         if (text == null || text.trim().isEmpty()) {
@@ -58,25 +46,22 @@ public class ChatActionHandler {
         }
 
         // Parse trigger and arguments
-        String[] args = text.trim().split("\\s+");
-        String trigger = args[0].toLowerCase();
+        String[] args = text.trim().split("\\s+"); //Split by 'space'
+        String key = args[0].toLowerCase();
 
         // Get action
-        ChatAction action = getChatAction(trigger);
+        ChatAction action = getChatAction(key);
 
         if (action == null) {
-            return false; // Not an action
+            return false;
         }
 
         // Execute action
         try {
-            return action.execute(message, args, viewers);
+            return action.execute(message, args);
         } catch (Exception e) {
 
-            Bukkit.getLogger().warning("Error executing action '" + trigger + "': " + e.getMessage());
-
-            e.printStackTrace();
-
+            Bukkit.getLogger().warning(String.format("Error executing action '%s' : %s", key, e.getMessage()));
             return false;
         }
     }

@@ -9,15 +9,14 @@ import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.api.YoutubeAPI;
 import com.zenith.YTCraft.chatactions.ChatActionHandler;
 import com.zenith.YTCraft.data.PluginState;
-import com.zenith.YTCraft.util.MobUtils;
+import com.zenith.YTCraft.util.DateTimeUtils;
 
 /**
- * Main chat control loop that fetches YouTube chat messages
- * and processes viewer actions with timestamp filtering
+ * Main chat control loop that fetches YouTube chat messages and processes
+ * viewer actions with timestamp filtering
  */
 public class ChatControl implements Runnable {
 
-    private static int viewers;
     public static LocalDateTime ReadTimeStamp;
 
     public static void setTimeStamp(LocalDateTime TS) {
@@ -32,11 +31,13 @@ public class ChatControl implements Runnable {
 
         // Initialize timestamp on first run
         if (ReadTimeStamp == null) {
-            ReadTimeStamp = MobUtils.getGMTTimeNow();
+            ReadTimeStamp = DateTimeUtils.getGMTTimeNow();
         }
 
         // Fetch current stats
-        viewers = YoutubeAPI.getConcurrentViewers().intValue();
+        int viewers = YoutubeAPI.getConcurrentViewers().intValue();
+
+        PluginState.setViewers(viewers);
         PluginState.setSubscriberCount(YoutubeAPI.getSubscribers().intValue());
 
         // Handle subscriber mechanics
@@ -51,11 +52,12 @@ public class ChatControl implements Runnable {
 
         // Process each message with timestamp filtering
         for (LiveChatMessage message : chats) {
-            LocalDateTime messageTimeStamp = MobUtils.getMessageTime(message);
+            LocalDateTime messageTimeStamp = DateTimeUtils.getMessageTime(message);
 
             // Only process messages newer than our last read timestamp
             if (messageTimeStamp.compareTo(ReadTimeStamp) > 0) {
-                processMessage(message);
+
+                handleMessage(message);
                 ReadTimeStamp = messageTimeStamp;
             }
         }
@@ -64,7 +66,7 @@ public class ChatControl implements Runnable {
     /**
      * Process a single chat message
      */
-    private void processMessage(LiveChatMessage message) {
+    private void handleMessage(LiveChatMessage message) {
 
         String author = message.getAuthorDetails().getDisplayName();
         String text = message.getSnippet().getDisplayMessage();
@@ -74,20 +76,11 @@ public class ChatControl implements Runnable {
         }
 
         // Log the message
-        Bukkit.getLogger().info(author + " >> " + text);
+        Bukkit.getLogger().info(String.format("%s >> %s", author, text));
 
         // Try to process as an action
-        boolean actionExecuted = ChatActionHandler.processMessage(message, viewers);
+        ChatActionHandler.handler(message);
 
-        if (!actionExecuted) {
-            // Not an action or action failed - could add other logic here
-        }
     }
 
-    /**
-     * Get current viewer count
-     */
-    public static int getViewers() {
-        return viewers;
-    }
 }

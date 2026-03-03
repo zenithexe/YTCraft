@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.ui.TabListUI;
+import com.zenith.YTCraft.util.MessageUtils;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.kyori.adventure.text.Component;
@@ -38,14 +39,14 @@ public class MobSpawning implements Runnable {
             livingMob.setCustomNameVisible(true);
             livingMob.setRemoveWhenFarAway(false);
 
-            MobUtils.entityTaming(livingMob,player);
+            MobUtils.tameEntity(livingMob,player);
             MobUtils.setAuthorMobNBT(livingMob,channelId);
             MobUtils.addAuthorMobData(livingMob,author,channelId);
 
             TabListUI.updateHeaderTabList();
             TabListUI.updateFooterTabList();
 
-            MobUtils.sendAuthorMobSpawnMessage(livingMob,author);
+            MessageUtils.sendAuthorMobSpawnMessage(livingMob,author);
 
         }
     }

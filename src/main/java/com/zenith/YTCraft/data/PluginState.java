@@ -18,7 +18,7 @@ public class PluginState {
     private static boolean enableItemSpawn = true;
 
     private static int subscriberCount = 0;
-
+    private static int viewers = 0;
     private static int streamerDeathCount = 0;
 
     public static Player getStreamer() {
@@ -79,6 +79,13 @@ public class PluginState {
         subscriberCount = count;
     }
 
+    public static int getViewers() {
+        return viewers;
+    }
+
+    public static void setViewers(int v) {
+        viewers = v;
+    }
 
     public static int getSteamerDeathCount() {
         return streamerDeathCount;
