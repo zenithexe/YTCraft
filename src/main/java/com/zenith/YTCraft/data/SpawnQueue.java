@@ -1,39 +1,37 @@
 package com.zenith.YTCraft.data;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
+import com.zenith.YTCraft.types.MobSpawnRequest;
 
+/**
+ * Thread-safe spawn queue using a single queue of spawn requests Prevents
+ * desynchronization and race conditions
+ */
 public class SpawnQueue {
-    
-    private static final Queue<EntityType> mobQueue = new LinkedList<>();
-    private static final Queue<String> channelIdQueue = new LinkedList<>();
-    private static final Queue<String> authorQueue = new LinkedList<>();
-    private static final Set<Material> blacklistedMaterials = new HashSet<>();
 
-    public static Queue<EntityType> getMobQueue() {
-        return mobQueue;
+    // ConcurrentLinkedQueue is thread-safe for add/poll operations
+    private static final ConcurrentLinkedQueue<MobSpawnRequest> spawnQueue = new ConcurrentLinkedQueue<>();
+
+    /**
+     * Add a mob spawn request to the queue (thread-safe)
+     */
+    public static void add(MobSpawnRequest request) {
+        spawnQueue.add(request);
     }
 
-    public static Queue<String> getChannelIdQueue() {
-        return channelIdQueue;
+    /**
+     * Poll the next spawn request from the queue (thread-safe) Returns null if
+     * queue is empty
+     */
+    public static MobSpawnRequest poll() {
+        return spawnQueue.poll();
     }
 
-    public static Queue<String> getAuthorQueue() {
-        return authorQueue;
-    }
-
-    public static Set<Material> getBlacklistedMaterials() {
-        return blacklistedMaterials;
-    }
-
-    public static void clearQueues() {
-        mobQueue.clear();
-        channelIdQueue.clear();
-        authorQueue.clear();
+    /**
+     * Clear all pending spawn requests
+     */
+    public static void clear() {
+        spawnQueue.clear();
     }
 }

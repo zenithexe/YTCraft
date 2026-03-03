@@ -13,8 +13,8 @@ import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.DateTimeUtils;
 
 /**
- * Main chat control loop that fetches YouTube chat messages asynchronously
- * and processes viewer actions with timestamp filtering
+ * Main chat control loop that fetches YouTube chat messages asynchronously and
+ * processes viewer actions with timestamp filtering
  */
 public class ChatControl implements Runnable {
 
@@ -54,11 +54,11 @@ public class ChatControl implements Runnable {
 
                     // Process chat messages
                     if (chats != null && !chats.isEmpty()) {
-                        processMessages(chats);
+                        handleMessages(chats);
                     }
                 });
 
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 Bukkit.getLogger().warning(String.format("Error in async YouTube API fetch: %s", e.getMessage()));
             }
         });
@@ -67,33 +67,29 @@ public class ChatControl implements Runnable {
     /**
      * Process all chat messages (runs on main thread)
      */
-    private void processMessages(List<LiveChatMessage> chats) {
-        for (LiveChatMessage message : chats) {
+    private void handleMessages(List<LiveChatMessage> messages) {
+        for (LiveChatMessage message : messages) {
+
             LocalDateTime messageTimeStamp = DateTimeUtils.getMessageTime(message);
 
             // Only process messages newer than our last read timestamp
             if (messageTimeStamp.compareTo(ReadTimeStamp) > 0) {
-                handleMessage(message);
+                String author = message.getAuthorDetails().getDisplayName();
+                String text = message.getSnippet().getDisplayMessage();
+
+                if (text == null || text.trim().isEmpty()) {
+                    return;
+                }
+
+                // Log the message
+                Bukkit.getLogger().info(String.format("%s >> %s", author, text));
+
+                // Try to process as an action
+                ChatActionHandler.handler(message);
+
                 ReadTimeStamp = messageTimeStamp;
             }
         }
     }
 
-    /**
-     * Process a single chat message (runs on main thread)
-     */
-    private void handleMessage(LiveChatMessage message) {
-        String author = message.getAuthorDetails().getDisplayName();
-        String text = message.getSnippet().getDisplayMessage();
-
-        if (text == null || text.trim().isEmpty()) {
-            return;
-        }
-
-        // Log the message
-        Bukkit.getLogger().info(String.format("%s >> %s", author, text));
-
-        // Try to process as an action
-        ChatActionHandler.handler(message);
-    }
 }

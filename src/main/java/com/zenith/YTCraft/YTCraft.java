@@ -45,7 +45,7 @@ public final class YTCraft extends JavaPlugin {
 
         // Clear all static data
         MobManager.clearAll();
-        SpawnQueue.clearQueues();
+        SpawnQueue.clear();
 
         // Reset plugin state
         PluginState.setStreamer(null);
