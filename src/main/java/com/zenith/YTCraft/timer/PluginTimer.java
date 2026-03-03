@@ -1,9 +1,5 @@
 package com.zenith.YTCraft.timer;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -130,8 +126,8 @@ public class PluginTimer implements Runnable {
             activeSec = activeTime[1];
 
             PluginState.setChatControl(true);
-            ChatControl.setTimeStamp(LocalDateTime.parse(ZonedDateTime.now(ZoneId.of("GMT")).toString().substring(0, 19)));
-            Bukkit.getLogger().info("API Activated!!! at " + ChatControl.ReadTimeStamp.toString());
+            ChatControl.setTimeStamp(MobUtils.getGMTTimeNow());
+            Bukkit.getLogger().info("Chat Control Activated!");
             
             //Showing Active Title
             TitlesUI.showTimerActiveTitle();

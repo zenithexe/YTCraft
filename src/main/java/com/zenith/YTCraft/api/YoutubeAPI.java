@@ -112,9 +112,10 @@ public class YoutubeAPI {
     public static List<LiveChatMessage> getChats() {
         try {
             if (LIVE_CHAT_ID == null) {
-                Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
+                Bukkit.broadcast(Component.text("Incorrect Video ID. Please provide the Video ID of a Livestream.").color(NamedTextColor.RED));
                 return null;
             }
+            
             YouTube.LiveChatMessages.List req = getYoutube().liveChatMessages().list(LIVE_CHAT_ID,
                     "snippet,authorDetails");
             req.setKey(API_KEY);
@@ -125,7 +126,7 @@ public class YoutubeAPI {
             return res.getItems();
 
         } catch (Exception e) {
-            System.out.println(e);
+            Bukkit.getLogger().warning("Error fetching YouTube chat: " + e.getMessage());
             return null;
         }
     }

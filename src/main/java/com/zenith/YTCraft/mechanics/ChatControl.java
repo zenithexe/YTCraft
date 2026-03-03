@@ -1,30 +1,23 @@
 package com.zenith.YTCraft.mechanics;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.EntityType;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
-import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.api.YoutubeAPI;
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.chatactions.ChatActionHandler;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.MobUtils;
 
+/**
+ * Main chat control loop that fetches YouTube chat messages
+ * and processes viewer actions with timestamp filtering
+ */
 public class ChatControl implements Runnable {
 
     private static int viewers;
-    private static int currentSubscriberCount;
     public static LocalDateTime ReadTimeStamp;
 
     public static void setTimeStamp(LocalDateTime TS) {
@@ -33,89 +26,68 @@ public class ChatControl implements Runnable {
 
     @Override
     public void run() {
+        if (!PluginState.isChatControlEnabled()) {
+            return;
+        }
 
-        if (PluginState.isChatControlEnabled()) {
-            if (ReadTimeStamp == null) {
-                ReadTimeStamp = MobUtils.getGMTTimeNow();
-            }
+        // Initialize timestamp on first run
+        if (ReadTimeStamp == null) {
+            ReadTimeStamp = MobUtils.getGMTTimeNow();
+        }
 
-            viewers = YoutubeAPI.getConcurrentViewers().intValue();
-            PluginState.setSubscriberCount(YoutubeAPI.getSubscribers().intValue());
+        // Fetch current stats
+        viewers = YoutubeAPI.getConcurrentViewers().intValue();
+        PluginState.setSubscriberCount(YoutubeAPI.getSubscribers().intValue());
 
-            SubscriberMechanics.spawnMob(PluginState.getSubscriberCount());
+        // Handle subscriber mechanics
+        SubscriberMechanics.spawnMob(PluginState.getSubscriberCount());
 
-            List<LiveChatMessage> Chats = YoutubeAPI.getChats();
+        // Fetch chat messages
+        List<LiveChatMessage> chats = YoutubeAPI.getChats();
 
-            if (Chats == null) {
-                return;
-            }
+        if (chats == null || chats.isEmpty()) {
+            return;
+        }
 
-            for (LiveChatMessage message : Chats) {
+        // Process each message with timestamp filtering
+        for (LiveChatMessage message : chats) {
+            LocalDateTime messageTimeStamp = MobUtils.getMessageTime(message);
 
-                LocalDateTime MessageTimeStamp = MobUtils.getMessageTime(message);
-
-                if (MessageTimeStamp.compareTo(ReadTimeStamp) > 0) {
-
-                    String author = message.getAuthorDetails().getDisplayName();
-                    String text = message.getSnippet().getDisplayMessage();
-                    String channelId = message.getAuthorDetails().getChannelId();
-
-                    Bukkit.getLogger().info(author + ">>" + text);
-                    ReadTimeStamp = MessageTimeStamp;
-
-                    if (text != null && text.startsWith("spawn")) {
-
-                        String[] chatArgs = text.split(" +");
-
-                        EntityType userArgEntityType = null;
-
-                        if (chatArgs.length == 2) {
-                            userArgEntityType = EntityType.valueOf(chatArgs[1].toUpperCase());
-                        }
-
-                        //!MobManager.getAliveAuthorMobChannelIds().contains(channelId)
-                        if (!MobManager.getChannelIdToAuthorMob().containsKey(channelId) || viewers <= 10) {
-                            if (userArgEntityType != null && MobUtils.isEntityType_To_NViewers(chatArgs, viewers)) {
-                                MobSpawning.addMob(userArgEntityType, author, channelId);
-                            }
-                        }
-
-                    } else if (text != null && text.startsWith("give") && PluginState.isItemSpawnEnabled()) {
-                        String[] charArgs = text.split(" +");
-
-                        Bukkit.getLogger().info("Args ::" + Arrays.toString(charArgs));
-
-                        if (charArgs.length <= 3 && charArgs.length > 1) {
-
-                            Material material = Material.getMaterial(charArgs[1].toUpperCase());
-
-                            Bukkit.getLogger().info("Material ::" + material.toString());
-                            int count = 1;
-                            if (charArgs.length == 3) {
-                                count = Math.min(Integer.parseInt(charArgs[2]), 16);
-                            }
-                            if (material.isItem()) {
-                                Bukkit.getLogger().info("Passed Item Check");
-                                ItemStack itemStack = new ItemStack(material, count);
-
-                                ItemMeta meta = itemStack.getItemMeta();
-                                PersistentDataContainer data = meta.getPersistentDataContainer();
-                                data.set(new NamespacedKey(YTCraft.getPlugin(), "IsChatSpawned"), PersistentDataType.BOOLEAN, true);
-                                itemStack.setItemMeta(meta);
-
-                                if (PluginState.getStreamer().getInventory().addItem(itemStack).isEmpty()) {
-
-                                } else {
-                                    Location playerLocation = PluginState.getStreamer().getLocation();
-                                    PluginState.getStreamer().getWorld().dropItemNaturally(playerLocation, itemStack);
-                                }
-
-                                MobUtils.sendAuthorItemSpawnMessage(itemStack, author);
-                            }
-                        }
-                    }
-                }
+            // Only process messages newer than our last read timestamp
+            if (messageTimeStamp.compareTo(ReadTimeStamp) > 0) {
+                processMessage(message);
+                ReadTimeStamp = messageTimeStamp;
             }
         }
+    }
+
+    /**
+     * Process a single chat message
+     */
+    private void processMessage(LiveChatMessage message) {
+
+        String author = message.getAuthorDetails().getDisplayName();
+        String text = message.getSnippet().getDisplayMessage();
+
+        if (text == null || text.trim().isEmpty()) {
+            return;
+        }
+
+        // Log the message
+        Bukkit.getLogger().info(author + " >> " + text);
+
+        // Try to process as an action
+        boolean actionExecuted = ChatActionHandler.processMessage(message, viewers);
+
+        if (!actionExecuted) {
+            // Not an action or action failed - could add other logic here
+        }
+    }
+
+    /**
+     * Get current viewer count
+     */
+    public static int getViewers() {
+        return viewers;
     }
 }
