@@ -1,25 +1,34 @@
 {
   "timer": {
-    "active": [10, 0],
-    "rest": [20, 0]
+    "always_active": true, //No toggle
+
+    "active_seconds": 300, // 300 seconds
+    "rest_seconds": 150 //  150 seconds
   },
 
   "mob_spawn": {
-    "enable": true,
+    "enabled": true,
 
-    "onlyOnActiveTimer": true,
+    "kill_all_on_death": true,
 
-    "killAllAfterPlayerDeath": true,
+    "max_spawns": 100,
 
-    "maxSpawn": 100,
+    "mode": "tier_only", // 'all' , 'tier_only', 'tier_plus_unlisted'
+
+    "banned_mobs": ["ENDERMAN"],
 
     //
-    "ignoreTier": {
-      "viewers": 10,
-      "except": ["EVOKER"]
-    },
+    "low_viewer_mode": {
+      "enabled": true,
 
-    "spawnType": "tier", // 'all' , 'tier', 'all_with_tier'
+      "viewers_threshold": 10,
+
+      "mode": "allow_only", //all, allow_only, tier
+
+      "allow": ["PILLAGER"],
+
+      "exclude": ["EVOKER"]
+    },
 
     "mob_tiers": [
       {
@@ -38,15 +47,28 @@
         "min_viewers": 1000,
         "mobs": ["WARDEN", "EVOKER"]
       }
-    ],
-
-    "blacklistedMob": ["ENDERMAN"]
+    ]
   },
 
   "item_rewards": {
     "enabled": true,
 
-    "giveType": "tier", // 'all', "tier" , "all_with_tier"
+    "mode": "tier_only", // 'all', "tier_only" , "tier_plus_unlisted"
+
+    "banned_items": ["CommandBlock"],
+
+    //
+    "low_viewer_mode": {
+      "enabled": true,
+
+      "viewers_threshold": 10,
+
+      "mode": "allow_only", //all, allow_only, tier
+
+      "allow": ["PILLAGER"],
+
+      "exclude": ["EVOKER"]
+    },
 
     "item_tiers": [
       {
