@@ -109,7 +109,7 @@ public class ScoreboardUI {
         player.setScoreboard(scoreboard);
     }
 
-    public static void updateScoreboard(Player player, String displayMin, String displaySec, String displayTimerMode) {
+    public static void updateScoreboard(Player player, String formattedTime, String displayTimerMode) {
         if (player == null) return;
 
         Scoreboard scoreboard = player.getScoreboard();
@@ -120,12 +120,10 @@ public class ScoreboardUI {
             timerMode.setSuffix(displayTimerMode != null ? displayTimerMode : DEFAULT_MODE);
         }
 
-        // Update timer with color coding
+        // Update timer with formatted time (already includes color)
         Team timer = scoreboard.getTeam(TEAM_TIMER);
         if (timer != null) {
-            ChatColor timeColor = getTimerColor(displayTimerMode);
-            String timeDisplay = timeColor + displayMin + ":" + displaySec;
-            timer.setSuffix(timeDisplay);
+            timer.setSuffix(formattedTime);
         }
 
         // Update subscriber count
@@ -145,18 +143,6 @@ public class ScoreboardUI {
         Team deathCount = scoreboard.getTeam(TEAM_DEATH_COUNT);
         if (deathCount != null) {
             deathCount.setSuffix(String.valueOf(PluginState.getSteamerDeathCount()));
-        }
-    }
-
-    private static ChatColor getTimerColor(String mode) {
-        if (mode == null) return ChatColor.WHITE;
-        switch (mode.toLowerCase()) {
-            case "active":
-                return ChatColor.GREEN;
-            case "rest":
-                return ChatColor.GOLD;
-            default:
-                return ChatColor.WHITE;
         }
     }
 

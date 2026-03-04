@@ -72,6 +72,11 @@ public class ChatControl implements Runnable {
 
             LocalDateTime messageTimeStamp = DateTimeUtils.getMessageTime(message);
 
+            // Skip messages with invalid timestamps
+            if (messageTimeStamp == null) {
+                continue;
+            }
+
             // Only process messages newer than our last read timestamp
             if (messageTimeStamp.compareTo(ReadTimeStamp) > 0) {
                 String author = message.getAuthorDetails().getDisplayName();

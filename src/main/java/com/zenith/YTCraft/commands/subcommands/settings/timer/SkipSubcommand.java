@@ -15,7 +15,7 @@ public class SkipSubcommand implements Subcommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        PluginTimer.isForceToggle = true;
+        PluginTimer.skipTimerMode();
         sender.sendMessage(Component.text("Current timer skipped!").color(NamedTextColor.GREEN));
         return true;
     }

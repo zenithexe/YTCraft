@@ -6,10 +6,8 @@ public class PluginState {
 
     private static Player streamer;
 
-    private static int activeTimeMin = 5;
-    private static int activeTimeSec = 0;
-    private static int restTimeMin = 5;
-    private static int restTimeSec = 0;
+    private static int activeTimeSec = 300;
+    private static int restTimeSec = 300;
 
     private static boolean isChatControlEnabled = false;
 
@@ -29,22 +27,20 @@ public class PluginState {
         streamer = player;
     }
 
-    public static void setActiveTime(int min, int sec) {
-        activeTimeMin = min;
-        activeTimeSec = sec;
+    public static void setActiveTime(int seconds) {
+        activeTimeSec = seconds;
     }
 
-    public static void setRestTime(int min, int sec) {
-        restTimeMin = min;
-        restTimeSec = sec;
+    public static void setRestTime(int seconds) {
+        restTimeSec = seconds;
     }
 
-    public static int[] getActiveTime() {
-        return new int[]{activeTimeMin, activeTimeSec};
+    public static int getActiveTime() {
+        return activeTimeSec;
     }
 
-    public static int[] getRestTime() {
-        return new int[]{restTimeMin, restTimeSec};
+    public static int getRestTime() {
+        return restTimeSec;
     }
 
     public static boolean isChatControlEnabled() {

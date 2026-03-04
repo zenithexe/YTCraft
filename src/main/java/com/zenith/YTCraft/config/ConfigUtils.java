@@ -21,19 +21,15 @@ public class ConfigUtils {
 
     public static void timerConfig() {
 
-        List<Integer> activeTime = YTCraft.getPlugin().getConfig().getIntegerList("ACTIVE_TIME");
-        List<Integer> restTime = YTCraft.getPlugin().getConfig().getIntegerList("REST_TIME");
+        int activeTime = YTCraft.getPlugin().getConfig().getInt("ACTIVE_TIME");
+        int restTime = YTCraft.getPlugin().getConfig().getInt("REST_TIME");
 
         Bukkit.getLogger().info("Timer Set.");
 
-        if (activeTime.get(0) != null && activeTime.get(1) != null) {
-            PluginState.setActiveTime(activeTime.get(0), activeTime.get(1));
-        }
+        PluginState.setActiveTime(activeTime);
         Bukkit.getLogger().info("Active-Time Configuration is done.");
 
-        if (restTime.get(0) != null && restTime.get(1) != null) {
-            PluginState.setRestTime(restTime.get(0), restTime.get(1));
-        }
+        PluginState.setRestTime(restTime);
         Bukkit.getLogger().info("Rest-Time Configuration is done.");
     }
 

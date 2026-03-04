@@ -26,10 +26,10 @@ public class BossBarUI {
         player.showBossBar(bossBar);
         
         // Initial update
-        updateBossBar(0, 0, 0, 0);
+        updateBossBar(0, 0);
     }
 
-    public static void updateBossBar(int currentMin, int currentSec, int totalMin, int totalSec) {
+    public static void updateBossBar(int currentSeconds, int totalSeconds) {
         if (bossBar == null) return;
 
         Player streamer = PluginState.getStreamer();
@@ -39,10 +39,10 @@ public class BossBarUI {
         boolean isChatMode = PluginState.isChatControlEnabled();
         
         // Calculate progress (0.0 to 1.0)
-        float progress = calculateProgress(currentMin, currentSec, totalMin, totalSec);
+        float progress = calculateProgress(currentSeconds, totalSeconds);
         
-        // Format time display
-        String timeDisplay = String.format("%02d:%02d", currentMin, currentSec);
+        // Format time display with hours if needed
+        String timeDisplay = formatTime(currentSeconds);
         
         // Update boss bar based on mode
         if (isChatMode) {
@@ -59,12 +59,22 @@ public class BossBarUI {
         streamer.showBossBar(bossBar);
     }
 
-    private static float calculateProgress(int currentMin, int currentSec, int totalMin, int totalSec) {
-        int totalSeconds = (totalMin * 60) + totalSec;
+    private static String formatTime(int totalSeconds) {
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds / 60) % 60;
+        int seconds = totalSeconds % 60;
+        
+        if (hours > 0) {
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            return String.format("%02d:%02d", minutes, seconds);
+        }
+    }
+
+    private static float calculateProgress(int currentSeconds, int totalSeconds) {
         if (totalSeconds == 0) return 1.0f;
         
-        int remainingSeconds = (currentMin * 60) + currentSec;
-        float progress = (float) remainingSeconds / totalSeconds;
+        float progress = (float) currentSeconds / totalSeconds;
         
         // Clamp between 0.0 and 1.0
         return Math.max(0.0f, Math.min(1.0f, progress));

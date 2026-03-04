@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
 import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.timer.PluginTimer;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -16,23 +17,43 @@ public class ActiveTimeSubcommand implements Subcommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        if (args.length < 2) {
-            sender.sendMessage(Component.text("Usage: /ytcraft settings timer active <minutes> <seconds>").color(NamedTextColor.RED));
+        if (args.length < 1) {
+            sender.sendMessage(Component.text("Usage: /ytcraft settings timer active <seconds>").color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Example: /ytcraft settings timer active 300 (for 5 minutes)").color(NamedTextColor.GRAY));
             return true;
         }
 
         try {
-            int minutes = Integer.parseInt(args[0]);
-            int seconds = Integer.parseInt(args[1]);
+            int seconds = Integer.parseInt(args[0]);
 
-            if (minutes < 0 || seconds < 0 || seconds >= 60) {
-                sender.sendMessage(Component.text("Invalid time values! Minutes >= 0, Seconds 0-59").color(NamedTextColor.RED));
+            if (seconds < 0) {
+                sender.sendMessage(Component.text("Invalid time value! Seconds must be >= 0").color(NamedTextColor.RED));
                 return true;
             }
 
-            PluginState.setActiveTime(minutes, seconds);
+            PluginState.setActiveTime(seconds);
+            
+            // Update the running timer instance if it exists
+            PluginTimer timer = PluginTimer.getInstance();
+            if (timer != null) {
+                timer.setActiveTimer(seconds);
+            }
+            
+            // Format display
+            int hours = seconds / 3600;
+            int minutes = (seconds / 60) % 60;
+            int secs = seconds % 60;
+            
+            String timeDisplay;
+            
+            if (hours > 0) {
+                timeDisplay = String.format("%02d:%02d:%02d", hours, minutes, secs);
+            } else {
+                timeDisplay = String.format("%02d:%02d", minutes, secs);
+            }
+            
             sender.sendMessage(Component.text("Active time set to: ").color(NamedTextColor.AQUA)
-                    .append(Component.text(String.format("%02d:%02d", minutes, seconds)).color(NamedTextColor.GREEN)));
+                    .append(Component.text(timeDisplay + " (" + seconds + " seconds)").color(NamedTextColor.GREEN)));
 
             return true;
         } catch (NumberFormatException e) {
@@ -44,9 +65,7 @@ public class ActiveTimeSubcommand implements Subcommand {
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("<minutes>");
-        } else if (args.length == 2) {
-            return Arrays.asList("<seconds>");
+            return Arrays.asList("<seconds>", "60", "300", "600", "3600");
         }
         return new ArrayList<>();
     }

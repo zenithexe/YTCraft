@@ -16,100 +16,91 @@ import net.md_5.bungee.api.ChatColor;
 
 public class PluginTimer implements Runnable {
 
-    public static boolean isForceToggle = false;
+    private static PluginTimer instance;
+    public static boolean isForceSkip = false;
 
-    private static int activeMin;
-    private static int activeSec;
+    private int activeSec;
+    private int restSec;
 
-    private static int restMin;
-    private static int restSec;
-
-    private static String displayTimerMode;
-
-    private static String displayMin;
-    private static String displaySec;
-
-    public static void setActiveTimer(int aMin, int aSec) {
-        activeMin = aMin;
-        activeSec = aSec;
-    }
-
-    public static void setRestTimer(int rMin, int rSec) {
-        restMin = rMin;
-        restSec = rSec;
-    }
-
-    public static int getActiveMin() {
-        return activeMin;
-    }
-
-    public static int getActiveSec() {
-        return activeSec;
-    }
-
-    public static int getRestMin() {
-        return restMin;
-    }
-
-    public static int getRestSec() {
-        return restSec;
-    }
+    private int currActiveSec;
+    private int currRestSec;
 
     public PluginTimer() {
+        instance = this;
         PluginState.setChatControl(false);
 
-        int[] activeTime = PluginState.getActiveTime();
-        activeMin = activeTime[0];
-        activeSec = activeTime[1];
+        this.activeSec = PluginState.getActiveTime();
+        this.currActiveSec = this.activeSec;
 
-        int[] resTime = PluginState.getRestTime();
-        restMin = resTime[0];
-        restSec = resTime[1];
+        this.restSec = PluginState.getRestTime();
+        this.currRestSec = this.restSec;
     }
 
-    private static void updateTimer() {
+    public static PluginTimer getInstance() {
+        return instance;
+    }
 
+    public void setActiveTimer(int seconds) {
+        this.activeSec = seconds;
+        // Only reset current time if we're in active mode
         if (PluginState.isChatControlEnabled()) {
-            if (activeSec == 0) {
-                activeSec = 59;
-                activeMin--;
-            } else {
-                activeSec--;
-            }
-
-            displayMin = ChatColor.RED + ("0" + activeMin).substring(("0" + activeMin).length() - 2);
-            displaySec = ChatColor.RED + ("0" + activeSec).substring(("0" + activeSec).length() - 2);
-
-        } else { //Rest Timer ::
-            if (restSec == 0) {
-                restSec = 59;
-                restMin--;
-            } else {
-                restSec--;
-            }
-
-            displayMin = ChatColor.GREEN + ("0" + restMin).substring(("0" + restMin).length() - 2);
-            displaySec = ChatColor.GREEN + ("0" + restSec).substring(("0" + restSec).length() - 2);
+            this.currActiveSec = this.activeSec;
         }
     }
 
-    private static void updateTimerMode() {
+    public void setRestTimer(int seconds) {
+        this.restSec = seconds;
+        // Only reset current time if we're in rest mode
+        if (!PluginState.isChatControlEnabled()) {
+            this.currRestSec = this.restSec;
+        }
+    }
+
+    public static void skipTimerMode() {
+        isForceSkip = true;
+    }
+
+    private void updateTimer() {
         if (PluginState.isChatControlEnabled()) {
-            displayTimerMode = ChatColor.RED + "" + "Spawn";
+            currActiveSec--;
         } else {
-            displayTimerMode = ChatColor.YELLOW + "" + "Rest";
+            currRestSec--;
         }
     }
 
-    private static void toggleTimer() {
+    private String getFormattedTime() {
+        int totalSeconds = PluginState.isChatControlEnabled() ? currActiveSec : currRestSec;
+
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds / 60) % 60;
+        int seconds = totalSeconds % 60;
+
+        ChatColor color = PluginState.isChatControlEnabled() ? ChatColor.RED : ChatColor.GREEN;
+
+        if (hours > 0) {
+            return color + String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            return color + String.format("%02d:%02d", minutes, seconds);
+        }
+    }
+
+    private String getDisplayTimerMode() {
+        if (PluginState.isChatControlEnabled()) {
+            return ChatColor.RED + "Spawn";
+        } else {
+            return ChatColor.YELLOW + "Rest";
+        }
+    }
+
+    private void toggleTimer() {
         Player streamer = PluginState.getStreamer();
 
-        if (streamer == null) return;
+        if (streamer == null) {
+            return;
+        }
 
-        if (activeMin == 0 && activeSec == 0 && PluginState.isChatControlEnabled()) {
-            int[] resTime = PluginState.getRestTime();
-            restMin = resTime[0];
-            restSec = resTime[1];
+        if (currActiveSec == 0 && PluginState.isChatControlEnabled()) {
+            this.currRestSec = this.restSec;
 
             PluginState.setChatControl(false);
             MobUtils.killAllAuthorMobs();
@@ -117,63 +108,60 @@ public class PluginTimer implements Runnable {
 
             //Showing Rest Title
             TitlesUI.showTimerRestTitle();
-            
+
             //Update Boss Bar
-            BossBarUI.updateBossBar(restMin, restSec, PluginState.getRestTime()[0], PluginState.getRestTime()[1]);
+            BossBarUI.updateBossBar(currRestSec, restSec);
         }
 
-        if (restMin == 0 && restSec == 0 && !PluginState.isChatControlEnabled()) {
-            int[] activeTime = PluginState.getActiveTime();
-            activeMin = activeTime[0];
-            activeSec = activeTime[1];
+        if (currRestSec == 0 && !PluginState.isChatControlEnabled()) {
+            this.currActiveSec = this.activeSec;
 
             PluginState.setChatControl(true);
             ChatControl.setTimeStamp(DateTimeUtils.getGMTTimeNow());
             Bukkit.getLogger().info("Chat Control Activated!");
-            
+
             //Showing Active Title
             TitlesUI.showTimerActiveTitle();
-            
+
             //Update Boss Bar
-            BossBarUI.updateBossBar(activeMin, activeSec, PluginState.getActiveTime()[0], PluginState.getActiveTime()[1]);
+            BossBarUI.updateBossBar(currActiveSec, activeSec);
         }
     }
 
-    private static void forceToggleTimer() {
+    private void forceToggleTimer() {
         if (PluginState.isChatControlEnabled()) {
-            activeMin = 0;
-            activeSec = 0;
+            currActiveSec = 0;
         } else {
-            restMin = 0;
-            restSec = 0;
+            currRestSec = 0;
         }
+
+        isForceSkip = false;
     }
 
     @Override
     public void run() {
         Player player = PluginState.getStreamer();
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
 
-        if (isForceToggle) {
+        if (isForceSkip) {
             forceToggleTimer();
         } else {
             updateTimer();
         }
-        isForceToggle = false;
-
-        updateTimerMode();
 
         if (player.getScoreboard().getObjective("YTCraftBoard") != null) {
-            ScoreboardUI.updateScoreboard(player, displayMin, displaySec, displayTimerMode);
+            ScoreboardUI.updateScoreboard(player, getFormattedTime(), getDisplayTimerMode());
         }
 
         toggleTimer();
-        
+
         //Update Boss Bar every second
         if (PluginState.isChatControlEnabled()) {
-            BossBarUI.updateBossBar(activeMin, activeSec, PluginState.getActiveTime()[0], PluginState.getActiveTime()[1]);
+            BossBarUI.updateBossBar(currActiveSec, activeSec);
         } else {
-            BossBarUI.updateBossBar(restMin, restSec, PluginState.getRestTime()[0], PluginState.getRestTime()[1]);
+            BossBarUI.updateBossBar(currRestSec, restSec);
         }
     }
 }
