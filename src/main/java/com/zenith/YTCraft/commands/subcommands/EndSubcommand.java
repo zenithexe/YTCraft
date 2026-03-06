@@ -10,7 +10,6 @@ import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.mechanics.SubscriberMechanics;
 import com.zenith.YTCraft.ui.BlankBoardUI;
 import com.zenith.YTCraft.ui.BossBarUI;
-import com.zenith.YTCraft.util.ItemUtils;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.kyori.adventure.text.Component;
@@ -31,7 +30,7 @@ public class EndSubcommand implements Subcommand {
         // Reset state
         ChatControl.setTimeStamp(null);
         MobUtils.killAllAuthorMobs();
-        ItemUtils.clearAllAuthorItems();
+
         SubscriberMechanics.SubscriberCountLimit = 0;
 
         // Remove UI

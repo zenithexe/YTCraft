@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zenith.YTCraft.YTCraft;
+import com.zenith.YTCraft.config.processors.ItemGiveSettingsProcessor;
 import com.zenith.YTCraft.config.processors.MobSpawnSettingsProcessor;
 import com.zenith.YTCraft.config.processors.TimerSettingsProcessor;
 import com.zenith.YTCraft.config.types.PluginSettings;
@@ -72,6 +73,7 @@ public class SettingsLoader {
         
         TimerSettingsProcessor.process(settings.getTimerSettings());
         MobSpawnSettingsProcessor.process(settings.getMobSpawnSettings());
+        ItemGiveSettingsProcessor.process(settings.getItemGiveSettings());
     }
 
     /**

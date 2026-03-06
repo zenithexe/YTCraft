@@ -5,6 +5,7 @@ public class PluginSettings {
     private String video_id;
     private TimerSettings timer;
     private MobSpawnSettings mob_spawn;
+    private ItemGiveSettings item_give;
 
     public String getVideoId() {
         return video_id;
@@ -20,6 +21,10 @@ public class PluginSettings {
 
     public MobSpawnSettings getMobSpawnSettings() {
         return mob_spawn;
+    }
+
+    public ItemGiveSettings getItemGiveSettings() {
+        return item_give;
     }
 
 }

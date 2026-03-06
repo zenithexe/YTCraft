@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.zenith.YTCraft.commands.YTCraftCommand;
 import com.zenith.YTCraft.config.ConfigManager;
 import com.zenith.YTCraft.config.SettingsLoader;
+import com.zenith.YTCraft.data.ItemGiveState;
 import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
@@ -48,6 +49,7 @@ public final class YTCraft extends JavaPlugin {
 
         // Clear all static data
         MobSpawnState.clearAll();
+        ItemGiveState.clearAll();
         SpawnQueue.clear();
 
         // Reset plugin state

@@ -10,7 +10,6 @@ import com.zenith.YTCraft.ui.BossBarUI;
 import com.zenith.YTCraft.ui.ScoreboardUI;
 import com.zenith.YTCraft.ui.TitlesUI;
 import com.zenith.YTCraft.util.DateTimeUtils;
-import com.zenith.YTCraft.util.ItemUtils;
 import com.zenith.YTCraft.util.MobUtils;
 
 import net.md_5.bungee.api.ChatColor;
@@ -104,7 +103,6 @@ public class PluginTimer implements Runnable {
 
             PluginState.setChatControl(false);
             MobUtils.killAllAuthorMobs();
-            ItemUtils.clearAllAuthorItems();
 
             //Showing Rest Title
             TitlesUI.showTimerRestTitle();
