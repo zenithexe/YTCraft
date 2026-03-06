@@ -29,6 +29,11 @@ public class ChatActionHandler {
 
         Chat_Actions_Reg.put(action.getKey().toLowerCase(), action);
         Bukkit.getLogger().info(String.format("Registered Chat Action: %s", action.getKey()));
+
+        for (String alias : action.getAliases()) {
+            Chat_Actions_Reg.put(alias.toLowerCase(), action);
+            Bukkit.getLogger().info(String.format("Registered Chat Action: %s with alias: %s", action.getKey(), alias));
+        }
     }
 
     // Get an action by trigger

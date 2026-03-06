@@ -22,6 +22,11 @@ public class DeSpawnMobAction implements ChatAction {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"dspw", "despwn", "dspwn", "kill", "kil"};
+    }
+
+    @Override
     public String getDescription() {
         return "Despawn your spawned mob";
     }

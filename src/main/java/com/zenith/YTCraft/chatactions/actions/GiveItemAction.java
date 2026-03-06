@@ -5,11 +5,14 @@ import com.zenith.YTCraft.chatactions.ChatAction;
 
 public class GiveItemAction implements ChatAction {
 
-    private static final int MAX_ITEM_COUNT = 16;
-
     @Override
     public String getKey() {
         return "give";
+    }
+
+    @Override
+    public String[] getAliases() {
+        return new String[]{"gv", "giv"};
     }
 
     @Override

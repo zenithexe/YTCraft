@@ -13,6 +13,8 @@ public interface ChatAction {
      */
     String getKey();
 
+    String[] getAliases();
+
     /**
      * Get description of what this action does
      */

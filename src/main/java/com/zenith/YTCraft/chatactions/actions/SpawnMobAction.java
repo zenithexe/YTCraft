@@ -20,6 +20,11 @@ public class SpawnMobAction implements ChatAction {
     }
 
     @Override
+    public String[] getAliases() {
+        return new String[]{"spw","spwn", "summon"};
+    }
+
+    @Override
     public String getDescription() {
         return "Spawn a mob in the game";
     }
