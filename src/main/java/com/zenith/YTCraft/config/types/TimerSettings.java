@@ -17,4 +17,17 @@ public class TimerSettings {
     public int getRestSeconds() {
         return rest_seconds;
     }
+
+    // Setters
+    public void setAlwaysActive(boolean alwaysActive) {
+        this.always_active = alwaysActive;
+    }
+
+    public void setActiveSeconds(int activeSeconds) {
+        this.active_seconds = activeSeconds;
+    }
+
+    public void setRestSeconds(int restSeconds) {
+        this.rest_seconds = restSeconds;
+    }
 }

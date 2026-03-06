@@ -102,6 +102,22 @@ public class SettingsLoader {
     }
 
     /**
+     * Load settings from file without processing
+     */
+    public static void loadSettings() {
+        loadFromFile();
+    }
+
+    /**
+     * Reload mob tiers into runtime state
+     */
+    public static void loadMobTiers() {
+        if (settings != null && settings.getMobSpawnSettings() != null) {
+            MobSpawnSettingsProcessor.process(settings.getMobSpawnSettings());
+        }
+    }
+
+    /**
      * Save default settings.json from resources
      */
     private static void saveDefaultSettings() {

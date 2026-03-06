@@ -12,9 +12,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import com.zenith.YTCraft.commands.subcommands.EndSubcommand;
+import com.zenith.YTCraft.commands.subcommands.ReloadSubcommand;
+import com.zenith.YTCraft.commands.subcommands.SaveSubcommand;
 import com.zenith.YTCraft.commands.subcommands.StartSubcommand;
+import com.zenith.YTCraft.commands.subcommands.StatusSubcommand;
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
-import com.zenith.YTCraft.commands.subcommands.settings.SettingsSubcommand;
+import com.zenith.YTCraft.commands.subcommands.VideoSubcommand;
+import com.zenith.YTCraft.commands.subcommands.mob.MobSubcommand;
+import com.zenith.YTCraft.commands.subcommands.timer.TimerSubcommand;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -26,7 +31,12 @@ public class YTCraftCommand implements TabExecutor {
     public YTCraftCommand() {
         registerSubcommand(new StartSubcommand());
         registerSubcommand(new EndSubcommand());
-        registerSubcommand(new SettingsSubcommand());
+        registerSubcommand(new MobSubcommand());
+        registerSubcommand(new TimerSubcommand());
+        registerSubcommand(new ReloadSubcommand());
+        registerSubcommand(new SaveSubcommand());
+        registerSubcommand(new StatusSubcommand());
+        registerSubcommand(new VideoSubcommand());
     }
 
     private void registerSubcommand(Subcommand subcommand) {
@@ -35,7 +45,7 @@ public class YTCraftCommand implements TabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        
+
         if (args.length == 0) {
             sendHelp(sender);
             return true;
@@ -65,8 +75,9 @@ public class YTCraftCommand implements TabExecutor {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        
+    public @Nullable
+    List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
         if (args.length == 1) {
             List<String> suggestions = new ArrayList<>();
             for (String name : subcommands.keySet()) {

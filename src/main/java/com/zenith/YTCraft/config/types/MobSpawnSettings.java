@@ -47,6 +47,31 @@ public class MobSpawnSettings {
         return mob_tiers;
     }
 
+    // Setters
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void setKillAllOnDeath(boolean killAllOnDeath) {
+        this.kill_all_on_death = killAllOnDeath;
+    }
+
+    public void setAllowViewerMobKill(boolean allowViewerMobKill) {
+        this.allow_viewer_mob_kill = allowViewerMobKill;
+    }
+
+    public void setMaxSpawns(int maxSpawns) {
+        this.max_spawns = maxSpawns;
+    }
+
+    public void setMode(ModeSettings mode) {
+        this.mode = mode;
+    }
+
+    public void setBannedMobs(List<String> bannedMobs) {
+        this.banned_mobs = bannedMobs;
+    }
+
     public static class LowViewerMode {
 
         private boolean enabled;
@@ -75,6 +100,27 @@ public class MobSpawnSettings {
             return exclude;
         }
 
+        // Setters
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public void setViewersThreshold(int viewersThreshold) {
+            this.viewers_threshold = viewersThreshold;
+        }
+
+        public void setMode(LowViewModeSettings mode) {
+            this.mode = mode;
+        }
+
+        public void setAllow(List<String> allow) {
+            this.allow = allow;
+        }
+
+        public void setExclude(List<String> exclude) {
+            this.exclude = exclude;
+        }
+
         public static enum LowViewModeSettings {
             @SerializedName("all")
             ALL,
@@ -90,6 +136,11 @@ public class MobSpawnSettings {
 
         private int min_viewers;
         private List<String> mobs;
+
+        public MobTier(int minViewers, List<String> mobs) {
+            this.min_viewers = minViewers;
+            this.mobs = mobs;
+        }
 
         public int getMinViewers() {
             return min_viewers;
