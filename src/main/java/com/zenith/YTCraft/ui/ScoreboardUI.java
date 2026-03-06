@@ -18,22 +18,24 @@ public class ScoreboardUI {
     // Team names
     private static final String TEAM_TIMER_MODE = "TimerMode";
     private static final String TEAM_TIMER = "Timer";
+    private static final String TEAM_VIEWER_COUNT = "ViewerCount";
     private static final String TEAM_SUBSCRIBER_COUNT = "SubscriberCount";
     private static final String TEAM_ACTIVE_MOBS = "ActiveMobs";
     private static final String TEAM_DEATH_COUNT = "DeathCount";
 
     // Score positions
-    private static final int SCORE_HEADER = 10;
-    private static final int SCORE_SPACER_1 = 9;
-    private static final int SCORE_TIMER_MODE = 8;
-    private static final int SCORE_TIMER = 7;
-    private static final int SCORE_SPACER_2 = 6;
-    private static final int SCORE_SUBSCRIBER_COUNT = 5;
-    private static final int SCORE_SPACER_3 = 4;
-    private static final int SCORE_ACTIVE_MOBS = 3;
-    private static final int SCORE_DEATH_COUNT = 2;
-    private static final int SCORE_SPACER_4 = 1;
-    private static final int SCORE_CREDITS = 0;
+    private static final int SCORE_HEADER = 12;
+    private static final int SCORE_SPACER_1 = 11;
+    private static final int SCORE_TIMER_MODE = 10;
+    private static final int SCORE_TIMER = 9;
+    private static final int SCORE_SPACER_2 = 8;
+    private static final int SCORE_VIEWER_COUNT = 7;
+    private static final int SCORE_SUBSCRIBER_COUNT = 6;
+    private static final int SCORE_SPACER_3 = 5;
+    private static final int SCORE_ACTIVE_MOBS = 4;
+    private static final int SCORE_DEATH_COUNT = 3;
+    private static final int SCORE_SPACER_4 = 2;
+    private static final int SCORE_CREDITS = 1;
 
     // Default values
     private static final String DEFAULT_MODE = "Idle";
@@ -74,6 +76,14 @@ public class ScoreboardUI {
         // objective.getScore(timerKey).setScore(SCORE_TIMER);
 
         // objective.getScore(ChatColor.WHITE + "  ").setScore(SCORE_SPACER_2);
+
+        // Viewer Count
+        Team viewerCount = scoreboard.registerNewTeam(TEAM_VIEWER_COUNT);
+        String viewerCountKey = ChatColor.LIGHT_PURPLE.toString();
+        viewerCount.addEntry(viewerCountKey);
+        viewerCount.setPrefix(ChatColor.LIGHT_PURPLE + "👁 Watching: " + ChatColor.WHITE);
+        viewerCount.setSuffix("0");
+        objective.getScore(viewerCountKey).setScore(SCORE_VIEWER_COUNT);
 
         // Subscriber Count
         Team subscriberCount = scoreboard.registerNewTeam(TEAM_SUBSCRIBER_COUNT);
@@ -124,6 +134,12 @@ public class ScoreboardUI {
         Team timer = scoreboard.getTeam(TEAM_TIMER);
         if (timer != null) {
             timer.setSuffix(formattedTime);
+        }
+
+        // Update viewer count
+        Team viewerCount = scoreboard.getTeam(TEAM_VIEWER_COUNT);
+        if (viewerCount != null) {
+            viewerCount.setSuffix(String.valueOf(PluginState.getViewers()));
         }
 
         // Update subscriber count
