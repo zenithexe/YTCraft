@@ -29,7 +29,7 @@ public class MessageUtils {
     /**
      * Broadcast message when a viewer gives an item
      */
-    public static void sendAuthorItemSpawnMessage(ItemStack item, String author) {
+    public static void sendAuthorItemGiveMessage(ItemStack item, String author) {
         Component broadcastMessage = Component.text(author)
                 .color(NamedTextColor.YELLOW)
                 .appendSpace()

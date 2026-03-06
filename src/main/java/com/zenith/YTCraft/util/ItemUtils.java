@@ -85,6 +85,9 @@ public class ItemUtils {
         // Give to player
         giveItemToPlayer(player, itemStack);
 
+        // Broadcast message
+        MessageUtils.sendAuthorItemGiveMessage(itemStack, author);
+
         Bukkit.getLogger().info(String.format("%s gave alias '%s' (%s x%d)",
                 author, aliasName, material, alias.getQty()));
 
@@ -121,6 +124,9 @@ public class ItemUtils {
         ItemStack itemStack = new ItemStack(material, quantity);
         setItemNBT(itemStack, author);
         giveItemToPlayer(player, itemStack);
+
+        // Broadcast message
+        MessageUtils.sendAuthorItemGiveMessage(itemStack, author);
 
         Bukkit.getLogger().info(String.format("%s gave %s x%d", author, itemName, quantity));
 
