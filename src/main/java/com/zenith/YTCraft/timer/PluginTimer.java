@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.data.TimerState;
 import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.ui.BossBarUI;
 import com.zenith.YTCraft.ui.ScoreboardUI;
@@ -27,12 +28,11 @@ public class PluginTimer implements Runnable {
 
     public PluginTimer() {
         instance = this;
-        PluginState.setChatControl(false);
 
-        this.activeSec = PluginState.getActiveTime();
+        this.activeSec = TimerState.getActiveTime();
         this.currActiveSec = this.activeSec;
 
-        this.restSec = PluginState.getRestTime();
+        this.restSec = TimerState.getRestTime();
         this.currRestSec = this.restSec;
     }
 

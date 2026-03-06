@@ -6,9 +6,6 @@ public class PluginState {
 
     private static Player streamer;
 
-    private static int activeTimeSec = 300;
-    private static int restTimeSec = 300;
-
     private static boolean isChatControlEnabled = false;
 
     private static int mobSpawnRadius = 2;
@@ -25,22 +22,6 @@ public class PluginState {
 
     public static void setStreamer(Player player) {
         streamer = player;
-    }
-
-    public static void setActiveTime(int seconds) {
-        activeTimeSec = seconds;
-    }
-
-    public static void setRestTime(int seconds) {
-        restTimeSec = seconds;
-    }
-
-    public static int getActiveTime() {
-        return activeTimeSec;
-    }
-
-    public static int getRestTime() {
-        return restTimeSec;
     }
 
     public static boolean isChatControlEnabled() {

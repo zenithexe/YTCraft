@@ -1,33 +1,22 @@
 {
   "timer": {
-    "always_active": true, //No toggle
-
-    "active_seconds": 300, // 300 seconds
-    "rest_seconds": 150 //  150 seconds
+    "always_active": false,
+    "active_seconds": 300,
+    "rest_seconds": 150
   },
 
   "mob_spawn": {
     "enabled": true,
-
     "kill_all_on_death": true,
-
     "max_spawns": 100,
-
-    "mode": "tier_only", // 'all' , 'tier_only', 'tier_plus_unlisted'
-
+    "mode": "tier_only",
     "banned_mobs": ["ENDERMAN"],
-
-    //
     "low_viewer_mode": {
       "enabled": true,
-
       "viewers_threshold": 10,
-
-      "mode": "allow_only", //all, allow_only, tier
-
-      "allow": ["PILLAGER"],
-
-      "exclude": ["EVOKER"]
+      "mode": "allow_only",
+      "allow": ["WOLF", "CHICKEN"],
+      "exclude": ["EVOKER", "WARDEN"]
     },
 
     "mob_tiers": [
@@ -37,7 +26,7 @@
       },
       {
         "min_viewers": 100,
-        "mobs": ["BLAZE", "WITHER_SKELETON", "ENDERMAN"]
+        "mobs": ["BLAZE", "WITHER_SKELETON"]
       },
       {
         "min_viewers": 500,
@@ -46,44 +35,6 @@
       {
         "min_viewers": 1000,
         "mobs": ["WARDEN", "EVOKER"]
-      }
-    ]
-  },
-
-  "item_rewards": {
-    "enabled": true,
-
-    "mode": "tier_only", // 'all', "tier_only" , "tier_plus_unlisted"
-
-    "banned_items": ["CommandBlock"],
-
-    //
-    "low_viewer_mode": {
-      "enabled": true,
-
-      "viewers_threshold": 10,
-
-      "mode": "allow_only", //all, allow_only, tier
-
-      "allow": ["PILLAGER"],
-
-      "exclude": ["EVOKER"]
-    },
-
-    "item_tiers": [
-      {
-        "min_viewers": 0,
-        "items": [
-          { "item": "DIAMOND", "max": 1 },
-          { "item": "IRON_SWORD", "max": 1 }
-        ]
-      },
-      {
-        "min_viewers": 500,
-        "items": [
-          { "item": "NETHERITE_SWORD", "max": 1 },
-          { "item": "ELYTRA", "max": 1 }
-        ]
       }
     ]
   }

@@ -2,7 +2,7 @@ package com.zenith.YTCraft.ui;
 
 import org.bukkit.entity.Player;
 
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.types.AuthorMob;
 
@@ -18,8 +18,8 @@ public class TabListUI {
 
         Component header = Component.text("Spawned Mobs :: 0").color(NamedTextColor.GREEN);
 
-        if (!MobManager.getChannelIdToAuthorMob().isEmpty()) {
-            header = Component.text("Spawned Mobs :: " + MobManager.getChannelIdToAuthorMob().size())
+        if (!MobSpawnState.getChannelIdToAuthorMob().isEmpty()) {
+            header = Component.text("Spawned Mobs :: " + MobSpawnState.getChannelIdToAuthorMob().size())
                     .color(NamedTextColor.GREEN);
         }
         
@@ -30,7 +30,7 @@ public class TabListUI {
         Player streamer = PluginState.getStreamer();
         if (streamer == null) return;
 
-        if (MobManager.getChannelIdToAuthorMob().isEmpty()) {
+        if (MobSpawnState.getChannelIdToAuthorMob().isEmpty()) {
             streamer.sendPlayerListFooter(Component.empty());
             return;
         }
@@ -42,7 +42,7 @@ public class TabListUI {
                 .append(Component.text("\n"));
 
         int index = 0;
-        for (AuthorMob authorMob : MobManager.getChannelIdToAuthorMob().values()) {
+        for (AuthorMob authorMob : MobSpawnState.getChannelIdToAuthorMob().values()) {
             String author = authorMob.getAuthor();
             String mobType = authorMob.getMob().getType().toString();
 

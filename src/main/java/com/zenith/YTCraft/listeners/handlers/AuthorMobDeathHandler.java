@@ -5,7 +5,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.persistence.PersistentDataType;
 
 import com.zenith.YTCraft.YTCraft;
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.ui.TabListUI;
 
 public class AuthorMobDeathHandler {
@@ -15,7 +15,7 @@ public class AuthorMobDeathHandler {
         {
             String spawnedChannelId = entity.getPersistentDataContainer().get(new NamespacedKey(YTCraft.getPlugin(), "SpawnedChannelId"), PersistentDataType.STRING);
 
-            MobManager.getChannelIdToAuthorMob().remove(spawnedChannelId);
+            MobSpawnState.getChannelIdToAuthorMob().remove(spawnedChannelId);
 
             TabListUI.updateFooterTabList();
             TabListUI.updateHeaderTabList();

@@ -7,7 +7,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
-import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.data.TimerState;
 import com.zenith.YTCraft.timer.PluginTimer;
 
 import net.kyori.adventure.text.Component;
@@ -31,27 +31,28 @@ public class ActiveTimeSubcommand implements Subcommand {
                 return true;
             }
 
-            PluginState.setActiveTime(seconds);
-            
+            TimerState.setActiveTime(seconds);
+
             // Update the running timer instance if it exists
             PluginTimer timer = PluginTimer.getInstance();
+
             if (timer != null) {
                 timer.setActiveTimer(seconds);
             }
-            
+
             // Format display
             int hours = seconds / 3600;
             int minutes = (seconds / 60) % 60;
             int secs = seconds % 60;
-            
+
             String timeDisplay;
-            
+
             if (hours > 0) {
                 timeDisplay = String.format("%02d:%02d:%02d", hours, minutes, secs);
             } else {
                 timeDisplay = String.format("%02d:%02d", minutes, secs);
             }
-            
+
             sender.sendMessage(Component.text("Active time set to: ").color(NamedTextColor.AQUA)
                     .append(Component.text(timeDisplay + " (" + seconds + " seconds)").color(NamedTextColor.GREEN)));
 

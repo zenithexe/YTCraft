@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.zenith.YTCraft.commands.YTCraftCommand;
-import com.zenith.YTCraft.config.Configuration;
-import com.zenith.YTCraft.config.SaveConfiguration;
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.config.ConfigManager;
+import com.zenith.YTCraft.config.SettingsLoader;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.listeners.EntityDeathListener;
@@ -25,8 +25,11 @@ public final class YTCraft extends JavaPlugin {
         getLogger().info("YTCraft has been enabled.");
 
         //Config
-        saveDefaultConfig();
-        Configuration.setupConfiguration();
+        saveDefaultConfig(); //function from JavaPlugin
+        ConfigManager.loadConfig();
+
+        SettingsLoader.init(this);
+        SettingsLoader.processSettings();
 
         //Event
         getServer().getPluginManager().registerEvents(new EntityDeathListener(), this);
@@ -44,7 +47,7 @@ public final class YTCraft extends JavaPlugin {
         Bukkit.getScheduler().cancelTasks(this);
 
         // Clear all static data
-        MobManager.clearAll();
+        MobSpawnState.clearAll();
         SpawnQueue.clear();
 
         // Reset plugin state
@@ -56,14 +59,18 @@ public final class YTCraft extends JavaPlugin {
         //Remove Boss Bar
         BossBarUI.removeBossBar();
 
-        //Save Config
-        SaveConfiguration.saveYTCraftConfig();
-
         getLogger().info("YTCraft has been disabled.");
     }
 
     public static YTCraft getPlugin() {
         return plugin;
+    }
+
+    /**
+     * Reload plugin settings
+     */
+    public static void reloadSettings() {
+        SettingsLoader.reload();
     }
 
 }

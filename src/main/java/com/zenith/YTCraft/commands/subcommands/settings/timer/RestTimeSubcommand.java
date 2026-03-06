@@ -7,7 +7,7 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
-import com.zenith.YTCraft.data.PluginState;
+import com.zenith.YTCraft.data.TimerState;
 import com.zenith.YTCraft.timer.PluginTimer;
 
 import net.kyori.adventure.text.Component;
@@ -31,7 +31,7 @@ public class RestTimeSubcommand implements Subcommand {
                 return true;
             }
 
-            PluginState.setRestTime(seconds);
+            TimerState.setRestTime(seconds);
             
             // Update the running timer instance if it exists
             PluginTimer timer = PluginTimer.getInstance();

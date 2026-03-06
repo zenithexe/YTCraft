@@ -5,7 +5,7 @@ import org.bukkit.entity.EntityType;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.mechanics.MobSpawning;
 
@@ -53,13 +53,13 @@ public class SpawnMobAction implements ChatAction {
         }
 
         // Check if user already has a mob spawned (unless low viewers bypass)
-        if (MobManager.getChannelIdToAuthorMob().containsKey(channelId) && viewers > 10) {
+        if (MobSpawnState.getChannelIdToAuthorMob().containsKey(channelId) && viewers > 10) {
             Bukkit.getLogger().info(String.format("%s already has a mob spawned", author));
             return false;
         }
 
         // Check viewer requirements for this entity type
-        if (!MobManager.isMobSpawnable(entityType.toString())) {
+        if (!MobSpawnState.isMobSpawnable(entityType)) {
             Bukkit.getLogger().info(String.format("Insufficient Viewers :: %s >> %s ", author, entityType));
             return false;
         }

@@ -7,7 +7,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 
 import net.md_5.bungee.api.ChatColor;
@@ -135,7 +135,7 @@ public class ScoreboardUI {
         // Update active mobs count
         Team activeMobs = scoreboard.getTeam(TEAM_ACTIVE_MOBS);
         if (activeMobs != null) {
-            int mobCount = MobManager.getChannelIdToAuthorMob().size();
+            int mobCount = MobSpawnState.getChannelIdToAuthorMob().size();
             activeMobs.setSuffix(String.valueOf(mobCount));
         }
 

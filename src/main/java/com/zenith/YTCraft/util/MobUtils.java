@@ -11,7 +11,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import com.zenith.YTCraft.YTCraft;
-import com.zenith.YTCraft.data.MobManager;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.types.AuthorMob;
 import com.zenith.YTCraft.ui.TabListUI;
@@ -45,7 +45,7 @@ public class MobUtils {
      */
     public static void addAuthorMobData(LivingEntity creature, String author, String channelId) {
         AuthorMob authorMob = new AuthorMob(channelId, author, creature);
-        MobManager.getChannelIdToAuthorMob().put(channelId, authorMob);
+        MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
     }
 
     /**
@@ -53,12 +53,12 @@ public class MobUtils {
      */
     public static void killAllAuthorMobs() {
 
-        for (AuthorMob authorMob : MobManager.getChannelIdToAuthorMob().values()) {
+        for (AuthorMob authorMob : MobSpawnState.getChannelIdToAuthorMob().values()) {
             LivingEntity creature = authorMob.getMob();
             creature.setHealth(0);
         }
 
-        MobManager.getChannelIdToAuthorMob().clear();
+        MobSpawnState.getChannelIdToAuthorMob().clear();
 
         TabListUI.updateFooterTabList();
         TabListUI.updateHeaderTabList();
