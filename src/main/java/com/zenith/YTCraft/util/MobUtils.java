@@ -48,6 +48,17 @@ public class MobUtils {
         MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
     }
 
+    public static void killAuthorMob(AuthorMob authorMob) {
+
+        LivingEntity creature = authorMob.getMob();
+        creature.setHealth(0);
+        MobSpawnState.getChannelIdToAuthorMob().remove(authorMob.getChannelId());
+
+        TabListUI.updateFooterTabList();
+        TabListUI.updateHeaderTabList();
+
+    }
+
     /**
      * Kill all mobs spawned by viewers
      */

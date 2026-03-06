@@ -39,4 +39,18 @@ public class MessageUtils {
 
         Bukkit.getServer().broadcast(broadcastMessage);
     }
+
+    /**
+     * Broadcast message when a viewer despawns their mob
+     */
+    public static void sendAuthorMobDespawnMessage(LivingEntity creature, String author) {
+        Component broadcastMessage = Component.text(author)
+                .color(NamedTextColor.YELLOW)
+                .appendSpace()
+                .append(Component.text("has despawned their").color(NamedTextColor.WHITE))
+                .appendSpace()
+                .append(Component.text(creature.getType().toString()).color(NamedTextColor.RED));
+
+        Bukkit.getServer().broadcast(broadcastMessage);
+    }
 }

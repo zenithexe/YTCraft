@@ -6,6 +6,7 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
+import com.zenith.YTCraft.chatactions.actions.DeSpawnMobAction;
 import com.zenith.YTCraft.chatactions.actions.GiveItemAction;
 import com.zenith.YTCraft.chatactions.actions.SpawnMobAction;
 
@@ -20,6 +21,7 @@ public class ChatActionHandler {
         // Register all chat actions
         registerChatAction(new SpawnMobAction());
         registerChatAction(new GiveItemAction());
+        registerChatAction(new DeSpawnMobAction());
     }
 
     // Register a chat action

@@ -8,6 +8,7 @@ public class MobSpawnSettings {
 
     private boolean enabled;
     private boolean kill_all_on_death;
+    private boolean allow_viewer_mob_kill;
     private int max_spawns;
     private ModeSettings mode;
     private List<String> banned_mobs;
@@ -20,6 +21,10 @@ public class MobSpawnSettings {
 
     public boolean isKillAllOnDeath() {
         return kill_all_on_death;
+    }
+
+    public boolean isAllowViewerMobKill() {
+        return allow_viewer_mob_kill;
     }
 
     public int getMaxSpawns() {

@@ -6,7 +6,6 @@ import org.bukkit.entity.EntityType;
 import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
 import com.zenith.YTCraft.data.MobSpawnState;
-import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.mechanics.MobSpawning;
 
 /**
@@ -27,8 +26,6 @@ public class SpawnMobAction implements ChatAction {
 
     @Override
     public boolean execute(LiveChatMessage message, String[] args) {
-
-        int viewers = PluginState.getViewers();
 
         String author = message.getAuthorDetails().getDisplayName();
         String channelId = message.getAuthorDetails().getChannelId();
@@ -53,7 +50,7 @@ public class SpawnMobAction implements ChatAction {
         }
 
         // Check if user already has a mob spawned (unless low viewers bypass)
-        if (MobSpawnState.getChannelIdToAuthorMob().containsKey(channelId) && viewers > 10) {
+        if (MobSpawnState.getChannelIdToAuthorMob().containsKey(channelId)) {
             Bukkit.getLogger().info(String.format("%s already has a mob spawned", author));
             return false;
         }

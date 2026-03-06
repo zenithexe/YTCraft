@@ -8,6 +8,7 @@
   "mob_spawn": {
     "enabled": true,
     "kill_all_on_death": true,
+    "allow_viewer_mob_kill": true,
     "max_spawns": 100,
     "mode": "tier_only",
     "banned_mobs": ["ENDERMAN"],
