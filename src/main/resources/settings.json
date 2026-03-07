@@ -72,7 +72,8 @@
       "punisher": {
         "mob_name": "ItsPunisherOP",
         "entity_type": "PIGLIN_BRUTE",
-        "player_username": "ItsPunisherOP"
+        "player_username": "ItsPunisherOP",
+        "aliases": ["punisherop", "itspunisherop","puni"]
       }
     }
   }

@@ -52,9 +52,26 @@ public class CustomMobSettingsProcessor {
                 String mobName = config.getMobName();
                 EntityType entityType = EntityType.valueOf(config.getEntityType().toUpperCase());
                 String playerUsername = config.getPlayerUsername();
+                String[] aliases = config.getAliases();
 
-                CustomMob customMob = new CustomMob(mobKey, mobName, entityType, playerUsername);
+                CustomMob customMob = new CustomMob(mobKey, mobName, entityType, playerUsername, aliases);
+                
+                // Register under main key
                 customMobs.put(mobKey, customMob);
+
+                // Register under all aliases
+                if (aliases != null && aliases.length > 0) {
+                    for (String alias : aliases) {
+                        String aliasKey = alias.toLowerCase().trim();
+                        if (!aliasKey.isEmpty()) {
+                            customMobs.put(aliasKey, customMob);
+                            Bukkit.getLogger().info(String.format(
+                                    "  Registered alias: %s -> %s",
+                                    aliasKey, mobKey
+                            ));
+                        }
+                    }
+                }
 
                 Bukkit.getLogger().info(String.format(
                         "Loaded custom mob: %s (%s) -> %s (username: %s)",

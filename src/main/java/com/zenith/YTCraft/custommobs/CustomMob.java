@@ -12,12 +12,14 @@ public class CustomMob {
     private final String mobName;
     private final EntityType entityType;
     private final String playerUsername;
+    private final String[] aliases;
 
-    public CustomMob(String mobKey, String mobName, EntityType entityType, String playerUsername) {
+    public CustomMob(String mobKey, String mobName, EntityType entityType, String playerUsername, String[] aliases) {
         this.mobKey = mobKey;
         this.mobName = mobName;
         this.entityType = entityType;
         this.playerUsername = playerUsername;
+        this.aliases = aliases != null ? aliases : new String[0];
     }
 
     public String getMobKey() {
@@ -34,5 +36,13 @@ public class CustomMob {
 
     public String getPlayerUsername() {
         return playerUsername;
+    }
+
+    public String[] getAliases() {
+        return aliases;
+    }
+
+    public boolean hasAliases() {
+        return aliases != null && aliases.length > 0;
     }
 }

@@ -28,6 +28,7 @@ public class CustomMobSettings {
         private String mob_name;
         private String entity_type;
         private String player_username;
+        private String[] aliases;
 
         public String getMobName() {
             return mob_name;
@@ -51,6 +52,14 @@ public class CustomMobSettings {
 
         public void setPlayerUsername(String playerUsername) {
             this.player_username = playerUsername;
+        }
+
+        public String[] getAliases() {
+            return aliases;
+        }
+
+        public void setAliases(String[] aliases) {
+            this.aliases = aliases;
         }
     }
 }
