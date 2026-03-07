@@ -11,6 +11,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import com.zenith.YTCraft.YTCraft;
+import com.zenith.YTCraft.custommobs.CustomMob;
 import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.types.AuthorMob;
@@ -48,6 +49,14 @@ public class MobUtils {
         MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
     }
 
+    /**
+     * Add custom mob to tracking map
+     */
+    public static void addAuthorMobData(LivingEntity creature, String author, String channelId, boolean isCustomMob, CustomMob customMob) {
+        AuthorMob authorMob = new AuthorMob(channelId, author, creature, isCustomMob, customMob);
+        MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
+    }
+
     public static void killAuthorMob(AuthorMob authorMob) {
 
         LivingEntity creature = authorMob.getMob();
@@ -63,12 +72,15 @@ public class MobUtils {
      * Kill all mobs spawned by viewers
      */
     public static void killAllAuthorMobs() {
+        // Create a copy of channel IDs to avoid ConcurrentModificationException
+        // when death events trigger and remove entries from the map
 
-        for (AuthorMob authorMob : MobSpawnState.getChannelIdToAuthorMob().values()) {
+        for (AuthorMob authorMob : new java.util.ArrayList<>(MobSpawnState.getChannelIdToAuthorMob().values())) {
             LivingEntity creature = authorMob.getMob();
             creature.setHealth(0);
         }
 
+        // Clear any remaining entries (in case some weren't removed by death events)
         MobSpawnState.getChannelIdToAuthorMob().clear();
 
         TabListUI.updateFooterTabList();

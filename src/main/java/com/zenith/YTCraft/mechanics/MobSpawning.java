@@ -17,8 +17,8 @@ import com.zenith.YTCraft.util.MobUtils;
 import net.kyori.adventure.text.Component;
 
 /**
- * Handles mob spawning from the queue
- * Runs every tick to process one spawn request
+ * Handles mob spawning from the queue Runs every tick to process one spawn
+ * request
  */
 public class MobSpawning implements Runnable {
 
@@ -35,10 +35,10 @@ public class MobSpawning implements Runnable {
      */
     public static void addCustomMob(CustomMob customMob, String author, String channelId) {
         MobSpawnRequest request = new MobSpawnRequest(
-            customMob.getEntityType(), 
-            author, 
-            channelId, 
-            customMob
+                customMob.getEntityType(),
+                author,
+                channelId,
+                customMob
         );
         SpawnQueue.add(request);
     }
@@ -58,8 +58,8 @@ public class MobSpawning implements Runnable {
         Location confirmSpawn = MobUtils.getMobSpawnLocation(player);
 
         LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(
-            confirmSpawn, 
-            request.getEntityType()
+                confirmSpawn,
+                request.getEntityType()
         );
 
         livingMob.customName(Component.text(request.getAuthor()));
@@ -68,16 +68,26 @@ public class MobSpawning implements Runnable {
 
         MobUtils.tameEntity(livingMob, player);
         MobUtils.setAuthorMobNBT(livingMob, request.getChannelId());
-        MobUtils.addAuthorMobData(livingMob, request.getAuthor(), request.getChannelId());
 
-        // Apply custom skin if this is a custom mob
+        // Add author mob data with custom mob info
         if (request.isCustomMob()) {
+            MobUtils.addAuthorMobData(
+                    livingMob,
+                    request.getAuthor(),
+                    request.getChannelId(),
+                    true,
+                    request.getCustomMob()
+            );
+            // Apply custom skin
             SkinApplier.applySkin(livingMob, request.getCustomMob());
+            MessageUtils.sendAuthorCustomMobSpawnMessage(request.getCustomMob(), request.getAuthor());
+        } else {
+            MobUtils.addAuthorMobData(livingMob, request.getAuthor(), request.getChannelId());
+            MessageUtils.sendAuthorMobSpawnMessage(livingMob, request.getAuthor());
         }
 
         TabListUI.updateHeaderTabList();
         TabListUI.updateFooterTabList();
 
-        MessageUtils.sendAuthorMobSpawnMessage(livingMob, request.getAuthor());
     }
 }

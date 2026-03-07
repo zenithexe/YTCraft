@@ -3,17 +3,20 @@ package com.zenith.YTCraft.custommobs;
 import org.bukkit.entity.EntityType;
 
 /**
- * Represents a custom mob configuration
- * Maps a custom name to an entity type with skin data
+ * Represents a custom mob configuration Maps a custom name to an entity type
+ * with skin data
  */
 public class CustomMob {
+
     private final String name;
+    private final String mobName;
     private final EntityType entityType;
     private final SkinSource skinSource;
     private final String skinValue;
 
-    public CustomMob(String name, EntityType entityType, SkinSource skinSource, String skinValue) {
+    public CustomMob(String name, String mobName, EntityType entityType, SkinSource skinSource, String skinValue) {
         this.name = name;
+        this.mobName = mobName;
         this.entityType = entityType;
         this.skinSource = skinSource;
         this.skinValue = skinValue;
@@ -21,6 +24,10 @@ public class CustomMob {
 
     public String getName() {
         return name;
+    }
+
+    public String getMobName() {
+        return mobName;
     }
 
     public EntityType getEntityType() {
@@ -36,8 +43,8 @@ public class CustomMob {
     }
 
     public enum SkinSource {
-        PLAYER,  // Fetch from Mojang using player name
-        FILE,    // Load from PNG file
+        PLAYER, // Fetch from Mojang using player name
+        FILE, // Load from PNG file
         URL      // Load from direct URL
     }
 }

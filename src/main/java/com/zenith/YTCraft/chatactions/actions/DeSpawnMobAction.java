@@ -52,8 +52,15 @@ public class DeSpawnMobAction implements ChatAction {
         }
 
         MobUtils.killAuthorMob(authorMob);
+
+        if (authorMob.isCustomMob() && authorMob.getCustomMob() != null) {
+            MessageUtils.sendAuthorCustomMobDespawnMessage(authorMob.getCustomMob(), author);
+        }
+        else{
+
+            MessageUtils.sendAuthorMobDespawnMessage(authorMob.getMob(), author);
+        }
         // Broadcast despawn message
-        MessageUtils.sendAuthorMobDespawnMessage(authorMob.getMob(), author);
 
         Bukkit.getLogger().info(String.format("%s killed their spawned %s", author, authorMob.getMob().getType()));
 

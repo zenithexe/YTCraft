@@ -25,32 +25,41 @@ public class CustomMobSettings {
 
     public static class CustomMobConfig {
         
-        private String entityType;
-        private String skinSource;
-        private String skinValue;
+        private String mob_name;
+        private String entity;
+        private String skin_src;
+        private String skin_value;
 
-        public String getEntityType() {
-            return entityType;
+        public String getMobName() {
+            return mob_name;
         }
 
-        public void setEntityType(String entityType) {
-            this.entityType = entityType;
+        public void setMobName(String mobName) {
+            this.mob_name = mobName;
         }
 
-        public String getSkinSource() {
-            return skinSource;
+        public String getEntity() {
+            return entity;
         }
 
-        public void setSkinSource(String skinSource) {
-            this.skinSource = skinSource;
+        public void setEntity(String entity) {
+            this.entity = entity;
+        }
+
+        public String getSkinSrc() {
+            return skin_src;
+        }
+
+        public void setSkinSrc(String skinSrc) {
+            this.skin_src = skinSrc;
         }
 
         public String getSkinValue() {
-            return skinValue;
+            return skin_value;
         }
 
         public void setSkinValue(String skinValue) {
-            this.skinValue = skinValue;
+            this.skin_value = skinValue;
         }
     }
 }

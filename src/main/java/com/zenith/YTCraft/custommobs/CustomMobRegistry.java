@@ -46,16 +46,17 @@ public class CustomMobRegistry {
             CustomMobSettings.CustomMobConfig config = entry.getValue();
 
             try {
-                EntityType entityType = EntityType.valueOf(config.getEntityType().toUpperCase());
-                SkinSource skinSource = SkinSource.valueOf(config.getSkinSource().toUpperCase());
+                String displayName = config.getMobName();
+                EntityType entityType = EntityType.valueOf(config.getEntity().toUpperCase());
+                SkinSource skinSource = SkinSource.valueOf(config.getSkinSrc().toUpperCase());
                 String skinValue = config.getSkinValue();
 
-                CustomMob customMob = new CustomMob(mobName, entityType, skinSource, skinValue);
+                CustomMob customMob = new CustomMob(mobName, displayName, entityType, skinSource, skinValue);
                 customMobs.put(mobName, customMob);
                 
                 Bukkit.getLogger().info(String.format(
-                    "Loaded custom mob: %s -> %s (skin: %s from %s)", 
-                    mobName, entityType, skinValue, skinSource
+                    "Loaded custom mob: %s (%s) -> %s (skin: %s from %s)", 
+                    mobName, displayName, entityType, skinValue, skinSource
                 ));
                 
             } catch (Exception e) {

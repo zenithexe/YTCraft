@@ -44,7 +44,7 @@ public class TabListUI {
         int index = 0;
         for (AuthorMob authorMob : MobSpawnState.getChannelIdToAuthorMob().values()) {
             String author = authorMob.getAuthor();
-            String mobType = authorMob.getMob().getType().toString();
+            String mobDisplay = authorMob.getDisplayName();
 
             // Alternate colors for better readability
             NamedTextColor authorColor = (index % 2 == 0) ? NamedTextColor.YELLOW : NamedTextColor.AQUA;
@@ -52,7 +52,7 @@ public class TabListUI {
             footer = footer.append(Component.text("\n  ● ").color(NamedTextColor.GREEN))
                     .append(Component.text(author).color(authorColor).decorate(TextDecoration.BOLD))
                     .append(Component.text(" → ").color(NamedTextColor.DARK_GRAY))
-                    .append(Component.text(mobType).color(NamedTextColor.WHITE));
+                    .append(Component.text(mobDisplay).color(NamedTextColor.WHITE));
 
             index++;
         }

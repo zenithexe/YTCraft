@@ -70,9 +70,10 @@
     "enabled": true,
     "mobs": {
       "punisher": {
-        "entityType": "PIGLIN_BRUTE",
-        "skinSource": "player",
-        "skinValue": "punisher"
+        "mob_name": "ItsPunisherOP",
+        "entity": "PIGLIN_BRUTE",
+        "skin_src": "player",
+        "skin_value": "punisher"
       }
     }
   }
