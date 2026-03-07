@@ -5,6 +5,8 @@ import org.bukkit.entity.EntityType;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
+import com.zenith.YTCraft.custommobs.CustomMob;
+import com.zenith.YTCraft.custommobs.CustomMobRegistry;
 import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.mechanics.MobSpawning;
 
@@ -21,7 +23,7 @@ public class SpawnMobAction implements ChatAction {
 
     @Override
     public String[] getAliases() {
-        return new String[]{"spw","spwn", "summon"};
+        return new String[]{"spw", "spwn", "summon"};
     }
 
     @Override
@@ -42,21 +44,42 @@ public class SpawnMobAction implements ChatAction {
             return false;
         }
 
-        // Parse entity type
-        EntityType entityType;
+        String mobName = args[1].toLowerCase();
 
-        try {
-
-            entityType = EntityType.valueOf(args[1].toUpperCase());
-
-        } catch (IllegalArgumentException e) {
-            Bukkit.getLogger().info(String.format("Invalid entity type from %s: %s", author, args[1]));
+        // Check if user already has a mob spawned
+        if (MobSpawnState.getChannelIdToAuthorMob().containsKey(channelId)) {
+            Bukkit.getLogger().info(String.format("%s already has a mob spawned", author));
             return false;
         }
 
-        // Check if user already has a mob spawned (unless low viewers bypass)
-        if (MobSpawnState.getChannelIdToAuthorMob().containsKey(channelId)) {
-            Bukkit.getLogger().info(String.format("%s already has a mob spawned", author));
+        // Check if it's a custom mob first
+        if (CustomMobRegistry.isCustomMob(mobName)) {
+            CustomMob customMob = CustomMobRegistry.getCustomMob(mobName);
+
+            // // Check viewer requirements for the base entity type
+            // if (!MobSpawnState.isMobSpawnable(customMob.getEntityType())) {
+            //     Bukkit.getLogger().info(String.format(
+            //             "Insufficient Viewers :: %s >> %s (custom: %s)",
+            //             author, customMob.getEntityType(), mobName
+            //     ));
+            //     return false;
+            // }
+            // Add custom mob to spawn queue
+            MobSpawning.addCustomMob(customMob, author, channelId);
+            Bukkit.getLogger().info(String.format(
+                    "%s queued custom mob '%s' (%s) for spawning",
+                    author, mobName, customMob.getEntityType()
+            ));
+            return true;
+        }
+
+        // Not a custom mob, try regular entity type
+        EntityType entityType;
+        try {
+            entityType = EntityType.valueOf(mobName.toUpperCase());
+
+        } catch (IllegalArgumentException e) {
+            Bukkit.getLogger().info(String.format("Invalid entity type from %s: %s", author, mobName));
             return false;
         }
 

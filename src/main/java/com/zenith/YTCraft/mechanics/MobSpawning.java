@@ -5,6 +5,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import com.zenith.YTCraft.custommobs.CustomMob;
+import com.zenith.YTCraft.custommobs.SkinApplier;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.types.MobSpawnRequest;
@@ -25,6 +27,19 @@ public class MobSpawning implements Runnable {
      */
     public static void addMob(EntityType entityType, String author, String channelId) {
         MobSpawnRequest request = new MobSpawnRequest(entityType, author, channelId);
+        SpawnQueue.add(request);
+    }
+
+    /**
+     * Add a custom mob spawn request to the queue (thread-safe)
+     */
+    public static void addCustomMob(CustomMob customMob, String author, String channelId) {
+        MobSpawnRequest request = new MobSpawnRequest(
+            customMob.getEntityType(), 
+            author, 
+            channelId, 
+            customMob
+        );
         SpawnQueue.add(request);
     }
 
@@ -54,6 +69,11 @@ public class MobSpawning implements Runnable {
         MobUtils.tameEntity(livingMob, player);
         MobUtils.setAuthorMobNBT(livingMob, request.getChannelId());
         MobUtils.addAuthorMobData(livingMob, request.getAuthor(), request.getChannelId());
+
+        // Apply custom skin if this is a custom mob
+        if (request.isCustomMob()) {
+            SkinApplier.applySkin(livingMob, request.getCustomMob());
+        }
 
         TabListUI.updateHeaderTabList();
         TabListUI.updateFooterTabList();

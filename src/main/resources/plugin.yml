@@ -2,6 +2,7 @@ name: YTCraft
 version: '${project.version}'
 main: com.zenith.YTCraft.YTCraft
 api-version: '1.21'
+softdepend: [LibsDisguises]
 commands:
   YTCraft:
     description: "YTCraft main command"
