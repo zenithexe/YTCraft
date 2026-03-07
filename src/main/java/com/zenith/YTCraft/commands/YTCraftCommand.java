@@ -18,6 +18,7 @@ import com.zenith.YTCraft.commands.subcommands.StartSubcommand;
 import com.zenith.YTCraft.commands.subcommands.StatusSubcommand;
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
 import com.zenith.YTCraft.commands.subcommands.VideoSubcommand;
+import com.zenith.YTCraft.commands.subcommands.custommob.CustomMobSubcommand;
 import com.zenith.YTCraft.commands.subcommands.item.ItemSubcommand;
 import com.zenith.YTCraft.commands.subcommands.mob.MobSubcommand;
 import com.zenith.YTCraft.commands.subcommands.timer.TimerSubcommand;
@@ -35,6 +36,7 @@ public class YTCraftCommand implements TabExecutor {
         registerSubcommand(new MobSubcommand());
         registerSubcommand(new ItemSubcommand());
         registerSubcommand(new TimerSubcommand());
+        registerSubcommand(new CustomMobSubcommand());
         registerSubcommand(new ReloadSubcommand());
         registerSubcommand(new SaveSubcommand());
         registerSubcommand(new StatusSubcommand());
