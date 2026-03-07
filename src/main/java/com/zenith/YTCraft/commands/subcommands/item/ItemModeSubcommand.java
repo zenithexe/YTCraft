@@ -51,8 +51,8 @@ public class ItemModeSubcommand implements Subcommand {
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
             List<String> suggestions = new ArrayList<>();
-            suggestions.add("all");
-            suggestions.add("allowed_only");
+            suggestions.add("ALL");
+            suggestions.add("ALLOWED_ONLY");
             return suggestions;
         }
         return new ArrayList<>();

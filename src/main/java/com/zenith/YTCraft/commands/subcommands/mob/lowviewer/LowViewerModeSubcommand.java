@@ -40,7 +40,7 @@ public class LowViewerModeSubcommand implements Subcommand {
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("all", "tier", "allow_only");
+            return Arrays.asList("ALL", "TIER", "ALLOW_ONLY");
         }
         return new ArrayList<>();
     }

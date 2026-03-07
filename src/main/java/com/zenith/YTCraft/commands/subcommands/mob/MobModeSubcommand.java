@@ -38,7 +38,7 @@ public class MobModeSubcommand implements Subcommand {
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("all", "tier_only", "tier_plus_unlisted");
+            return Arrays.asList("ALL", "TIER_ONLY", "TIER_PLUS_UNLISTED");
         }
         return new ArrayList<>();
     }

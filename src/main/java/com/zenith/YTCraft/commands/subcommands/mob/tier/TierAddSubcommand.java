@@ -89,8 +89,8 @@ public class TierAddSubcommand implements Subcommand {
             List<String> suggestions = new ArrayList<>();
             for (EntityType type : EntityType.values()) {
                 if (type.isAlive()) {
-                    String name = type.name().toLowerCase();
-                    if (name.startsWith(args[1].toLowerCase())) {
+                    String name = type.name();
+                    if (name.toLowerCase().startsWith(args[1].toLowerCase())) {
                         suggestions.add(name);
                     }
                 }
