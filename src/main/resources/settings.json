@@ -71,9 +71,8 @@
     "mobs": {
       "punisher": {
         "mob_name": "ItsPunisherOP",
-        "entity": "PIGLIN_BRUTE",
-        "skin_src": "player",
-        "skin_value": "punisher"
+        "entity_type": "PIGLIN_BRUTE",
+        "player_username": "ItsPunisherOP"
       }
     }
   }

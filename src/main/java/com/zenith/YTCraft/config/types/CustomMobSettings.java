@@ -26,9 +26,8 @@ public class CustomMobSettings {
     public static class CustomMobConfig {
         
         private String mob_name;
-        private String entity;
-        private String skin_src;
-        private String skin_value;
+        private String entity_type;
+        private String player_username;
 
         public String getMobName() {
             return mob_name;
@@ -38,28 +37,20 @@ public class CustomMobSettings {
             this.mob_name = mobName;
         }
 
-        public String getEntity() {
-            return entity;
+        public String getEntityType() {
+            return entity_type;
         }
 
-        public void setEntity(String entity) {
-            this.entity = entity;
+        public void setEntityType(String entityType) {
+            this.entity_type = entityType;
         }
 
-        public String getSkinSrc() {
-            return skin_src;
+        public String getPlayerUsername() {
+            return player_username;
         }
 
-        public void setSkinSrc(String skinSrc) {
-            this.skin_src = skinSrc;
-        }
-
-        public String getSkinValue() {
-            return skin_value;
-        }
-
-        public void setSkinValue(String skinValue) {
-            this.skin_value = skinValue;
+        public void setPlayerUsername(String playerUsername) {
+            this.player_username = playerUsername;
         }
     }
 }

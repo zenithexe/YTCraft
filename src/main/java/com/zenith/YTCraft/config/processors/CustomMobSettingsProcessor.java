@@ -8,9 +8,7 @@ import org.bukkit.entity.EntityType;
 
 import com.zenith.YTCraft.config.types.CustomMobSettings;
 import com.zenith.YTCraft.custommobs.CustomMob;
-import com.zenith.YTCraft.custommobs.CustomMob.SkinSource;
 import com.zenith.YTCraft.custommobs.CustomMobRegistry;
-
 
 /**
  * Processes CustomMobSettings into CustomMobRegistry
@@ -47,29 +45,32 @@ public class CustomMobSettingsProcessor {
         }
 
         for (Map.Entry<String, CustomMobSettings.CustomMobConfig> entry : settings.getMobs().entrySet()) {
-
             String mobKey = entry.getKey().toLowerCase();
-
-            CustomMobSettings.CustomMobConfig customMobConfig = entry.getValue();
+            CustomMobSettings.CustomMobConfig config = entry.getValue();
 
             try {
-                String mobName = customMobConfig.getMobName();
+                String mobName = config.getMobName();
+                EntityType entityType = EntityType.valueOf(config.getEntityType().toUpperCase());
+                String playerUsername = config.getPlayerUsername();
 
-                EntityType entityType = EntityType.valueOf(customMobConfig.getEntity().toUpperCase());
-                SkinSource skinSource = SkinSource.valueOf(customMobConfig.getSkinSrc().toUpperCase());
-
-                String skinValue = customMobConfig.getSkinValue();
-                
-
-                CustomMob customMob = new CustomMob(mobKey, mobName, entityType, skinSource, skinValue);
+                CustomMob customMob = new CustomMob(mobKey, mobName, entityType, playerUsername);
                 customMobs.put(mobKey, customMob);
 
-                Bukkit.getLogger().info(String.format("Loaded custom mob: %s (%s) -> %s (skin: %s from %s)", mobKey, mobName, entityType, skinValue, skinSource));
+                Bukkit.getLogger().info(String.format(
+                        "Loaded custom mob: %s (%s) -> %s (username: %s)",
+                        mobKey, mobName, entityType, playerUsername
+                ));
 
             } catch (IllegalArgumentException e) {
-                Bukkit.getLogger().warning(String.format("Failed to load custom mob '%s': Invalid entity type or skin source - %s", mobKey, e.getMessage()));
+                Bukkit.getLogger().warning(String.format(
+                        "Failed to load custom mob '%s': Invalid entity type - %s",
+                        mobKey, e.getMessage()
+                ));
             } catch (Exception e) {
-                Bukkit.getLogger().warning(String.format("Failed to load custom mob '%s': %s", mobKey, e.getMessage()));
+                Bukkit.getLogger().warning(String.format(
+                        "Failed to load custom mob '%s': %s",
+                        mobKey, e.getMessage()
+                ));
             }
         }
 
