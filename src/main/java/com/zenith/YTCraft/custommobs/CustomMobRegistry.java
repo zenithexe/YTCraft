@@ -3,13 +3,6 @@ package com.zenith.YTCraft.custommobs;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.EntityType;
-
-import com.zenith.YTCraft.config.SettingsLoader;
-import com.zenith.YTCraft.config.types.CustomMobSettings;
-import com.zenith.YTCraft.custommobs.CustomMob.SkinSource;
-
 /**
  * Registry for custom mobs loaded from configuration
  * Provides lookup by name and validation
@@ -19,53 +12,12 @@ public class CustomMobRegistry {
     private static final Map<String, CustomMob> customMobs = new HashMap<>();
 
     /**
-     * Load custom mobs from settings
+     * Load custom mobs from processed map
+     * Called by CustomMobSettingsProcessor
      */
-    public static void loadCustomMobs() {
+    public static void loadCustomMobs(Map<String, CustomMob> mobs) {
         customMobs.clear();
-        
-        CustomMobSettings customMobSettings = SettingsLoader.getSettings().getCustomMobSettings();
-        
-        if (customMobSettings == null) {
-            Bukkit.getLogger().info("No custom mobs configured");
-            return;
-        }
-
-        if (!customMobSettings.isEnabled()) {
-            Bukkit.getLogger().info("Custom mobs are disabled");
-            return;
-        }
-
-        if (customMobSettings.getMobs() == null || customMobSettings.getMobs().isEmpty()) {
-            Bukkit.getLogger().info("No custom mobs configured");
-            return;
-        }
-
-        for (Map.Entry<String, CustomMobSettings.CustomMobConfig> entry : customMobSettings.getMobs().entrySet()) {
-            String mobName = entry.getKey().toLowerCase();
-            CustomMobSettings.CustomMobConfig config = entry.getValue();
-
-            try {
-                String displayName = config.getMobName();
-                EntityType entityType = EntityType.valueOf(config.getEntity().toUpperCase());
-                SkinSource skinSource = SkinSource.valueOf(config.getSkinSrc().toUpperCase());
-                String skinValue = config.getSkinValue();
-
-                CustomMob customMob = new CustomMob(mobName, displayName, entityType, skinSource, skinValue);
-                customMobs.put(mobName, customMob);
-                
-                Bukkit.getLogger().info(String.format(
-                    "Loaded custom mob: %s (%s) -> %s (skin: %s from %s)", 
-                    mobName, displayName, entityType, skinValue, skinSource
-                ));
-                
-            } catch (Exception e) {
-                Bukkit.getLogger().warning(String.format(
-                    "Failed to load custom mob '%s': %s", 
-                    mobName, e.getMessage()
-                ));
-            }
-        }
+        customMobs.putAll(mobs);
     }
 
     /**

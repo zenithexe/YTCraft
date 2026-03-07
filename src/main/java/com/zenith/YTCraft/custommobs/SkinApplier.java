@@ -1,6 +1,10 @@
 package com.zenith.YTCraft.custommobs;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.util.Base64;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
@@ -18,7 +22,7 @@ public class SkinApplier {
     /**
      * Apply custom skin to an entity based on CustomMob configuration
      */
-    public static boolean applySkin(LivingEntity entity, CustomMob customMob) {
+    public static boolean applySkin(LivingEntity entity, CustomMob customMob, String authorName, Plugin plugin) {
         if (!isLibsDisguisesAvailable()) {
             Bukkit.getLogger().warning("LibsDisguises not found! Cannot apply custom skin.");
             Bukkit.getLogger().warning("Download from: https://www.spigotmc.org/resources/libs-disguises.81/");
@@ -47,16 +51,23 @@ public class SkinApplier {
                     break;
 
                 case FILE:
-                    // For file-based skins, you'd need to load the texture
-                    Bukkit.getLogger().warning("FILE skin source not yet implemented");
-                    return false;
+                    // Load skin from file and convert to base64
+                    // Not implemented yet
+                    break;
 
                 case URL:
                     // Set skin from URL
-                    playerDisguiseClass.getMethod("setSkin", String.class)
-                            .invoke(disguise, customMob.getSkinValue());
+                    // Not implemented yet
                     break;
             }
+
+            // Get the watcher to set custom name
+            Class<?> flagWatcherClass = Class.forName("me.libraryaddict.disguise.disguisetypes.FlagWatcher", true, loader);
+            Object watcher = playerDisguiseClass.getMethod("getWatcher").invoke(disguise);
+            
+            // Set custom name on the watcher (this will display the author's name)
+            flagWatcherClass.getMethod("setCustomName", String.class).invoke(watcher, authorName);
+            flagWatcherClass.getMethod("setCustomNameVisible", boolean.class).invoke(watcher, true);
 
             // Apply the disguise: DisguiseAPI.disguiseToAll(entity, disguise)
             // Note: disguiseToAll takes Entity, not LivingEntity
@@ -150,6 +161,53 @@ public class SkinApplier {
             }
         } catch (ClassNotFoundException | IllegalAccessException | NoSuchMethodException | SecurityException | InvocationTargetException e) {
             Bukkit.getLogger().warning(String.format("Failed to remove disguise: %s", e.getMessage()));
+        }
+    }
+
+    /**
+     * Load skin from file and convert to base64
+     * Looks for skin files in plugins/YTCraft/skins/ directory
+     */
+    private static String loadSkinFromFile(Plugin plugin, String filename) {
+        try {
+            // Create skins directory if it doesn't exist
+            File skinsDir = new File(plugin.getDataFolder(), "skins");
+            if (!skinsDir.exists()) {
+                skinsDir.mkdirs();
+                Bukkit.getLogger().info("Created skins directory: " + skinsDir.getAbsolutePath());
+            }
+
+            // Load the skin file
+            File skinFile = new File(skinsDir, filename);
+            if (!skinFile.exists()) {
+                Bukkit.getLogger().warning(String.format(
+                        "Skin file not found: %s (looking in %s)",
+                        filename,
+                        skinsDir.getAbsolutePath()
+                ));
+                return null;
+            }
+
+            // Read file and convert to base64
+            byte[] fileContent = Files.readAllBytes(skinFile.toPath());
+            String base64 = Base64.getEncoder().encodeToString(fileContent);
+            
+            Bukkit.getLogger().info(String.format(
+                    "Loaded skin file: %s (%d bytes)",
+                    filename,
+                    fileContent.length
+            ));
+            
+            return base64;
+
+        } catch (IOException e) {
+            Bukkit.getLogger().severe(String.format(
+                    "Failed to read skin file %s: %s",
+                    filename,
+                    e.getMessage()
+            ));
+            e.printStackTrace();
+            return null;
         }
     }
 }

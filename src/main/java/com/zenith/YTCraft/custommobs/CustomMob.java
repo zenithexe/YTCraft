@@ -8,22 +8,22 @@ import org.bukkit.entity.EntityType;
  */
 public class CustomMob {
 
-    private final String name;
+    private final String mobKey;
     private final String mobName;
     private final EntityType entityType;
     private final SkinSource skinSource;
     private final String skinValue;
 
-    public CustomMob(String name, String mobName, EntityType entityType, SkinSource skinSource, String skinValue) {
-        this.name = name;
+    public CustomMob(String id, String mobName, EntityType entityType, SkinSource skinSource, String skinValue) {
+        this.mobKey = id;
         this.mobName = mobName;
         this.entityType = entityType;
         this.skinSource = skinSource;
         this.skinValue = skinValue;
     }
 
-    public String getName() {
-        return name;
+    public String getMobKey() {
+        return mobKey;
     }
 
     public String getMobName() {

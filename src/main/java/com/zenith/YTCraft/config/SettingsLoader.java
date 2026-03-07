@@ -12,11 +12,11 @@ import java.nio.file.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zenith.YTCraft.YTCraft;
+import com.zenith.YTCraft.config.processors.CustomMobSettingsProcessor;
 import com.zenith.YTCraft.config.processors.ItemGiveSettingsProcessor;
 import com.zenith.YTCraft.config.processors.MobSpawnSettingsProcessor;
 import com.zenith.YTCraft.config.processors.TimerSettingsProcessor;
 import com.zenith.YTCraft.config.types.PluginSettings;
-import com.zenith.YTCraft.custommobs.CustomMobRegistry;
 
 /**
  * Handles loading and saving settings.json file
@@ -75,9 +75,7 @@ public class SettingsLoader {
         TimerSettingsProcessor.process(settings.getTimerSettings());
         MobSpawnSettingsProcessor.process(settings.getMobSpawnSettings());
         ItemGiveSettingsProcessor.process(settings.getItemGiveSettings());
-        
-        // Load custom mobs
-        loadCustomMobs();
+        CustomMobSettingsProcessor.process(settings.getCustomMobSettings());
     }
 
     /**
@@ -124,10 +122,12 @@ public class SettingsLoader {
     }
 
     /**
-     * Load custom mobs into registry
+     * Reload custom mobs into registry
      */
     public static void loadCustomMobs() {
-        CustomMobRegistry.loadCustomMobs();
+        if (settings != null && settings.getCustomMobSettings() != null) {
+            CustomMobSettingsProcessor.process(settings.getCustomMobSettings());
+        }
     }
 
     /**

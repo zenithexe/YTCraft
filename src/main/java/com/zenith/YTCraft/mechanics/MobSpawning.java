@@ -5,6 +5,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.custommobs.CustomMob;
 import com.zenith.YTCraft.custommobs.SkinApplier;
 import com.zenith.YTCraft.data.PluginState;
@@ -79,7 +80,7 @@ public class MobSpawning implements Runnable {
                     request.getCustomMob()
             );
             // Apply custom skin
-            SkinApplier.applySkin(livingMob, request.getCustomMob());
+            SkinApplier.applySkin(livingMob, request.getCustomMob(), request.getAuthor(), YTCraft.getPlugin());
             MessageUtils.sendAuthorCustomMobSpawnMessage(request.getCustomMob(), request.getAuthor());
         } else {
             MobUtils.addAuthorMobData(livingMob, request.getAuthor(), request.getChannelId());
