@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.bukkit.command.CommandSender;
 
-import com.zenith.YTCraft.config.SettingsLoader;
+import com.zenith.YTCraft.YTCraft;
+import com.zenith.YTCraft.config.ConfigManager;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -28,8 +29,9 @@ public class VideoSubcommand implements Subcommand {
         }
 
         try {
-            SettingsLoader.getSettings().setVideoId(videoId);
-            SettingsLoader.saveSettings();
+            YTCraft.getPlugin().getConfig().set("VIDEO_ID", videoId);
+            YTCraft.getPlugin().saveConfig();
+            ConfigManager.loadConfig();
             sender.sendMessage(Component.text("Video ID set to: " + videoId).color(NamedTextColor.GREEN));
         } catch (Exception e) {
             sender.sendMessage(Component.text("Failed to set video ID: " + e.getMessage()).color(NamedTextColor.RED));
