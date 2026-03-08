@@ -41,17 +41,30 @@ public class YoutubeAPI {
     }
 
     private static void setLiveChatId() {
-        VideoLiveStreamingDetails stream = getVideo("liveStreamingDetails").getLiveStreamingDetails();
-        if (stream != null) {
-            LIVE_CHAT_ID = stream.getActiveLiveChatId();
-            Bukkit.getLogger().info(":::: Live-Chat ID is Set ::::");
+        Video video = getVideo("liveStreamingDetails");
+        if (video != null) {
+            VideoLiveStreamingDetails stream = video.getLiveStreamingDetails();
+            if (stream != null) {
+                LIVE_CHAT_ID = stream.getActiveLiveChatId();
+                Bukkit.getLogger().info(":::: Live-Chat ID is Set ::::");
+            } else {
+                Bukkit.broadcast(Component.text("Video is not a livestream or livestream is not active.").color(NamedTextColor.YELLOW));
+                LIVE_CHAT_ID = null;
+            }
         } else {
-            Bukkit.broadcastMessage("Incorrect Video ID. Please provide the Video ID of a Livestream.");
+            Bukkit.broadcast(Component.text("Could not retrieve video - it may be private or invalid.").color(NamedTextColor.RED));
+            LIVE_CHAT_ID = null;
         }
     }
 
     private static void setChannelId() {
-        CHANNEL_ID = getVideo("snippet").getSnippet().getChannelId();
+        Video video = getVideo("snippet");
+        if (video != null && video.getSnippet() != null) {
+            CHANNEL_ID = video.getSnippet().getChannelId();
+        } else {
+            Bukkit.getLogger().warning("Could not retrieve channel ID - video may be private or invalid");
+            CHANNEL_ID = null;
+        }
     }
 
     public static void updateVideoId(String videoId) {
@@ -133,15 +146,24 @@ public class YoutubeAPI {
 
     public static BigInteger getConcurrentViewers() {
         try {
-            BigInteger concurrentViewers = getVideo("liveStreamingDetails").getLiveStreamingDetails().getConcurrentViewers();
-            Bukkit.getLogger().info(String.format(":::: GET-Viewers === %s  ::::", concurrentViewers));
-            return concurrentViewers;
+            Video video = getVideo("liveStreamingDetails");
+            if (video != null && video.getLiveStreamingDetails() != null) {
+                BigInteger concurrentViewers = video.getLiveStreamingDetails().getConcurrentViewers();
+                Bukkit.getLogger().info(String.format(":::: GET-Viewers === %s  ::::", concurrentViewers));
+                return concurrentViewers;
+            } else {
+                Bukkit.getLogger().warning("Could not get concurrent viewers - video may not be live");
+                return BigInteger.ZERO;
+            }
         } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Live-Watching Count.").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is of a Livestream.").color(NamedTextColor.YELLOW));
             return BigInteger.ZERO;
         }
+    }
 
+    public static boolean isConfigured() {
+        return LIVE_CHAT_ID != null && CHANNEL_ID != null;
     }
 
 }

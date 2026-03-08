@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.zenith.YTCraft.YTCraft;
+import com.zenith.YTCraft.api.YoutubeAPI;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.mechanics.ChatControl;
 import com.zenith.YTCraft.mechanics.MobSpawning;
@@ -38,13 +39,27 @@ public class StartSubcommand implements Subcommand {
             return true;
         }
 
+        // Validate YouTube API configuration
+        if (!YoutubeAPI.isConfigured()) {
+            sender.sendMessage(Component.text("Cannot start YTCraft!").color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("YouTube video ID is invalid or not configured.").color(NamedTextColor.YELLOW));
+            sender.sendMessage(Component.text("Use /ytcraft video <videoId> to set a valid livestream video ID.").color(NamedTextColor.GRAY));
+            return true;
+        }
+
         Player player = (Player) sender;
         PluginState.setStreamer(player);
 
+        YTCraft plugin = YTCraft.getPlugin();
+        if (plugin == null) {
+            sender.sendMessage(Component.text("Plugin not initialized!").color(NamedTextColor.RED));
+            return true;
+        }
+
         // Start tasks
-        youtubeTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new ChatControl(), 0, 20L * 5);
-        timerTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new PluginTimer(), 0, 20);
-        mobSpawnTask = Bukkit.getScheduler().runTaskTimer(YTCraft.getPlugin(), new MobSpawning(), 0, 20L);
+        youtubeTask = Bukkit.getScheduler().runTaskTimer(plugin, new ChatControl(), 0, 20L * 5);
+        timerTask = Bukkit.getScheduler().runTaskTimer(plugin, new PluginTimer(), 0, 20);
+        mobSpawnTask = Bukkit.getScheduler().runTaskTimer(plugin, new MobSpawning(), 0, 20L);
 
         isRunning = true;
 

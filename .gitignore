@@ -115,3 +115,7 @@ buildNumber.properties
 
 # Common working directory
 run/
+
+#Deploy Scripts
+deploy.bat
+deploy.sh
