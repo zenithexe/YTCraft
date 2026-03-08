@@ -59,9 +59,7 @@
       "sword": {
         "item": "DIAMOND_SWORD",
         "qty": 1,
-        "enchantments": [
-          { "enchantment": "SHARPNESS", "level": 4 }
-        ]
+        "enchantments": [{ "enchantment": "SHARPNESS", "level": 4 }]
       }
     }
   },
@@ -69,11 +67,11 @@
   "custom_mobs": {
     "enabled": true,
     "mobs": {
-      "punisher": {
+      "PUNISHER": {
         "mob_name": "ItsPunisherOP",
         "entity_type": "PIGLIN_BRUTE",
         "player_username": "ItsPunisherOP",
-        "aliases": ["punisherop", "itspunisherop","puni"]
+        "aliases": ["punisherop", "itspunisherop", "puni"]
       }
     }
   }
