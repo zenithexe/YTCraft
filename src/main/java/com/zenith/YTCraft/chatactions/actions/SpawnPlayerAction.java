@@ -37,6 +37,7 @@ public class SpawnPlayerAction implements ChatAction {
         //Checking is Mob-Spawn is enabled
         if (!SettingsLoader.getSettings().getMobSpawnSettings().isEnabled()) {
             Bukkit.getLogger().info(String.format(" :: Mob Spawn is Disabled."));
+            return false;
         }
 
         // Check if username spawns are enabled
