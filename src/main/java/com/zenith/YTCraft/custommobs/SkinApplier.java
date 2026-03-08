@@ -28,7 +28,7 @@ public class SkinApplier {
         try {
             // Get LibsDisguises ClassLoader
             ClassLoader loader = getLibsDisguisesClassLoader();
-            
+
             // Use reflection to avoid compile-time dependency
             Class<?> disguiseAPIClass = Class.forName("me.libraryaddict.disguise.DisguiseAPI", true, loader);
             Class<?> playerDisguiseClass = Class.forName("me.libraryaddict.disguise.disguisetypes.PlayerDisguise", true, loader);
@@ -45,7 +45,7 @@ public class SkinApplier {
             // Get the watcher to set custom name
             Class<?> flagWatcherClass = Class.forName("me.libraryaddict.disguise.disguisetypes.FlagWatcher", true, loader);
             Object watcher = playerDisguiseClass.getMethod("getWatcher").invoke(disguise);
-            
+
             // Set custom name on the watcher (this will display the author's name)
             flagWatcherClass.getMethod("setCustomName", String.class).invoke(watcher, authorName);
             flagWatcherClass.getMethod("setCustomNameVisible", boolean.class).invoke(watcher, true);
@@ -56,35 +56,23 @@ public class SkinApplier {
             disguiseAPIClass.getMethod("disguiseToAll", entityClass, disguiseClass)
                     .invoke(null, entity, disguise);
 
-            Bukkit.getLogger().info(String.format(
-                    "Applied player skin '%s' to %s with name '%s'",
-                    customMob.getPlayerUsername(),
-                    entity.getType(),
-                    authorName
-            ));
+            Bukkit.getLogger().info(String.format("Applied player skin '%s' to %s with name '%s'", customMob.getPlayerUsername(), entity.getType(), authorName));
+
+
+          
 
             return true;
 
         } catch (ClassNotFoundException e) {
-            Bukkit.getLogger().severe(String.format(
-                    "Failed to find LibsDisguises class: %s",
-                    e.getMessage()
-            ));
+            Bukkit.getLogger().severe(String.format("Failed to find LibsDisguises class: %s", e.getMessage()));
             e.printStackTrace();
             return false;
         } catch (NoSuchMethodException e) {
-            Bukkit.getLogger().severe(String.format(
-                    "Failed to find LibsDisguises method: %s",
-                    e.getMessage()
-            ));
+            Bukkit.getLogger().severe(String.format("Failed to find LibsDisguises method: %s", e.getMessage()));
             e.printStackTrace();
             return false;
         } catch (Exception e) {
-            Bukkit.getLogger().severe(String.format(
-                    "Failed to apply skin: %s - %s",
-                    e.getClass().getSimpleName(),
-                    e.getMessage()
-            ));
+            Bukkit.getLogger().severe(String.format("Failed to apply skin: %s - %s", e.getClass().getSimpleName(), e.getMessage()));
             e.printStackTrace();
             return false;
         }

@@ -4,47 +4,86 @@
     "active_seconds": 300,
     "rest_seconds": 150
   },
-
   "mob_spawn": {
     "enabled": true,
     "kill_all_on_death": true,
     "allow_viewer_mob_kill": true,
     "max_spawns": 100,
     "mode": "tier_only",
-    "banned_mobs": ["ENDERMAN"],
+    "banned_mobs": [
+      "ENDERMAN"
+    ],
     "low_viewer_mode": {
-      "enabled": true,
-      "viewers_threshold": 10,
-      "mode": "allow_only",
-      "allow": ["WOLF", "CHICKEN"],
-      "exclude": ["EVOKER", "WARDEN"]
+      "enabled": false,
+      "viewers_threshold": 5,
+      "mode": "all",
+      "allow": [
+        "WOLF",
+        "CHICKEN"
+      ],
+      "exclude": [
+        "EVOKER",
+        "WARDEN"
+      ]
     },
-
     "mob_tiers": [
       {
         "min_viewers": 0,
-        "mobs": ["WOLF", "CREEPER", "ZOMBIE", "SKELETON"]
+        "mobs": [
+          "WOLF",
+          "CREEPER",
+          "ZOMBIE",
+          "SKELETON",
+          "CHICKEN",
+          "EVOKER",
+          "PILLAGER",
+          "PIGLIN",
+          "PIGLIN_BRUTE",
+          "PUNISHER"
+        ]
       },
       {
         "min_viewers": 100,
-        "mobs": ["BLAZE", "WITHER_SKELETON"]
+        "mobs": [
+          "BLAZE",
+          "WITHER_SKELETON"
+        ]
       },
       {
         "min_viewers": 500,
-        "mobs": ["RAVAGER", "VINDICATOR"]
+        "mobs": [
+          "RAVAGER",
+          "VINDICATOR"
+        ]
       },
       {
         "min_viewers": 1000,
-        "mobs": ["WARDEN", "EVOKER"]
+        "mobs": []
+      },
+      {
+        "min_viewers": 150,
+        "mobs": [
+          "WARDEN"
+        ]
+      },
+      {
+        "min_viewers": 200,
+        "mobs": []
       }
     ]
   },
-
   "item_give": {
     "enabled": true,
     "mode": "all",
-    "banned_items": ["BARRIER", "BEDROCK", "COMMAND_BLOCK", "ELYTRA"],
-    "allowed_items": ["DIAMOND_SWORD"],
+    "banned_items": [
+      "BARRIER",
+      "COMMAND_BLOCK",
+      "ELYTRA"
+    ],
+    "allowed_items": [
+      "DIAMOND_SWORD",
+      "APPLE"
+    ],
     "item_aliases": {
       "food": {
         "item": "COOKED_BEEF",
@@ -59,19 +98,71 @@
       "sword": {
         "item": "DIAMOND_SWORD",
         "qty": 1,
-        "enchantments": [{ "enchantment": "SHARPNESS", "level": 4 }]
+        "enchantments": [
+          {
+            "enchantment": "SHARPNESS",
+            "level": 4
+          }
+        ]
       }
     }
   },
-
   "custom_mobs": {
     "enabled": true,
     "mobs": {
       "PUNISHER": {
         "mob_name": "ItsPunisherOP",
-        "entity_type": "PIGLIN_BRUTE",
+        "entity_type": "VINDICATOR",
         "player_username": "ItsPunisherOP",
-        "aliases": ["punisherop", "itspunisherop", "puni"]
+        "aliases": [
+          "punisherop",
+          "itspunisherop",
+          "puni"
+        ]
+      },
+      "ZENITH": {
+        "mob_name": "Zenith",
+        "entity_type": "ZOMBIE",
+        "player_username": "zenithhGG",
+        "aliases": [
+          "zen",
+          "zenithgg"
+        ]
+      },
+      "FLOPPY": {
+        "mob_name": "Floppy",
+        "entity_type": "CREEPER",
+        "player_username": "FloppyStable",
+        "aliases": [
+          "flop",
+          "floppystable"
+        ]
+      },
+      "TEACHOBLE": {
+        "mob_name": "Teachoble",
+        "entity_type": "SKELETON",
+        "player_username": "Teachoble",
+        "aliases": [
+          "teach",
+          "teachable"
+        ]
+      },
+      "BLIZU": {
+        "mob_name": "Blizzard",
+        "entity_type": "PILLAGER",
+        "player_username": "Dherosh",
+        "aliases": [
+          "bliz",
+          "blizzard"
+        ]
+      },
+      "HEROBRINE": {
+        "mob_name": "Herobrine",
+        "entity_type": "WARDEN",
+        "player_username": "RobinChourre",
+        "aliases": [
+          "entity404"
+        ]
       }
     }
   }

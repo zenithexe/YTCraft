@@ -25,7 +25,7 @@ public class SpawnMobAction implements ChatAction {
 
     @Override
     public String[] getAliases() {
-        return new String[]{"spw", "spwn", "summon"};
+        return new String[]{"spn", "spwn", "summon", "sp"};
     }
 
     @Override
@@ -41,8 +41,8 @@ public class SpawnMobAction implements ChatAction {
         String text = message.getSnippet().getDisplayMessage();
 
         // Validate arguments
-        if (args.length != 2) {
-            Bukkit.getLogger().info(String.format("Chat Action Error :: Invalid Format >> %s :: %s", author, text));
+        if (args.length < 2) {
+            Bukkit.getLogger().info(String.format("Spawn Mob Action Error :: Invalid Format >> %s :: %s", author, text));
             return false;
         }
 
@@ -86,6 +86,12 @@ public class SpawnMobAction implements ChatAction {
         Bukkit.getLogger().info(String.format("Mob Spawn >> %s :: %s ", author, entityType));
         if (!MobSpawnState.isMobSpawnable(entityType.toString())) {
             return false;
+        }
+
+        // If viewer has already a mob spawned
+        if (MobSpawnState.getChannelIdToAuthorMob().containsKey(channelId)) {
+            AuthorMob existingMob = MobSpawnState.getChannelIdToAuthorMob().get(channelId);
+            MobUtils.killAuthorMob(existingMob);
         }
 
         // Add to spawn queue

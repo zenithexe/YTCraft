@@ -9,6 +9,7 @@ import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.actions.DeSpawnMobAction;
 import com.zenith.YTCraft.chatactions.actions.GiveItemAction;
 import com.zenith.YTCraft.chatactions.actions.SpawnMobAction;
+import com.zenith.YTCraft.chatactions.actions.SpawnPlayerAction;
 
 /**
  * Handles registration and execution of YouTube chat actions
@@ -22,6 +23,7 @@ public class ChatActionHandler {
         registerChatAction(new SpawnMobAction());
         registerChatAction(new GiveItemAction());
         registerChatAction(new DeSpawnMobAction());
+        registerChatAction(new SpawnPlayerAction());
     }
 
     // Register a chat action

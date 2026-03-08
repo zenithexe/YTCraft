@@ -3,7 +3,10 @@ package com.zenith.YTCraft.mechanics;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.PiglinAbstract;
+import org.bukkit.entity.Pillager;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 
 import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.custommobs.CustomMob;
@@ -56,6 +59,8 @@ public class MobSpawning implements Runnable {
 
         LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(confirmSpawn, request.getEntityType());
 
+        livingMob.setMetadata("isChatSpawned", new FixedMetadataValue(YTCraft.getPlugin(), true));
+
         livingMob.customName(Component.text(request.getAuthor()));
         livingMob.setCustomNameVisible(true);
         livingMob.setRemoveWhenFarAway(false);
@@ -63,8 +68,16 @@ public class MobSpawning implements Runnable {
         MobUtils.tameEntity(livingMob, player);
         MobUtils.setAuthorMobNBT(livingMob, request.getChannelId());
 
+        if (livingMob instanceof PiglinAbstract) {
+            ((PiglinAbstract) livingMob).setImmuneToZombification(true);
+        }
         // Add author mob data with custom mob info
         if (request.isCustomMob()) {
+
+            if (livingMob instanceof Pillager) {
+                ((Pillager) livingMob).setPatrolLeader(false);
+            }
+
             MobSpawnState.addAuthorMob(livingMob, request.getAuthor(), request.getChannelId(), true, request.getCustomMob());
 
             // Apply custom skin
@@ -72,7 +85,6 @@ public class MobSpawning implements Runnable {
             MessageUtils.sendAuthorCustomMobSpawnMessage(request.getCustomMob(), request.getAuthor());
 
         } else {
-
             MobSpawnState.addAuthorMob(livingMob, request.getAuthor(), request.getChannelId());
             MessageUtils.sendAuthorMobSpawnMessage(livingMob, request.getAuthor());
         }

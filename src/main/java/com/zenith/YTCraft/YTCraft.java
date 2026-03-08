@@ -10,6 +10,7 @@ import com.zenith.YTCraft.data.ItemGiveState;
 import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
+import com.zenith.YTCraft.listeners.EntityCombustListener;
 import com.zenith.YTCraft.listeners.EntityDeathListener;
 import com.zenith.YTCraft.listeners.EntityExplodeListener;
 import com.zenith.YTCraft.listeners.PlayerDeathListener;
@@ -32,10 +33,11 @@ public final class YTCraft extends JavaPlugin {
         SettingsLoader.init(this);
         SettingsLoader.processSettings();
 
-        //Event
+        //Events
         getServer().getPluginManager().registerEvents(new EntityDeathListener(), this);
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityCombustListener(), this);
 
         //Commands
         getCommand("YTCraft").setExecutor(new YTCraftCommand());
