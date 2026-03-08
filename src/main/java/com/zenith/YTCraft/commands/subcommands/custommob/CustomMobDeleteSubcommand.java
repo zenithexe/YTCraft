@@ -63,7 +63,7 @@ public class CustomMobDeleteSubcommand implements Subcommand {
         if (args.length == 1) {
             List<String> suggestions = new ArrayList<>();
             // Only suggest main keys, not aliases
-            for (CustomMob mob : CustomMobRegistry.getAllCustomMobs().values()) {
+            for (CustomMob mob : CustomMobRegistry.getAllCustomMobsRegistry().values()) {
                 String key = mob.getMobKey();
                 if (key.startsWith(args[0].toLowerCase()) && !suggestions.contains(key)) {
                     suggestions.add(key);

@@ -25,7 +25,7 @@ public class TierClearSubcommand implements Subcommand {
 
         SettingsLoader.saveSettings();
         SettingsLoader.loadMobTiers();
-        MobSpawnState.getEntityTypeToMinViewers().clear();
+        MobSpawnState.getMobToMinViewers().clear();
         
         sender.sendMessage(Component.text("Cleared all mob tiers").color(NamedTextColor.GREEN));
         return true;

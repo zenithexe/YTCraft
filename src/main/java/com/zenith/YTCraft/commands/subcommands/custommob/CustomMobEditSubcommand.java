@@ -97,7 +97,7 @@ public class CustomMobEditSubcommand implements Subcommand {
         if (args.length == 1) {
             // Suggest mob keys
             List<String> suggestions = new ArrayList<>();
-            for (CustomMob mob : CustomMobRegistry.getAllCustomMobs().values()) {
+            for (CustomMob mob : CustomMobRegistry.getAllCustomMobsRegistry().values()) {
                 String key = mob.getMobKey();
                 if (key.startsWith(args[0].toLowerCase()) && !suggestions.contains(key)) {
                     suggestions.add(key);

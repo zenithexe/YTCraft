@@ -25,7 +25,7 @@ public class CustomMobCreateSubcommand implements Subcommand {
             return true;
         }
 
-        String mobKey = args[0].toLowerCase();
+        String mobKey = args[0].toUpperCase();
         String mobName = args[1];
         String entityTypeStr = args[2].toUpperCase();
         String playerUsername = args[3];

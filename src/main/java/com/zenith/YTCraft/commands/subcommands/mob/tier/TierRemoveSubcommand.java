@@ -17,16 +17,16 @@ public class TierRemoveSubcommand implements Subcommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(Component.text("Usage: /ytcraft mob tier remove <mob_type>").color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Usage: /ytcraft mob tier remove <mob_type_or_custom_key>").color(NamedTextColor.RED));
             return true;
         }
 
-        String mobType = args[0].toUpperCase();
+        String mobInput = args[0].toUpperCase();
         List<MobSpawnSettings.MobTier> tiers = SettingsLoader.getSettings().getMobSpawnSettings().getMobTiers();
         
         boolean found = false;
         for (MobSpawnSettings.MobTier tier : tiers) {
-            if (tier.getMobs().remove(mobType)) {
+            if (tier.getMobs().remove(mobInput)) {
                 found = true;
                 break;
             }
@@ -35,9 +35,9 @@ public class TierRemoveSubcommand implements Subcommand {
         if (found) {
             SettingsLoader.saveSettings();
             SettingsLoader.loadMobTiers();
-            sender.sendMessage(Component.text("Removed " + mobType + " from tiers").color(NamedTextColor.GREEN));
+            sender.sendMessage(Component.text("Removed " + mobInput + " from tiers").color(NamedTextColor.GREEN));
         } else {
-            sender.sendMessage(Component.text(mobType + " not found in any tier").color(NamedTextColor.YELLOW));
+            sender.sendMessage(Component.text(mobInput + " not found in any tier").color(NamedTextColor.YELLOW));
         }
 
         return true;

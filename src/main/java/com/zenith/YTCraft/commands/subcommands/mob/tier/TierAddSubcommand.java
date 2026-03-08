@@ -9,6 +9,8 @@ import org.bukkit.entity.EntityType;
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
 import com.zenith.YTCraft.config.SettingsLoader;
 import com.zenith.YTCraft.config.types.MobSpawnSettings;
+import com.zenith.YTCraft.custommobs.CustomMob;
+import com.zenith.YTCraft.custommobs.CustomMobRegistry;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -18,13 +20,29 @@ public class TierAddSubcommand implements Subcommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(Component.text("Usage: /ytcraft mob tier add <min_viewers> <mob_type>").color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Usage: /ytcraft mob tier add <min_viewers> <mob_type_or_custom_key>").color(NamedTextColor.RED));
             return true;
         }
 
         try {
             int minViewers = Integer.parseInt(args[0]);
-            String mobType = EntityType.valueOf(args[1].toUpperCase()).toString();
+            String mobInput = args[1].toLowerCase();
+            String mobType;
+
+            // Check if it's a custom mob first
+            if (CustomMobRegistry.isCustomMob(mobInput)) {
+                // Use the custom mob key (normalized to uppercase for consistency)
+                CustomMob customMob = CustomMobRegistry.getCustomMob(mobInput);
+                mobType = customMob.getMobKey().toUpperCase();
+            } else {
+                // Try to parse as vanilla EntityType
+                try {
+                    mobType = EntityType.valueOf(mobInput.toUpperCase()).toString();
+                } catch (IllegalArgumentException e) {
+                    sender.sendMessage(Component.text("Invalid mob type or custom mob key: " + mobInput).color(NamedTextColor.RED));
+                    return true;
+                }
+            }
 
             List<MobSpawnSettings.MobTier> tiers = SettingsLoader.getSettings().getMobSpawnSettings().getMobTiers();
 
@@ -33,7 +51,7 @@ public class TierAddSubcommand implements Subcommand {
             for (MobSpawnSettings.MobTier tier : tiers) {
 
                 if (tier.getMinViewers() == minViewers && tier.getMobs().contains(mobType)) {
-
+                    sender.sendMessage(Component.text(mobType + " is already in this tier").color(NamedTextColor.YELLOW));
                     return true;
                 }
 
@@ -76,8 +94,6 @@ public class TierAddSubcommand implements Subcommand {
 
         } catch (NumberFormatException e) {
             sender.sendMessage(Component.text("Invalid number!").color(NamedTextColor.RED));
-        } catch (IllegalArgumentException e) {
-            sender.sendMessage(Component.text("Invalid mob type!").color(NamedTextColor.RED));
         }
 
         return true;
@@ -87,14 +103,25 @@ public class TierAddSubcommand implements Subcommand {
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 2) {
             List<String> suggestions = new ArrayList<>();
+            String input = args[1].toUpperCase();
+            
+            // Add vanilla EntityTypes
             for (EntityType type : EntityType.values()) {
                 if (type.isAlive()) {
                     String name = type.name();
-                    if (name.toLowerCase().startsWith(args[1].toLowerCase())) {
+                    if (name.toUpperCase().startsWith(input)) {
                         suggestions.add(name);
                     }
                 }
             }
+            
+            // Add custom mobs
+            for (String customMobKey : CustomMobRegistry.getAllCustomMobs().keySet()) {
+                if (customMobKey.toUpperCase().startsWith(input)) {
+                    suggestions.add(customMobKey);
+                }
+            }
+            
             return suggestions;
         }
         return new ArrayList<>();

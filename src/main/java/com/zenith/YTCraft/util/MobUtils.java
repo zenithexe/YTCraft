@@ -11,7 +11,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import com.zenith.YTCraft.YTCraft;
-import com.zenith.YTCraft.custommobs.CustomMob;
 import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.types.AuthorMob;
@@ -41,21 +40,7 @@ public class MobUtils {
         data.set(new NamespacedKey(YTCraft.getPlugin(), "SpawnedChannelId"), PersistentDataType.STRING, channelId);
     }
 
-    /**
-     * Add mob to tracking map
-     */
-    public static void addAuthorMobData(LivingEntity creature, String author, String channelId) {
-        AuthorMob authorMob = new AuthorMob(channelId, author, creature);
-        MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
-    }
 
-    /**
-     * Add custom mob to tracking map
-     */
-    public static void addAuthorMobData(LivingEntity creature, String author, String channelId, boolean isCustomMob, CustomMob customMob) {
-        AuthorMob authorMob = new AuthorMob(channelId, author, creature, isCustomMob, customMob);
-        MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
-    }
 
     public static void killAuthorMob(AuthorMob authorMob) {
 

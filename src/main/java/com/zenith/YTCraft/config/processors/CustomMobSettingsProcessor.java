@@ -45,49 +45,41 @@ public class CustomMobSettingsProcessor {
         }
 
         for (Map.Entry<String, CustomMobSettings.CustomMobConfig> entry : settings.getMobs().entrySet()) {
-            String mobKey = entry.getKey().toLowerCase();
+            String customMobKey = entry.getKey().toUpperCase();
             CustomMobSettings.CustomMobConfig config = entry.getValue();
 
             try {
                 String mobName = config.getMobName();
                 EntityType entityType = EntityType.valueOf(config.getEntityType().toUpperCase());
                 String playerUsername = config.getPlayerUsername();
+
                 String[] aliases = config.getAliases();
 
-                CustomMob customMob = new CustomMob(mobKey, mobName, entityType, playerUsername, aliases);
-                
-                // Register under main key
-                customMobs.put(mobKey, customMob);
+                CustomMob customMob = new CustomMob(customMobKey, mobName, entityType, playerUsername, aliases);
+
+                // Register under main key (lowercase for lookups)
+                customMobs.put(customMobKey, customMob);
 
                 // Register under all aliases
                 if (aliases != null && aliases.length > 0) {
                     for (String alias : aliases) {
-                        String aliasKey = alias.toLowerCase().trim();
+                        String aliasKey = alias.toUpperCase().trim();
+
                         if (!aliasKey.isEmpty()) {
+
                             customMobs.put(aliasKey, customMob);
-                            Bukkit.getLogger().info(String.format(
-                                    "  Registered alias: %s -> %s",
-                                    aliasKey, mobKey
-                            ));
+
+                            Bukkit.getLogger().info(String.format("Registered alias: %s -> %s", aliasKey, customMobKey));
                         }
                     }
                 }
 
-                Bukkit.getLogger().info(String.format(
-                        "Loaded custom mob: %s (%s) -> %s (username: %s)",
-                        mobKey, mobName, entityType, playerUsername
-                ));
+                Bukkit.getLogger().info(String.format("Loaded custom mob: %s (%s) -> %s (username: %s)", customMobKey, mobName, entityType, playerUsername));
 
             } catch (IllegalArgumentException e) {
-                Bukkit.getLogger().warning(String.format(
-                        "Failed to load custom mob '%s': Invalid entity type - %s",
-                        mobKey, e.getMessage()
-                ));
+                Bukkit.getLogger().warning(String.format("Failed to load custom mob '%s': Invalid entity type - %s", customMobKey, e.getMessage()));
             } catch (Exception e) {
-                Bukkit.getLogger().warning(String.format(
-                        "Failed to load custom mob '%s': %s",
-                        mobKey, e.getMessage()
-                ));
+                Bukkit.getLogger().warning(String.format("Failed to load custom mob '%s': %s", customMobKey, e.getMessage()));
             }
         }
 

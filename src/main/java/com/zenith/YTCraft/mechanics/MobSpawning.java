@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import com.zenith.YTCraft.YTCraft;
 import com.zenith.YTCraft.custommobs.CustomMob;
 import com.zenith.YTCraft.custommobs.SkinApplier;
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.types.MobSpawnRequest;
@@ -35,12 +36,7 @@ public class MobSpawning implements Runnable {
      * Add a custom mob spawn request to the queue (thread-safe)
      */
     public static void addCustomMob(CustomMob customMob, String author, String channelId) {
-        MobSpawnRequest request = new MobSpawnRequest(
-                customMob.getEntityType(),
-                author,
-                channelId,
-                customMob
-        );
+        MobSpawnRequest request = new MobSpawnRequest(customMob.getEntityType(), author, channelId, customMob);
         SpawnQueue.add(request);
     }
 
@@ -58,10 +54,7 @@ public class MobSpawning implements Runnable {
         Location playerLocation = player.getLocation();
         Location confirmSpawn = MobUtils.getMobSpawnLocation(player);
 
-        LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(
-                confirmSpawn,
-                request.getEntityType()
-        );
+        LivingEntity livingMob = (LivingEntity) playerLocation.getWorld().spawnEntity(confirmSpawn, request.getEntityType());
 
         livingMob.customName(Component.text(request.getAuthor()));
         livingMob.setCustomNameVisible(true);
@@ -72,18 +65,15 @@ public class MobSpawning implements Runnable {
 
         // Add author mob data with custom mob info
         if (request.isCustomMob()) {
-            MobUtils.addAuthorMobData(
-                    livingMob,
-                    request.getAuthor(),
-                    request.getChannelId(),
-                    true,
-                    request.getCustomMob()
-            );
+            MobSpawnState.addAuthorMob(livingMob, request.getAuthor(), request.getChannelId(), true, request.getCustomMob());
+
             // Apply custom skin
             SkinApplier.applySkin(livingMob, request.getCustomMob(), request.getAuthor(), YTCraft.getPlugin());
             MessageUtils.sendAuthorCustomMobSpawnMessage(request.getCustomMob(), request.getAuthor());
+
         } else {
-            MobUtils.addAuthorMobData(livingMob, request.getAuthor(), request.getChannelId());
+
+            MobSpawnState.addAuthorMob(livingMob, request.getAuthor(), request.getChannelId());
             MessageUtils.sendAuthorMobSpawnMessage(livingMob, request.getAuthor());
         }
 

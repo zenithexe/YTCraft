@@ -17,7 +17,7 @@ public class CustomMobListSubcommand implements Subcommand {
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {
-        Map<String, CustomMob> allMobs = CustomMobRegistry.getAllCustomMobs();
+        Map<String, CustomMob> allMobs = CustomMobRegistry.getAllCustomMobsRegistry();
         
         if (allMobs.isEmpty()) {
             sender.sendMessage(Component.text("No custom mobs configured").color(NamedTextColor.YELLOW));

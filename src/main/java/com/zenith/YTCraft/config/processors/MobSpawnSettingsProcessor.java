@@ -16,7 +16,7 @@ public class MobSpawnSettingsProcessor {
      * Process mob spawn settings into MobSpawnState
      */
     public static void process(MobSpawnSettings settings) {
-        MobSpawnState.setEntityTypeToMinViewers(buildMobToMinViewersMap(settings));
+        MobSpawnState.setMobToMinViewers(buildMobToMinViewersMap(settings));
     }
 
     /**

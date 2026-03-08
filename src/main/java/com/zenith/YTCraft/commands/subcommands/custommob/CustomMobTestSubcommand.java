@@ -62,7 +62,7 @@ public class CustomMobTestSubcommand implements Subcommand {
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
             List<String> suggestions = new ArrayList<>();
-            for (String key : CustomMobRegistry.getAllCustomMobs().keySet()) {
+            for (String key : CustomMobRegistry.getAllCustomMobsRegistry().keySet()) {
                 if (key.startsWith(args[0].toLowerCase())) {
                     suggestions.add(key);
                 }

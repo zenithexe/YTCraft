@@ -5,6 +5,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import com.zenith.YTCraft.data.MobSpawnState;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.MessageUtils;
 import com.zenith.YTCraft.util.MobUtils;
@@ -34,7 +35,7 @@ public class SubscriberMechanics {
                 livingMob.setRemoveWhenFarAway(false);
 
                 MobUtils.setAuthorMobNBT(livingMob, "RandomChannelId");
-                MobUtils.addAuthorMobData(livingMob, "New Subscriber", "RandomChannelId");
+                MobSpawnState.addAuthorMob(livingMob, "New Subscriber", "RandomChannelId");
 
                 MessageUtils.sendAuthorMobSpawnMessage(livingMob, "New Subscriber");
 

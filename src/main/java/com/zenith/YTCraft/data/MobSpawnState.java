@@ -3,45 +3,52 @@ package com.zenith.YTCraft.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.entity.EntityType;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.LivingEntity;
 
 import com.zenith.YTCraft.config.SettingsLoader;
 import com.zenith.YTCraft.config.types.MobSpawnSettings;
+import com.zenith.YTCraft.custommobs.CustomMob;
 import com.zenith.YTCraft.types.AuthorMob;
 
 public class MobSpawnState {
 
-    private static final Map<String, Integer> EntityTypeToMinViewers = new HashMap<>();
+    private static final Map<String, Integer> MobToMinViewers = new HashMap<>();
     private static final Map<String, AuthorMob> ChannelIdToAuthorMob = new HashMap<>();
 
-    public static Map<String, Integer> getEntityTypeToMinViewers() {
-        return EntityTypeToMinViewers;
+    public static Map<String, Integer> getMobToMinViewers() {
+        return MobToMinViewers;
     }
 
     public static Map<String, AuthorMob> getChannelIdToAuthorMob() {
         return ChannelIdToAuthorMob;
     }
 
-    public static void setEntityTypeToMinViewers(Map<String, Integer> map) {
-        EntityTypeToMinViewers.clear();
-        EntityTypeToMinViewers.putAll(map);
+    public static void setMobToMinViewers(Map<String, Integer> map) {
+        MobToMinViewers.clear();
+        MobToMinViewers.putAll(map);
     }
 
-    public static boolean isMobSpawnable(EntityType entityType) {
+    public static boolean isMobSpawnable(String mobKey) {
         int viewers = PluginState.getViewers();
         MobSpawnSettings mobSpawnSettings = SettingsLoader.getSettings().getMobSpawnSettings();
 
+        // Normalize mob key to uppercase for consistency
+        String normalizedKey = mobKey.toUpperCase();
+
         // Check if mob spawn is enabled
         if (!mobSpawnSettings.isEnabled()) {
+            Bukkit.getLogger().info(String.format("Cannot Spawn Mob :: Mob Spawning is Disabled."));
             return false;
         }
 
         // Check if mob is banned
-        if (mobSpawnSettings.getBannedMobs() != null && mobSpawnSettings.getBannedMobs().contains(entityType.toString())) {
+        if (mobSpawnSettings.getBannedMobs() != null && mobSpawnSettings.getBannedMobs().contains(normalizedKey)) {
+            Bukkit.getLogger().info(String.format(String.format("Cannot Spawn Mob :: %s is banned.", mobKey)));
             return false;
         }
 
-        //If Set to 'All'
+        // If Set to 'All'
         if (mobSpawnSettings.getMode() == MobSpawnSettings.ModeSettings.ALL) {
             return true;
         }
@@ -49,47 +56,69 @@ public class MobSpawnState {
         // Check low viewer mode
         MobSpawnSettings.LowViewerMode lowViewerMode = mobSpawnSettings.getLowViewerMode();
         if (lowViewerMode != null && lowViewerMode.isEnabled() && viewers < lowViewerMode.getViewersThreshold()) {
-            return isSpawnableInLowViewerMode(entityType, lowViewerMode);
+            return isSpawnableInLowViewerMode(normalizedKey, lowViewerMode);
         }
 
         // Normal mode: check tier requirements
-        Integer minViewers = EntityTypeToMinViewers.get(entityType.toString());
+        Integer minViewers = MobToMinViewers.get(normalizedKey);
 
         if (minViewers == null) {
-            //Mob not in tier
-            //True is mode set to 'tier_plus_unlisted'
-            return mobSpawnSettings.getMode() == MobSpawnSettings.ModeSettings.TIER_PLUS_UNLISTED;
+            if (mobSpawnSettings.getMode() == MobSpawnSettings.ModeSettings.TIER_PLUS_UNLISTED) {
+                return true;
+            } else {
+                Bukkit.getLogger().info(String.format(String.format("Cannot Spawn Mob :: %s is not mentioned in tier-list.", mobKey)));
+                return false;
+            }
         }
 
-        return viewers >= minViewers;
+        if (viewers < minViewers) {
+            Bukkit.getLogger().info(String.format(String.format("Cannot Spawn Mob :: Low Viewer for %s.", mobKey)));
+            return false;
+        }
+
+        return true;
     }
 
     /**
-     * Check if mob is spawnable in low viewer mode
+     * Check if custom mob (by key) is spawnable in low viewer mode
      */
-    private static boolean isSpawnableInLowViewerMode(EntityType entityType, MobSpawnSettings.LowViewerMode mode) {
-        String entityTypeStr = entityType.toString();
-
+    private static boolean isSpawnableInLowViewerMode(String mobKey, MobSpawnSettings.LowViewerMode mode) {
         switch (mode.getMode()) {
             case ALLOW_ONLY:
                 // Only mobs in allow list
-                return mode.getAllow() != null && mode.getAllow().contains(entityTypeStr);
+                return mode.getAllow() != null && mode.getAllow().contains(mobKey);
 
             case ALL:
                 // All mobs except those in exclude list
-                return mode.getExclude() == null || !mode.getExclude().contains(entityTypeStr);
+                return mode.getExclude() == null || !mode.getExclude().contains(mobKey);
 
             case TIER:
                 // Check if in Tier-List and Not in 'Exclude'
-                return EntityTypeToMinViewers.containsKey(entityTypeStr) && (mode.getExclude() == null || !mode.getExclude().contains(entityTypeStr));
+                return MobToMinViewers.containsKey(mobKey) && (mode.getExclude() == null || !mode.getExclude().contains(mobKey));
 
             default:
                 return false;
         }
     }
 
+    /**
+     * Add mob to tracking map
+     */
+    public static void addAuthorMob(LivingEntity creature, String author, String channelId) {
+        AuthorMob authorMob = new AuthorMob(channelId, author, creature);
+        MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
+    }
+
+    /**
+     * Add custom mob to tracking map
+     */
+    public static void addAuthorMob(LivingEntity creature, String author, String channelId, boolean isCustomMob, CustomMob customMob) {
+        AuthorMob authorMob = new AuthorMob(channelId, author, creature, isCustomMob, customMob);
+        MobSpawnState.getChannelIdToAuthorMob().put(channelId, authorMob);
+    }
+
     public static void clearAll() {
-        EntityTypeToMinViewers.clear();
+        MobToMinViewers.clear();
         ChannelIdToAuthorMob.clear();
     }
 

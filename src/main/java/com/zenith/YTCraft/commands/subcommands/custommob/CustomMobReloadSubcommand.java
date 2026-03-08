@@ -22,9 +22,9 @@ public class CustomMobReloadSubcommand implements Subcommand {
 
         // Count unique mobs and total aliases
         int uniqueMobs = 0;
-        int totalEntries = CustomMobRegistry.getAllCustomMobs().size();
+        int totalEntries = CustomMobRegistry.getAllCustomMobsRegistry().size();
         
-        for (String key : CustomMobRegistry.getAllCustomMobs().keySet()) {
+        for (String key : CustomMobRegistry.getAllCustomMobsRegistry().keySet()) {
             if (CustomMobRegistry.getCustomMob(key).getMobKey().equals(key)) {
                 uniqueMobs++;
             }
