@@ -109,6 +109,7 @@
   },
   "custom_mobs": {
     "enabled": true,
+    "username_mobs": true,
     "mobs": {
       "PUNISHER": {
         "mob_name": "ItsPunisherOP",

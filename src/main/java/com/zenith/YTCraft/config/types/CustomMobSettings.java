@@ -5,6 +5,7 @@ import java.util.Map;
 public class CustomMobSettings {
 
     private boolean enabled;
+    private boolean username_spawns;
     private Map<String, CustomMobConfig> mobs;
 
     public boolean isEnabled() {
@@ -13,6 +14,14 @@ public class CustomMobSettings {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isUsernameSpawnsEnabled() {
+        return username_spawns;
+    }
+
+    public void setUsernameSpawns(boolean usernameSpawns) {
+        this.username_spawns = usernameSpawns;
     }
 
     public Map<String, CustomMobConfig> getMobs() {

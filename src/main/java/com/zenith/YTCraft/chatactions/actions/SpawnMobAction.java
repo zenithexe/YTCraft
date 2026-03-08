@@ -5,6 +5,7 @@ import org.bukkit.entity.EntityType;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
+import com.zenith.YTCraft.config.SettingsLoader;
 import com.zenith.YTCraft.custommobs.CustomMob;
 import com.zenith.YTCraft.custommobs.CustomMobRegistry;
 import com.zenith.YTCraft.data.MobSpawnState;
@@ -35,6 +36,11 @@ public class SpawnMobAction implements ChatAction {
 
     @Override
     public boolean execute(LiveChatMessage message, String[] args) {
+
+        if (!SettingsLoader.getSettings().getMobSpawnSettings().isEnabled()) {
+            Bukkit.getLogger().info(String.format(" No Mob Spawned :: Mob Spawn is Disabled"));
+            return false;
+        }
 
         String author = message.getAuthorDetails().getDisplayName();
         String channelId = message.getAuthorDetails().getChannelId();

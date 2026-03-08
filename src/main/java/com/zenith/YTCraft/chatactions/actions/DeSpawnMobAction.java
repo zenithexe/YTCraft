@@ -34,14 +34,14 @@ public class DeSpawnMobAction implements ChatAction {
     @Override
     public boolean execute(LiveChatMessage message, String[] args) {
 
-        String author = message.getAuthorDetails().getDisplayName();
-        String channelId = message.getAuthorDetails().getChannelId();
-
         // Check if feature is enabled
         if (!SettingsLoader.getSettings().getMobSpawnSettings().isAllowViewerMobKill()) {
-            Bukkit.getLogger().info(String.format("Viewer mob kill disabled :: %s attempted to kill mob", author));
+            Bukkit.getLogger().info(String.format(":: Viewer Mob Kill is disabled"));
             return false;
         }
+
+        String author = message.getAuthorDetails().getDisplayName();
+        String channelId = message.getAuthorDetails().getChannelId();
 
         // Check if viewer has a spawned mob
         AuthorMob authorMob = MobSpawnState.getChannelIdToAuthorMob().get(channelId);
@@ -55,8 +55,7 @@ public class DeSpawnMobAction implements ChatAction {
 
         if (authorMob.isCustomMob() && authorMob.getCustomMob() != null) {
             MessageUtils.sendAuthorCustomMobDespawnMessage(authorMob.getCustomMob(), author);
-        }
-        else{
+        } else {
 
             MessageUtils.sendAuthorMobDespawnMessage(authorMob.getMob(), author);
         }

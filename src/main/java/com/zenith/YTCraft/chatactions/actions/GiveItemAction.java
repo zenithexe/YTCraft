@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
+import com.zenith.YTCraft.config.SettingsLoader;
 import com.zenith.YTCraft.data.PluginState;
 import com.zenith.YTCraft.util.ItemUtils;
 
@@ -26,6 +27,12 @@ public class GiveItemAction implements ChatAction {
 
     @Override
     public boolean execute(LiveChatMessage message, String[] args) {
+
+        if (!SettingsLoader.getSettings().getItemGiveSettings().isEnabled()) {
+            Bukkit.getLogger().info(String.format(" :: Item-Giving is Disabled"));
+            return false;
+        }
+
         String author = message.getAuthorDetails().getDisplayName();
 
         // Validate arguments: give <item|alias> [count]
