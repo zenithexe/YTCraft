@@ -29,7 +29,7 @@ public class GiveItemAction implements ChatAction {
         String author = message.getAuthorDetails().getDisplayName();
 
         // Validate arguments: give <item|alias> [count]
-        if (args.length < 2 || args.length > 3) {
+        if (args.length < 2) {
             Bukkit.getLogger().info(String.format("Invalid give from %s - wrong number of arguments", author));
             return false;
         }
@@ -48,14 +48,14 @@ public class GiveItemAction implements ChatAction {
 
         // Regular item
         int quantity = 1;
-        // if (args.length == 3) {
-        //     try {
-        //         quantity = Integer.parseInt(args[2]);
-        //     } catch (NumberFormatException e) {
-        //         Bukkit.getLogger().info(String.format("Invalid count from %s: %s", author, args[2]));
-        //         return false;
-        //     }
-        // }
+        if (args.length >= 3) {
+            try {
+                quantity = Integer.parseInt(args[2]);
+            } catch (NumberFormatException e) {
+                Bukkit.getLogger().info(String.format("Invalid count from %s: %s", author, args[2]));
+                return false;
+            }
+        }
 
         return ItemUtils.giveItem(PluginState.getStreamer(), itemOrAlias, quantity, author);
     }

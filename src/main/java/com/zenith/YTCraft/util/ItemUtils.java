@@ -21,7 +21,7 @@ import com.zenith.YTCraft.data.ItemGiveState;
  */
 public class ItemUtils {
 
-    private static final int MAX_ITEM_COUNT = 64;
+    // private static final int MAX_ITEM_COUNT = 64;
 
     /**
      * Check if an item can be given based on settings
@@ -118,8 +118,10 @@ public class ItemUtils {
             return false;
         }
 
-        // Cap quantity at MAX_ITEM_COUNT for regular items
-        quantity = Math.min(quantity, MAX_ITEM_COUNT);
+        // Cap quantity at Max_Stack
+        quantity = Math.min(quantity, material.getMaxStackSize());
+
+        material.getMaxStackSize();
 
         ItemStack itemStack = new ItemStack(material, quantity);
         setItemNBT(itemStack, author);
