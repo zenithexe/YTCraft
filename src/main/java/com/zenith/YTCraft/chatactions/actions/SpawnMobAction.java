@@ -2,6 +2,7 @@ package com.zenith.YTCraft.chatactions.actions;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 
 import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
@@ -85,6 +86,12 @@ public class SpawnMobAction implements ChatAction {
             entityType = EntityType.valueOf(mobName.toUpperCase());
         } catch (IllegalArgumentException e) {
             Bukkit.getLogger().info(String.format("Invalid entity type from %s: %s", author, mobName));
+            return false;
+        }
+
+        // Check if the entity type is a living entity
+        if (!LivingEntity.class.isAssignableFrom(entityType.getEntityClass())) {
+            Bukkit.getLogger().info(String.format("Invalid entity type (not a living entity) from %s: %s", author, mobName));
             return false;
         }
 

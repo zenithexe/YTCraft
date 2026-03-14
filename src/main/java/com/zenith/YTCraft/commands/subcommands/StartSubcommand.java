@@ -30,7 +30,6 @@ public class StartSubcommand implements Subcommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Component.text("Only players can execute this command").color(NamedTextColor.RED));
             return true;
         }
 
@@ -94,9 +93,15 @@ public class StartSubcommand implements Subcommand {
     }
 
     public static void stop() {
-        if (youtubeTask != null) youtubeTask.cancel();
-        if (timerTask != null) timerTask.cancel();
-        if (mobSpawnTask != null) mobSpawnTask.cancel();
+        if (youtubeTask != null) {
+            youtubeTask.cancel();
+        }
+        if (timerTask != null) {
+            timerTask.cancel();
+        }
+        if (mobSpawnTask != null) {
+            mobSpawnTask.cancel();
+        }
         isRunning = false;
     }
 }
