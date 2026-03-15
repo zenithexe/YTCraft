@@ -149,6 +149,7 @@ public class PluginTimer implements Runnable {
             updateTimer();
         }
 
+        // Update streamer's scoreboard only
         if (player.getScoreboard().getObjective("YTCraftBoard") != null) {
             ScoreboardUI.updateScoreboard(player, getFormattedTime(), getDisplayTimerMode());
         }

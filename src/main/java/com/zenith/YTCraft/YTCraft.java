@@ -14,6 +14,7 @@ import com.zenith.YTCraft.listeners.EntityCombustListener;
 import com.zenith.YTCraft.listeners.EntityDeathListener;
 import com.zenith.YTCraft.listeners.EntityExplodeListener;
 import com.zenith.YTCraft.listeners.PlayerDeathListener;
+import com.zenith.YTCraft.listeners.SessionPlayerListener;
 import com.zenith.YTCraft.ui.BossBarUI;
 
 public final class YTCraft extends JavaPlugin {
@@ -38,6 +39,7 @@ public final class YTCraft extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityExplodeListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
         getServer().getPluginManager().registerEvents(new EntityCombustListener(), this);
+        getServer().getPluginManager().registerEvents(new SessionPlayerListener(), this);
 
         //Commands
         getCommand("YTCraft").setExecutor(new YTCraftCommand());

@@ -62,9 +62,9 @@ public class StartSubcommand implements Subcommand {
 
         isRunning = true;
 
-        // Create UI
+        // Create UI - scoreboard only for streamer, boss bar for all players
         ScoreboardUI.createNewScoreBoard(player);
-        BossBarUI.createBossBar(player);
+        BossBarUI.createBossBar();
 
         Bukkit.broadcast(Component.text("YTCraft Successfully Started!").color(NamedTextColor.GREEN));
         Bukkit.broadcast(Component.text(player.getName()).color(NamedTextColor.YELLOW)

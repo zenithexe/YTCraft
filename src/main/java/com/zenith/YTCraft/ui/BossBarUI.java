@@ -1,5 +1,6 @@
 package com.zenith.YTCraft.ui;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.zenith.YTCraft.data.PluginState;
@@ -12,9 +13,7 @@ public class BossBarUI {
 
     private static BossBar bossBar;
 
-    public static void createBossBar(Player player) {
-        if (player == null) return;
-
+    public static void createBossBar() {
         // Create Adventure boss bar
         bossBar = BossBar.bossBar(
             Component.text("Initializing..."),
@@ -23,10 +22,17 @@ public class BossBarUI {
             BossBar.Overlay.PROGRESS
         );
         
-        player.showBossBar(bossBar);
+        // Show to all online players
+        Bukkit.getOnlinePlayers().forEach(player -> player.showBossBar(bossBar));
         
         // Initial update
         updateBossBar(0, 0);
+    }
+
+    public static void addPlayer(Player player) {
+        if (bossBar != null && player != null) {
+            player.showBossBar(bossBar);
+        }
     }
 
     public static void updateBossBar(int currentSeconds, int totalSeconds) {
@@ -55,8 +61,7 @@ public class BossBarUI {
                              .progress(progress);
         }
         
-        // Show updated boss bar
-        streamer.showBossBar(bossBar);
+        // Boss bar updates automatically for all players who have it shown
     }
 
     private static String formatTime(int totalSeconds) {
@@ -82,10 +87,8 @@ public class BossBarUI {
 
     public static void removeBossBar() {
         if (bossBar != null) {
-            Player streamer = PluginState.getStreamer();
-            if (streamer != null) {
-                streamer.hideBossBar(bossBar);
-            }
+            // Hide from all online players
+            Bukkit.getOnlinePlayers().forEach(player -> player.hideBossBar(bossBar));
             bossBar = null;
         }
     }
