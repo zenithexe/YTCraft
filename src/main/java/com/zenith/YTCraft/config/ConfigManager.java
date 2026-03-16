@@ -12,9 +12,10 @@ public class ConfigManager {
 
     public static void loadConfig() {
         String apiKey = YTCraft.getPlugin().getConfig().getString("API_KEY");
+        String channelId = YTCraft.getPlugin().getConfig().getString("CHANNEL_ID");
         String videoId = YTCraft.getPlugin().getConfig().getString("VIDEO_ID");
 
-        YoutubeAPI.setAPI(apiKey, videoId);
+        YoutubeAPI.setAPI(apiKey, channelId, videoId);
 
         Bukkit.getLogger().info("YouTube API credentials loaded");
     }

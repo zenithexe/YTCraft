@@ -11,13 +11,14 @@ import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.zenith.YTCraft.commands.subcommands.ConfigSubcommand;
+import com.zenith.YTCraft.commands.subcommands.ConnectSubcommand;
 import com.zenith.YTCraft.commands.subcommands.EndSubcommand;
 import com.zenith.YTCraft.commands.subcommands.ReloadSubcommand;
 import com.zenith.YTCraft.commands.subcommands.SaveSubcommand;
 import com.zenith.YTCraft.commands.subcommands.StartSubcommand;
 import com.zenith.YTCraft.commands.subcommands.StatusSubcommand;
 import com.zenith.YTCraft.commands.subcommands.Subcommand;
-import com.zenith.YTCraft.commands.subcommands.VideoSubcommand;
 import com.zenith.YTCraft.commands.subcommands.custommob.CustomMobSubcommand;
 import com.zenith.YTCraft.commands.subcommands.item.ItemSubcommand;
 import com.zenith.YTCraft.commands.subcommands.mob.MobSubcommand;
@@ -40,7 +41,8 @@ public class YTCraftCommand implements TabExecutor {
         registerSubcommand(new ReloadSubcommand());
         registerSubcommand(new SaveSubcommand());
         registerSubcommand(new StatusSubcommand());
-        registerSubcommand(new VideoSubcommand());
+        registerSubcommand(new ConfigSubcommand());
+        registerSubcommand(new ConnectSubcommand());
     }
 
     private void registerSubcommand(Subcommand subcommand) {

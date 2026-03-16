@@ -39,10 +39,15 @@ public class StartSubcommand implements Subcommand {
         }
 
         // Validate YouTube API configuration
+        if (!YoutubeAPI.hasChannelId()) {
+            sender.sendMessage(Component.text("[YTCraft] Cannot start — no channel ID configured.").color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Set CHANNEL_ID in config.yml, then use /yt connect.").color(NamedTextColor.YELLOW));
+            return true;
+        }
+
         if (!YoutubeAPI.isConfigured()) {
-            sender.sendMessage(Component.text("Cannot start YTCraft!").color(NamedTextColor.RED));
-            sender.sendMessage(Component.text("YouTube video ID is invalid or not configured.").color(NamedTextColor.YELLOW));
-            sender.sendMessage(Component.text("Use /ytcraft video <videoId> to set a valid livestream video ID.").color(NamedTextColor.GRAY));
+            sender.sendMessage(Component.text("[YTCraft] Cannot start — no active livestream connected.").color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Use /yt connect to link a live broadcast.").color(NamedTextColor.YELLOW));
             return true;
         }
 
@@ -66,9 +71,9 @@ public class StartSubcommand implements Subcommand {
         ScoreboardUI.createNewScoreBoard(player);
         BossBarUI.createBossBar();
 
-        Bukkit.broadcast(Component.text("YTCraft Successfully Started!").color(NamedTextColor.GREEN));
-        Bukkit.broadcast(Component.text(player.getName()).color(NamedTextColor.YELLOW)
-                .append(Component.text(" has been set as Streamer.").color(NamedTextColor.WHITE)));
+        Bukkit.broadcast(Component.text("[YTCraft] Session started! ").color(NamedTextColor.GREEN)
+                .append(Component.text(player.getName()).color(NamedTextColor.YELLOW))
+                .append(Component.text(" is the Streamer.").color(NamedTextColor.WHITE)));
 
         return true;
     }

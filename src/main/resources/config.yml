@@ -1,3 +1,9 @@
+#Google Youtube Data API V3 
 API_KEY: ''
 
+#Streamer's ChannelId
+CHANNEL_ID:''
+
+# Don't Need to Set this. 
+# This is automatically managed by the plugin.
 VIDEO_ID: ''
