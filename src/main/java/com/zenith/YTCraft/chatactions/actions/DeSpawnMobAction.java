@@ -6,6 +6,7 @@ import com.google.api.services.youtube.model.LiveChatMessage;
 import com.zenith.YTCraft.chatactions.ChatAction;
 import com.zenith.YTCraft.config.SettingsLoader;
 import com.zenith.YTCraft.data.MobSpawnState;
+import com.zenith.YTCraft.data.SpawnQueue;
 import com.zenith.YTCraft.types.AuthorMob;
 import com.zenith.YTCraft.util.MessageUtils;
 import com.zenith.YTCraft.util.MobUtils;
@@ -47,6 +48,12 @@ public class DeSpawnMobAction implements ChatAction {
         AuthorMob authorMob = MobSpawnState.getChannelIdToAuthorMob().get(channelId);
 
         if (authorMob == null) {
+            // Check if viewer has a pending spawn request and cancel it
+            if (SpawnQueue.containsChannel(channelId)) {
+                SpawnQueue.remove(channelId);
+                Bukkit.getLogger().info(String.format("%s cancelled their pending spawn", author));
+                return true;
+            }
             Bukkit.getLogger().info(String.format("%s has no spawned mob to kill", author));
             return false;
         }
