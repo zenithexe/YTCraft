@@ -119,3 +119,5 @@ run/
 #Deploy Scripts
 deploy.bat
 deploy.sh
+
+.claude

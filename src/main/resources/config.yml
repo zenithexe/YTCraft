@@ -1,9 +1,14 @@
-#Google Youtube Data API V3 
-API_KEY: ''
+#Google Youtube Data API V3
+# You can provide multiple API keys for automatic rotation when quota is exceeded
+API_KEYS:
+  - ''
+
+# Legacy single key (still supported for backward compatibility)
+# API_KEY: ''
 
 #Streamer's ChannelId
-CHANNEL_ID:''
+CHANNEL_ID: ''
 
-# Don't Need to Set this. 
+# Don't Need to Set this.
 # This is automatically managed by the plugin.
 VIDEO_ID: ''

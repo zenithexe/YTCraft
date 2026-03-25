@@ -1,11 +1,14 @@
 package com.zenith.YTCraft.api;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
@@ -23,17 +26,54 @@ import net.kyori.adventure.text.format.NamedTextColor;
 public class YoutubeAPI {
 
     private static final String APP_NAME = "YTCraft-MinecraftPlugin";
-    private static String API_KEY;
     private static String VIDEO_ID;
     private static String LIVE_CHAT_ID;
     private static String CHANNEL_ID;
 
+    @FunctionalInterface
+    private interface ApiCall<T> {
+
+        T execute() throws Exception;
+    }
+
     /**
-     * Initialize API with key, channel id from config, and optional video id.
-     * Does NOT call setLiveChatId here — call updateVideoId() or connect() to activate.
+     * Execute an API call with automatic key rotation on quota exceeded errors.
      */
-    public static void setAPI(String apiKey, String channelId, String videoId) {
-        API_KEY = apiKey;
+    private static <T> T executeWithKeyRotation(ApiCall<T> call) throws Exception {
+        while (true) {
+            try {
+                T result = call.execute();
+                ApiKeyManager.resetRotation();
+                return result;
+            } catch (GoogleJsonResponseException e) {
+                if (e.getStatusCode() == 403 && isQuotaExceeded(e)) {
+                    Bukkit.getLogger().warning("[YTCraft] API key quota exceeded, switching to next key...");
+                    if (!ApiKeyManager.rotateKey()) {
+                        Bukkit.getLogger().severe("[YTCraft] All API keys have exceeded their quota. No keys remaining.");
+                        throw e;
+                    }
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+    private static boolean isQuotaExceeded(GoogleJsonResponseException e) {
+        if (e.getDetails() == null || e.getDetails().getErrors() == null) {
+            return false;
+        }
+        return e.getDetails().getErrors().stream()
+                .anyMatch(err -> "quotaExceeded".equals(err.getReason())
+                || "dailyLimitExceeded".equals(err.getReason()));
+    }
+
+    /**
+     * Initialize API with channel id from config, and optional video id. API
+     * keys are managed by ApiKeyManager. Does NOT call setLiveChatId here —
+     * call updateVideoId() or connect() to activate.
+     */
+    public static void setAPI(String channelId, String videoId) {
         CHANNEL_ID = (channelId != null && !channelId.isEmpty()) ? channelId : null;
         VIDEO_ID = (videoId != null && !videoId.isEmpty()) ? videoId : null;
         LIVE_CHAT_ID = null;
@@ -45,7 +85,8 @@ public class YoutubeAPI {
     }
 
     /**
-     * Update only the runtime video id and channel id (does not persist to config).
+     * Update only the runtime video id and channel id (does not persist to
+     * config).
      */
     public static void updateVideoId(String videoId) {
         VIDEO_ID = videoId;
@@ -92,7 +133,7 @@ public class YoutubeAPI {
             return new YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, null)
                     .setApplicationName(APP_NAME).build();
 
-        } catch (Exception e) {
+        } catch (IOException | GeneralSecurityException e) {
             Bukkit.getLogger().info(e.getMessage());
             return null;
         }
@@ -101,14 +142,15 @@ public class YoutubeAPI {
 
     private static Video getVideo(String parts) {
         try {
-            YouTube.Videos.List req = getYoutube().videos().list(parts);
-            req.setKey(API_KEY);
-            req.setId(VIDEO_ID);
+            return executeWithKeyRotation(() -> {
+                YouTube.Videos.List req = getYoutube().videos().list(parts);
+                req.setKey(ApiKeyManager.getCurrentKey());
+                req.setId(VIDEO_ID);
 
-            VideoListResponse res = req.execute();
-            Bukkit.getLogger().info(":::: GET-Video Youtube API called ::::");
-            return res.getItems().get(0);
-
+                VideoListResponse res = req.execute();
+                Bukkit.getLogger().info(":::: GET-Video Youtube API called ::::");
+                return res.getItems().get(0);
+            });
         } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Video").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is correct.").color(NamedTextColor.YELLOW));
@@ -117,52 +159,57 @@ public class YoutubeAPI {
     }
 
     /**
-     * Fetch active live broadcasts for the configured channel.
-     * Returns a list of [videoId, title] pairs.
+     * Fetch active live broadcasts for the configured channel. Returns a list
+     * of [videoId, title] pairs.
      */
     public static List<String[]> getLiveBroadcasts() {
         try {
-            if (CHANNEL_ID == null) return null;
+            if (CHANNEL_ID == null) {
+                return null;
+            }
 
             YouTube youtube = getYoutube();
-            if (youtube == null) return null;
-
-            // Search for live broadcasts on the channel
-            com.google.api.services.youtube.YouTube.Search.List req =
-                    youtube.search().list("id,snippet");
-            req.setKey(API_KEY);
-            req.setChannelId(CHANNEL_ID);
-            req.setEventType("live");
-            req.setType("video");
-            req.setMaxResults(10L);
-
-            com.google.api.services.youtube.model.SearchListResponse res = req.execute();
-            List<String[]> broadcasts = new java.util.ArrayList<>();
-            for (com.google.api.services.youtube.model.SearchResult item : res.getItems()) {
-                String id = item.getId().getVideoId();
-                String title = item.getSnippet().getTitle();
-                broadcasts.add(new String[]{id, title});
+            if (youtube == null) {
+                return null;
             }
-            return broadcasts;
+
+            return executeWithKeyRotation(() -> {
+                com.google.api.services.youtube.YouTube.Search.List req
+                        = youtube.search().list("id,snippet");
+                req.setKey(ApiKeyManager.getCurrentKey());
+                req.setChannelId(CHANNEL_ID);
+                req.setEventType("live");
+                req.setType("video");
+                req.setMaxResults(10L);
+
+                com.google.api.services.youtube.model.SearchListResponse res = req.execute();
+                List<String[]> broadcasts = new java.util.ArrayList<>();
+                for (com.google.api.services.youtube.model.SearchResult item : res.getItems()) {
+                    String id = item.getId().getVideoId();
+                    String title = item.getSnippet().getTitle();
+                    broadcasts.add(new String[]{id, title});
+                }
+                return broadcasts;
+            });
         } catch (Exception e) {
-            Bukkit.getLogger().warning("Error fetching live broadcasts: " + e.getMessage());
+            Bukkit.getLogger().warning(String.format("Error fetching live broadcasts: %s ", e.getMessage()));
             return null;
         }
     }
 
     public static BigInteger getSubscribers() {
         try {
+            return executeWithKeyRotation(() -> {
+                YouTube.Channels.List req = getYoutube().channels().list("statistics");
+                req.setKey(ApiKeyManager.getCurrentKey());
+                req.setId(CHANNEL_ID);
 
-            YouTube.Channels.List req = getYoutube().channels().list("statistics");
-            req.setKey(API_KEY);
-            req.setId(CHANNEL_ID);
-
-            ChannelListResponse response = req.execute();
-            Channel channel = response.getItems().get(0);
-            BigInteger subscriberCount = channel.getStatistics().getSubscriberCount();
-            Bukkit.getLogger().info(String.format(":::: GET-Subscriber === %s  ::::", subscriberCount));
-            return subscriberCount;
-
+                ChannelListResponse response = req.execute();
+                Channel channel = response.getItems().get(0);
+                BigInteger subscriberCount = channel.getStatistics().getSubscriberCount();
+                Bukkit.getLogger().info(String.format(":::: GET-Subscriber === %s  ::::", subscriberCount));
+                return subscriberCount;
+            });
         } catch (Exception e) {
             Bukkit.broadcast(Component.text("Error :: Can't Get Subscriber Count.").color(NamedTextColor.RED));
             Bukkit.broadcast(Component.text("Make sure the Video-Id is correct.").color(NamedTextColor.YELLOW));
@@ -176,16 +223,16 @@ public class YoutubeAPI {
                 Bukkit.broadcast(Component.text("Incorrect Video ID. Please provide the Video ID of a Livestream.").color(NamedTextColor.RED));
                 return null;
             }
-            
-            YouTube.LiveChatMessages.List req = getYoutube().liveChatMessages().list(LIVE_CHAT_ID,
-                    "snippet,authorDetails");
-            req.setKey(API_KEY);
 
-            LiveChatMessageListResponse res = req.execute();
-            Bukkit.getLogger().info(":::: GET-LiveChat YouTube API called ::::");
+            return executeWithKeyRotation(() -> {
+                YouTube.LiveChatMessages.List req = getYoutube().liveChatMessages().list(LIVE_CHAT_ID,
+                        "snippet,authorDetails");
+                req.setKey(ApiKeyManager.getCurrentKey());
 
-            return res.getItems();
-
+                LiveChatMessageListResponse res = req.execute();
+                Bukkit.getLogger().info(":::: GET-LiveChat YouTube API called ::::");
+                return res.getItems();
+            });
         } catch (Exception e) {
             Bukkit.getLogger().warning(String.format("Error fetching YouTube chat: %s", e.getMessage()));
             return null;
@@ -223,59 +270,68 @@ public class YoutubeAPI {
     }
 
     /**
-     * Resolves a channel username/handle to a channel ID.
-     * Tries forUsername first (legacy), then a search query as fallback for modern handles.
+     * Resolves a channel username/handle to a channel ID. Tries forUsername
+     * first (legacy), then a search query as fallback for modern handles.
      * Returns the channel ID string, or null if not found.
      */
     public static String resolveChannelIdByUsername(String username) {
         try {
             YouTube youtube = getYoutube();
-            if (youtube == null) return null;
+            if (youtube == null) {
+                return null;
+            }
 
             // Strip leading @ if present
             String handle = username.startsWith("@") ? username.substring(1) : username;
 
-            // Try legacy forUsername
-            YouTube.Channels.List req = youtube.channels().list("id,snippet");
-            req.setKey(API_KEY);
-            req.setForUsername(handle);
-            ChannelListResponse res = req.execute();
-            if (res.getItems() != null && !res.getItems().isEmpty()) {
-                return res.getItems().get(0).getId();
-            }
+            return executeWithKeyRotation(() -> {
+                // Try legacy forUsername
+                YouTube.Channels.List req = youtube.channels().list("id,snippet");
+                req.setKey(ApiKeyManager.getCurrentKey());
+                req.setForUsername(handle);
+                ChannelListResponse res = req.execute();
+                if (res.getItems() != null && !res.getItems().isEmpty()) {
+                    return res.getItems().get(0).getId();
+                }
 
-            // Fallback: search by channel name and return the first match
-            com.google.api.services.youtube.YouTube.Search.List search =
-                    youtube.search().list("id,snippet");
-            search.setKey(API_KEY);
-            search.setQ(handle);
-            search.setType("channel");
-            search.setMaxResults(1L);
-            com.google.api.services.youtube.model.SearchListResponse searchRes = search.execute();
-            if (searchRes.getItems() != null && !searchRes.getItems().isEmpty()) {
-                return searchRes.getItems().get(0).getId().getChannelId();
-            }
+                // Fallback: search by channel name and return the first match
+                com.google.api.services.youtube.YouTube.Search.List search
+                        = youtube.search().list("id,snippet");
+                search.setKey(ApiKeyManager.getCurrentKey());
+                search.setQ(handle);
+                search.setType("channel");
+                search.setMaxResults(1L);
+                com.google.api.services.youtube.model.SearchListResponse searchRes = search.execute();
+                if (searchRes.getItems() != null && !searchRes.getItems().isEmpty()) {
+                    return searchRes.getItems().get(0).getId().getChannelId();
+                }
 
+                return null;
+            });
         } catch (Exception e) {
-            Bukkit.getLogger().warning("Could not resolve channel username: " + e.getMessage());
+            Bukkit.getLogger().warning(String.format("Could not resolve channel username: %s", e.getMessage()));
         }
         return null;
     }
 
     /**
-     * Returns the channel title for the configured CHANNEL_ID, or null on failure.
+     * Returns the channel title for the configured CHANNEL_ID, or null on
+     * failure.
      */
     public static String getChannelTitle() {
         try {
-            YouTube.Channels.List req = getYoutube().channels().list("snippet");
-            req.setKey(API_KEY);
-            req.setId(CHANNEL_ID);
-            ChannelListResponse res = req.execute();
-            if (res.getItems() != null && !res.getItems().isEmpty()) {
-                return res.getItems().get(0).getSnippet().getTitle();
-            }
+            return executeWithKeyRotation(() -> {
+                YouTube.Channels.List req = getYoutube().channels().list("snippet");
+                req.setKey(ApiKeyManager.getCurrentKey());
+                req.setId(CHANNEL_ID);
+                ChannelListResponse res = req.execute();
+                if (res.getItems() != null && !res.getItems().isEmpty()) {
+                    return res.getItems().get(0).getSnippet().getTitle();
+                }
+                return null;
+            });
         } catch (Exception e) {
-            Bukkit.getLogger().warning("Could not fetch channel title: " + e.getMessage());
+            Bukkit.getLogger().warning(String.format("Could not fetch channel title: %s", e.getMessage()));
         }
         return null;
     }
@@ -290,7 +346,7 @@ public class YoutubeAPI {
                 return video.getSnippet().getTitle();
             }
         } catch (Exception e) {
-            Bukkit.getLogger().warning("Could not fetch video title: " + e.getMessage());
+            Bukkit.getLogger().warning(String.format("Could not fetch video title: %s", e.getMessage()));
         }
         return null;
     }
