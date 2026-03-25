@@ -58,7 +58,7 @@ public final class YTCraft extends JavaPlugin {
 
         // Reset plugin state
         PluginState.setStreamer(null);
-        PluginState.setChatControl(false);
+        PluginState.setChatControlEnabled(false);
         PluginState.setSubscriberCount(0);
         PluginState.resetStreamerDeathCount();
 

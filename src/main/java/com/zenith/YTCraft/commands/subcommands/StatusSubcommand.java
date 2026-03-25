@@ -45,6 +45,7 @@ public class StatusSubcommand implements Subcommand {
         sender.sendMessage(Component.text("Stream:").color(NamedTextColor.YELLOW));
         sender.sendMessage(Component.text("  Viewers: " + PluginState.getViewers()).color(NamedTextColor.GRAY));
         sender.sendMessage(Component.text("  Subscribers: " + PluginState.getSubscriberCount()).color(NamedTextColor.GRAY));
+        sender.sendMessage(Component.text("  Timer Mode: " + PluginState.getTimerMode()).color(NamedTextColor.GRAY));
         sender.sendMessage(Component.text("  Chat Control: " + PluginState.isChatControlEnabled()).color(NamedTextColor.GRAY));
         
         return true;

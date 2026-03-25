@@ -30,4 +30,11 @@ public interface ChatAction {
      */
     boolean execute(LiveChatMessage message, String[] args);
 
+    /**
+     * Whether this action should remain active during rest mode.
+     */
+    default boolean isActiveInRestMode() {
+        return false;
+    }
+
 }

@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class ItemGiveSettings {
 
     private boolean enabled;
+    private boolean active_in_rest_mode;
     private ModeSettings mode;
     private List<String> banned_items;
     private List<String> allowed_items;
@@ -15,6 +16,14 @@ public class ItemGiveSettings {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public boolean isActiveInRestMode() {
+        return active_in_rest_mode;
+    }
+
+    public void setActiveInRestMode(boolean activeInRestMode) {
+        this.active_in_rest_mode = activeInRestMode;
     }
 
     public ModeSettings getMode() {

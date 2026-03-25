@@ -42,7 +42,7 @@ public class BossBarUI {
 
         if (streamer == null) return;
 
-        boolean isChatMode = PluginState.isChatControlEnabled();
+        boolean isChatMode = PluginState.isTimerActiveMode();
         
         // Calculate progress (0.0 to 1.0)
         float progress = calculateProgress(currentSeconds, totalSeconds);

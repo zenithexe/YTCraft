@@ -26,6 +26,11 @@ public class GiveItemAction implements ChatAction {
     }
 
     @Override
+    public boolean isActiveInRestMode() {
+        return SettingsLoader.getSettings().getItemGiveSettings().isActiveInRestMode();
+    }
+
+    @Override
     public boolean execute(LiveChatMessage message, String[] args) {
 
         if (!SettingsLoader.getSettings().getItemGiveSettings().isEnabled()) {

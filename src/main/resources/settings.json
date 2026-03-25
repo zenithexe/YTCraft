@@ -74,6 +74,7 @@
   },
   "item_give": {
     "enabled": true,
+    "active_in_rest_mode": true,
     "mode": "all",
     "banned_items": [
       "BARRIER",

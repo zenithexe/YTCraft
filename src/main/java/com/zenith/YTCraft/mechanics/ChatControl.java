@@ -26,8 +26,15 @@ public class ChatControl implements Runnable {
 
     @Override
     public void run() {
-        if (!PluginState.isChatControlEnabled()) {
+
+        // During rest mode, only fetch if there are actions active in rest mode
+        if (PluginState.isTimerRestMode() && !ChatActionHandler.hasRestModeActions()) {
+            PluginState.setChatControlEnabled(false);
             return;
+        }
+
+        if (!PluginState.isChatControlEnabled()) {
+            PluginState.setChatControlEnabled(true);
         }
 
         // Initialize timestamp on first run

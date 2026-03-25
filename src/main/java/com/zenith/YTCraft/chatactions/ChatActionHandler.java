@@ -10,6 +10,7 @@ import com.zenith.YTCraft.chatactions.actions.DeSpawnMobAction;
 import com.zenith.YTCraft.chatactions.actions.GiveItemAction;
 import com.zenith.YTCraft.chatactions.actions.SpawnMobAction;
 import com.zenith.YTCraft.chatactions.actions.SpawnPlayerAction;
+import com.zenith.YTCraft.data.PluginState;
 
 /**
  * Handles registration and execution of YouTube chat actions
@@ -44,6 +45,18 @@ public class ChatActionHandler {
     }
 
     /**
+     * Check if any registered action is active in rest mode
+     */
+    public static boolean hasRestModeActions() {
+        for (ChatAction action : Chat_Actions_Reg.values()) {
+            if (action.isActiveInRestMode()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * ================ Handler =================
      */
     public static boolean handler(LiveChatMessage message) {
@@ -62,6 +75,11 @@ public class ChatActionHandler {
         ChatAction action = getChatAction(key);
 
         if (action == null) {
+            return false;
+        }
+
+        // Skip actions not active in rest mode
+        if (PluginState.isTimerRestMode() && !action.isActiveInRestMode()) {
             return false;
         }
 
