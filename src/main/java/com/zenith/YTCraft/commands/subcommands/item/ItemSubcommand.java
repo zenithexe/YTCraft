@@ -27,6 +27,7 @@ public class ItemSubcommand implements Subcommand {
         registerSubcommand(new ItemDisallowSubcommand());
         registerSubcommand(new ItemListAllowedSubcommand());
         registerSubcommand(new ItemAliasSubcommand());
+        registerSubcommand(new ItemRestModeSubcommand());
     }
 
     private void registerSubcommand(Subcommand subcommand) {
