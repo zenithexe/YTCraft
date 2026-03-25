@@ -59,6 +59,12 @@ public class SpawnMobAction implements ChatAction {
         // Check if it's a custom mob first
         if (CustomMobRegistry.isCustomMob(mobName)) {
 
+            // Check if custom mobs are enabled
+            if (!SettingsLoader.getSettings().getCustomMobSettings().isEnabled()) {
+                Bukkit.getLogger().info(String.format(" :: Custom Mob Spawn is Disabled"));
+                return false;
+            }
+
             CustomMob customMob = CustomMobRegistry.getCustomMob(mobName);
 
             // Check viewer requirements for custom mob

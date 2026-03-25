@@ -25,6 +25,8 @@ public class CustomMobSubcommand implements Subcommand {
         registerSubcommand(new CustomMobAliasSubcommand());
         registerSubcommand(new CustomMobReloadSubcommand());
         registerSubcommand(new CustomMobTestSubcommand());
+        registerSubcommand(new CustomMobEnableSubcommand());
+        registerSubcommand(new CustomMobDisableSubcommand());
         registerSubcommand(new CustomMobToggleSpawnmeSubcommand());
     }
 

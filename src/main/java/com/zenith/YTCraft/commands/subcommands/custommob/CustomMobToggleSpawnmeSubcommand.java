@@ -59,7 +59,7 @@ public class CustomMobToggleSpawnmeSubcommand implements Subcommand {
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return Arrays.asList("on", "off", "enable", "disable");
+            return Arrays.asList("enable", "disable");
         }
         return new ArrayList<>();
     }

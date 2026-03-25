@@ -40,6 +40,12 @@ public class SpawnPlayerAction implements ChatAction {
             return false;
         }
 
+        // Check if custom mobs are enabled
+        if (!SettingsLoader.getSettings().getCustomMobSettings().isEnabled()) {
+            Bukkit.getLogger().info(String.format(" :: Custom Mob Spawn is Disabled"));
+            return false;
+        }
+
         // Check if username spawns are enabled
         if (!SettingsLoader.getSettings().getCustomMobSettings().isUsernameSpawnsEnabled()) {
             Bukkit.getLogger().info(String.format(" :: Username-Spawn is Disabled"));
