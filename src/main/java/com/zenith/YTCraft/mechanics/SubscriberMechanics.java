@@ -1,5 +1,7 @@
 package com.zenith.YTCraft.mechanics;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -14,6 +16,7 @@ import net.kyori.adventure.text.Component;
 
 public class SubscriberMechanics {
 
+    private static final AtomicInteger subCounter = new AtomicInteger(0);
     public static int SubscriberCountLimit = 0;
 
     public static void spawnMob(int currentSubscriberCount) {
@@ -34,8 +37,9 @@ public class SubscriberMechanics {
                 livingMob.setCustomNameVisible(true);
                 livingMob.setRemoveWhenFarAway(false);
 
-                MobUtils.setAuthorMobNBT(livingMob, "RandomChannelId");
-                MobSpawnState.addAuthorMob(livingMob, "New Subscriber", "RandomChannelId");
+                String uniqueId = "_YTCRAFT_Subscriber_" + subCounter.incrementAndGet();
+                MobUtils.setAuthorMobNBT(livingMob, uniqueId);
+                MobSpawnState.addAuthorMob(livingMob, "New Subscriber", uniqueId);
 
                 MessageUtils.sendAuthorMobSpawnMessage(livingMob, "New Subscriber");
 
